@@ -95,7 +95,7 @@ jobs:
         run: uv sync --locked --no-dev
 
       - name: Run graph sync
-        uses: wordlift/graph-sync@v1.0.6
+        uses: wordlift/graph-sync@v1
         with:
           profile: {% raw %}${{ matrix.profile }}{% endraw %}
           debug: {% raw %}${{ needs.prepare.outputs.debug }}{% endraw %}
