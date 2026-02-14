@@ -64,7 +64,7 @@ jobs:
   graph-sync:
     needs: prepare
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 300
     strategy:
       fail-fast: false
       matrix:
@@ -94,11 +94,14 @@ jobs:
       - name: Install local runtime dependencies
         run: uv sync --locked --no-dev
 
-      - name: Run graph sync
-        uses: wordlift/graph-sync@v1.0.6
-        with:
-          profile: {% raw %}${{ matrix.profile }}{% endraw %}
-          debug: {% raw %}${{ needs.prepare.outputs.debug }}{% endraw %}
+      - name: Run graph sync (worai 1.17.0)
+        shell: bash
+        run: |
+          if [ "{% raw %}${{ needs.prepare.outputs.debug }}{% endraw %}" = "true" ]; then
+            uvx --from "worai==1.17.0" worai --config worai.toml graph sync --profile "{% raw %}${{ matrix.profile }}{% endraw %}" --debug
+          else
+            uvx --from "worai==1.17.0" worai --config worai.toml graph sync --profile "{% raw %}${{ matrix.profile }}{% endraw %}"
+          fi
         env:
           WORDLIFT_API_KEY: {% raw %}${{ secrets.WORDLIFT_API_KEY }}{% endraw %}
           SHEETS_SERVICE_ACCOUNT: {% raw %}${{ secrets.SHEETS_SERVICE_ACCOUNT }}{% endraw %}
