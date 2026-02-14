@@ -3,7 +3,7 @@
 ## 1. Prerequisites
 
 - Install `copier`
-- Install `worai==1.17.0`: `uv tool install "worai==1.17.0"` (or see https://docs.wordlift.io/worai/install/)
+- Install `worai`: https://docs.wordlift.io/worai/install/
 
 ## 2. Generate Project
 
@@ -20,12 +20,11 @@ uv sync
 
 ## 4. Configure Secrets
 
-Copier creates `.env` automatically. Verify or update it:
+Create/update `.env`:
 
 ```bash
 WORDLIFT_API_KEY=your_api_key
 SHEETS_SERVICE_ACCOUNT=.config/sa-key.json
-YOUTUBE_API_KEY=your_youtube_api_key_optional
 ```
 
 `SHEETS_SERVICE_ACCOUNT` is only needed when `source_type=google_sheets`.

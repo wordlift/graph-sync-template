@@ -12,7 +12,6 @@
 
 - Repository scope is a Copier template for `worai graph sync` projects.
 - Template question contract is in `copier.yml`.
-- Copier post-generation tasks create `.env` from sensitive answers and scaffold per-profile runtime directories.
 - Workflow contract is profile-based (no country input), in `.github/workflows/graph-sync.yml`.
 - Runtime config template is generated from `worai.toml`.
 - Postprocessor example contract is in `profiles/_base/postprocessors.example.toml`.

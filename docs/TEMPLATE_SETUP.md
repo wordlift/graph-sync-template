@@ -37,25 +37,9 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 - `web_page_import_timeout`
 - `google_search_console`
 
-## What Copier Creates
-
-- Moves `specs/graph-sync/AGENTS.md` to root `AGENTS.md`.
-- Generates local `.env` with:
-  - `WORDLIFT_API_KEY`
-  - `SHEETS_SERVICE_ACCOUNT`
-  - `YOUTUBE_API_KEY` (empty by default)
-- Ensures each selected profile has:
-  - `profiles/<profile>/mappings/`
-  - `profiles/<profile>/templates/`
-  - `profiles/<profile>/postprocessors/`
-
 ## GitHub Secrets
 
 Set in generated repository:
 
 - `WORDLIFT_API_KEY`
 - `SHEETS_SERVICE_ACCOUNT` (required only for Google Sheets source type)
-
-## Runtime Version
-
-- Generated workflow runs `worai==1.17.0` by default.

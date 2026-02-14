@@ -9,11 +9,6 @@
 - [x] Template `worai.toml` for source-specific settings.
 - [x] Add example postprocessor contract file.
 - [x] Keep only YouTube postprocessor example runtime code.
-- [x] Configure Copier to replace root `AGENTS.md` with `specs/graph-sync/AGENTS.md`.
-- [x] Generate local `.env` from Copier answers for sensitive values.
-- [x] Scaffold per-profile `mappings`/`templates`/`postprocessors` directories at generation time.
-- [x] Improve YouTube missing-key warning with actionable guidance and non-fatal behavior.
-- [x] Pin default workflow runtime to `worai==1.17.0`.
 - [x] Align `README.md`, `docs/`, `specs/`, and `AGENTS.md` with template scope.
 
 ## Next Steps

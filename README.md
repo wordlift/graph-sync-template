@@ -47,20 +47,10 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 - `google_search_console`
 
 ## Generated Workflow
+
 - `.github/workflows/graph-sync.yml`
 - Manual input uses `profile` (or `all`)
 - Matrix runs selected `profiles`
-
-## Default Runtime Version
-
-- This template pins `worai` to `1.17.0` in CI workflow execution.
-## Generation Notes
-
-- Copier generates `.env` with:
-  - `WORDLIFT_API_KEY`
-  - `SHEETS_SERVICE_ACCOUNT`
-  - `YOUTUBE_API_KEY` (empty by default)
-- Copier scaffolds `profiles/<profile>/mappings` and `profiles/<profile>/templates` for all selected profiles.
 
 ## Docs
 
