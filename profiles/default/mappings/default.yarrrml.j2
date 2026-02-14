@@ -1,0 +1,22 @@
+prefixes:
+  schema: http://schema.org/
+  xsd: http://www.w3.org/2001/XMLSchema#
+
+sources:
+  source:
+    access: __XHTML__
+    referenceFormulation: xpath
+    iterator: /
+
+mappings:
+  webpage:
+    sources:
+      - source
+    s: {{ dataset_uri }}/web-pages/$(normalize-space(//link[@rel='canonical']/@href))
+    po:
+      - - a
+        - schema:WebPage
+      - p: schema:url
+        o:
+          - value: $(normalize-space(//link[@rel='canonical']/@href))
+            datatype: xsd:string

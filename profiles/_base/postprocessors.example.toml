@@ -1,0 +1,9 @@
+# Example postprocessor contract for generated projects.
+# Use this as reference for project-specific postprocessor wiring.
+
+python = "./.venv/bin/python"
+timeout_seconds = 120
+enabled = true
+
+[[postprocessors]]
+class = "acme_kg.postprocessors.youtube:YouTubePostprocessor"

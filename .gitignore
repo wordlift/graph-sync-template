@@ -1,0 +1,68 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+
+# Node
+node_modules/
+package-lock.json
+
+# Generated files
+countries/**/input/*.xhtml
+countries/**/input/*.html
+countries/**/output/
+countries/**/checksums.json
+
+# Environment
+.env
+countries/*/.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Tests
+.coverage
+.pytest_cache/
+htmlcov/
+
+# Keep directory structure
+!.gitkeep
+# Google Cloud Credentials
+sa-key.json
+token.json
+client_secret.json
+
+
+# Google Cloud Credentials
+.config/
+sa-key.json
+token.json
+client_secret.json
+
+.config/token.json
+.config/sa-key.json
+src/*.egg-info/
+**/debug_cloud/
+output/debug_cloud/
+
+output/

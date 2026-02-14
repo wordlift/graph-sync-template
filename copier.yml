@@ -1,0 +1,102 @@
+_min_copier_version: "9.0.0"
+
+project_slug:
+  type: str
+  help: Project slug (repo/folder name)
+
+customer_name:
+  type: str
+  help: Customer display name
+
+api_key:
+  type: str
+  secret: true
+  help: WordLift API key used by generated profiles
+
+source_type:
+  type: str
+  help: Source import type
+  choices:
+    - urls
+    - sitemap
+    - google_sheets
+
+urls:
+  type: yaml
+  default: []
+  help: List of URLs to import
+  when: "{{ source_type == 'urls' }}"
+  validator: "{% if source_type == 'urls' and (not urls or urls|length == 0) %}urls is required when source_type=urls{% endif %}"
+
+sitemap_url:
+  type: str
+  default: ""
+  help: Source sitemap URL
+  when: "{{ source_type == 'sitemap' }}"
+  validator: "{% if source_type == 'sitemap' and not sitemap_url %}sitemap_url is required when source_type=sitemap{% endif %}"
+
+sitemap_url_pattern:
+  type: str
+  default: ""
+  help: Optional regex/pattern to filter sitemap URLs
+  when: "{{ source_type == 'sitemap' }}"
+
+sheets_url:
+  type: str
+  default: ""
+  help: Google Sheets URL
+  when: "{{ source_type == 'google_sheets' }}"
+  validator: "{% if source_type == 'google_sheets' and not sheets_url %}sheets_url is required when source_type=google_sheets{% endif %}"
+
+sheets_name:
+  type: str
+  default: ""
+  help: Google Sheets tab name
+  when: "{{ source_type == 'google_sheets' }}"
+  validator: "{% if source_type == 'google_sheets' and not sheets_name %}sheets_name is required when source_type=google_sheets{% endif %}"
+
+sheets_service_account:
+  type: str
+  secret: true
+  default: ""
+  help: Service account JSON or path
+  when: "{{ source_type == 'google_sheets' }}"
+  validator: "{% if source_type == 'google_sheets' and not sheets_service_account %}sheets_service_account is required when source_type=google_sheets{% endif %}"
+
+overwrite:
+  type: bool
+  default: true
+  help: Overwrite existing entities during import
+
+concurrency:
+  type: int
+  default: 8
+  help: Import concurrency
+
+web_page_import_mode:
+  type: str
+  default: ""
+  help: Optional worai import mode
+
+web_page_import_timeout:
+  type: int
+  default: 30
+  help: Optional import timeout in seconds
+
+google_search_console:
+  type: bool
+  default: false
+  help: Enable Google Search Console integration
+
+profiles:
+  type: yaml
+  default:
+    - default
+  help: List of profile names to generate and sync
+  validator: "{% if not profiles or profiles|length == 0 %}profiles must include at least one profile{% endif %}"
+
+default_profile:
+  type: str
+  default: default
+  help: Default profile for local run/docs/workflow dispatch
+  validator: "{% if default_profile not in profiles %}default_profile must be one of the selected profiles{% endif %}"

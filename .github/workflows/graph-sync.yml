@@ -1,0 +1,104 @@
+name: Graph Sync
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: Profile to sync (or all)
+        required: false
+        default: "{{ default_profile }}"
+        type: choice
+        options:
+{% for profile in profiles %}
+          - {{ profile }}
+{% endfor %}
+          - all
+      debug:
+        description: Enable debug mode
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: graph-sync-{% raw %}${{ github.ref }}{% endraw %}
+  cancel-in-progress: true
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: {% raw %}${{ steps.matrix.outputs.matrix }}{% endraw %}
+      debug: {% raw %}${{ steps.flags.outputs.debug }}{% endraw %}
+    steps:
+      - name: Resolve target profiles
+        id: matrix
+        shell: bash
+        run: |
+          if [ "{% raw %}${{ github.event_name }}{% endraw %}" = "workflow_dispatch" ]; then
+            PROFILE="{% raw %}${{ github.event.inputs.profile }}{% endraw %}"
+          else
+            PROFILE="{{ default_profile }}"
+          fi
+
+          if [ "$PROFILE" = "all" ]; then
+            echo 'matrix=[{% for profile in profiles %}"{{ profile }}"{% if not loop.last %},{% endif %}{% endfor %}]' >> "$GITHUB_OUTPUT"
+          else
+            echo "matrix=[\"$PROFILE\"]" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Resolve debug flag
+        id: flags
+        shell: bash
+        run: |
+          if [ "{% raw %}${{ github.event_name }}{% endraw %}" = "workflow_dispatch" ] && [ "{% raw %}${{ github.event.inputs.debug }}{% endraw %}" = "true" ]; then
+            echo 'debug=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'debug=false' >> "$GITHUB_OUTPUT"
+          fi
+
+  graph-sync:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        profile: {% raw %}${{ fromJson(needs.prepare.outputs.matrix) }}{% endraw %}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Set up uv (with cache)
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.11'
+          enable-cache: true
+          cache-python: true
+          cache-dependency-glob: |
+            pyproject.toml
+            uv.lock
+
+      - name: Install local runtime dependencies
+        run: uv sync --locked --no-dev
+
+      - name: Run graph sync
+        uses: wordlift/graph-sync@v1.0.6
+        with:
+          profile: {% raw %}${{ matrix.profile }}{% endraw %}
+          debug: {% raw %}${{ needs.prepare.outputs.debug }}{% endraw %}
+        env:
+          WORDLIFT_API_KEY: {% raw %}${{ secrets.WORDLIFT_API_KEY }}{% endraw %}
+          SHEETS_SERVICE_ACCOUNT: {% raw %}${{ secrets.SHEETS_SERVICE_ACCOUNT }}{% endraw %}

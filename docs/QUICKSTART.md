@@ -1,0 +1,47 @@
+# Quick Start Guide
+
+## 1. Prerequisites
+
+- Install `copier`
+- Install `worai`: https://docs.wordlift.io/worai/install/
+
+## 2. Generate Project
+
+```bash
+copier copy . ../my-graph-project
+```
+
+## 3. Setup
+
+```bash
+cd ../my-graph-project
+uv sync
+```
+
+## 4. Configure Secrets
+
+Create/update `.env`:
+
+```bash
+WORDLIFT_API_KEY=your_api_key
+SHEETS_SERVICE_ACCOUNT=.config/sa-key.json
+```
+
+`SHEETS_SERVICE_ACCOUNT` is only needed when `source_type=google_sheets`.
+
+## 5. Run Graph Sync
+
+```bash
+set -a && source .env && set +a
+worai --config worai.toml graph sync --profile <default_profile>
+```
+
+With debug output:
+
+```bash
+worai --config worai.toml graph sync --profile <default_profile> --debug
+```
+
+## Postprocessors
+
+- Example template: `profiles/_base/postprocessors.example.toml`

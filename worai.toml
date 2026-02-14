@@ -1,0 +1,25 @@
+[profiles._base]
+overwrite = {{ overwrite | lower }}
+concurrency = {{ concurrency }}
+web_page_import_timeout = {{ web_page_import_timeout }}
+google_search_console = {{ google_search_console | lower }}
+{% if web_page_import_mode %}web_page_import_mode = "{{ web_page_import_mode }}"
+{% endif %}
+{% if source_type == "urls" %}
+urls = [
+{% for url in urls %}  "{{ url }}"{% if not loop.last %},{% endif %}
+{% endfor %}]
+{% elif source_type == "sitemap" %}
+sitemap_url = "{{ sitemap_url }}"
+{% if sitemap_url_pattern %}sitemap_url_pattern = "{{ sitemap_url_pattern }}"
+{% endif %}
+{% elif source_type == "google_sheets" %}
+sheets_url = "{{ sheets_url }}"
+sheets_name = "{{ sheets_name }}"
+sheets_service_account = "${SHEETS_SERVICE_ACCOUNT}"
+{% endif %}
+
+{% for profile in profiles %}
+[profiles.{{ profile }}]
+api_key = "${WORDLIFT_API_KEY}"
+{% endfor %}
