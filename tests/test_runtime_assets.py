@@ -43,3 +43,13 @@ def test_copier_contract_contains_required_questions() -> None:
     assert "urls is required when source_type=urls" in copier
     assert "sitemap_url is required when source_type=sitemap" in copier
     assert "sheets_url is required when source_type=google_sheets" in copier
+    assert "mv specs/graph-sync/AGENTS.md AGENTS.md" in copier
+    assert "Path(\".env\").write_text" in copier
+    assert "(profile_dir / \"mappings\").mkdir" in copier
+    assert "(profile_dir / \"templates\").mkdir" in copier
+
+
+def test_youtube_missing_key_warning_message() -> None:
+    enricher = Path("src/acme_kg/enrichment/youtube.py").read_text(encoding="utf-8")
+    assert "YOUTUBE_API_KEY is not configured" in enricher
+    assert "graph sync will continue" in enricher

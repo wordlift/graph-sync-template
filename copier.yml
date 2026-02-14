@@ -1,4 +1,53 @@
 _min_copier_version: "9.0.0"
+_tasks:
+  - mv specs/graph-sync/AGENTS.md AGENTS.md
+  - |
+      python - <<'PY'
+      from pathlib import Path
+      import shutil
+
+      profiles = {{ profiles | tojson }}
+      default_profile_dir = Path("profiles/default")
+      seed_files = (
+          "exports.toml.j2",
+          "mappings/default.yarrrml.j2",
+          "templates/1_organization.ttl.j2",
+          "templates/2_website.ttl.j2",
+      )
+
+      for profile in profiles:
+          profile_dir = Path("profiles") / profile
+          (profile_dir / "mappings").mkdir(parents=True, exist_ok=True)
+          (profile_dir / "templates").mkdir(parents=True, exist_ok=True)
+          (profile_dir / "postprocessors").mkdir(parents=True, exist_ok=True)
+
+          if profile == "default":
+              continue
+
+          for rel_path in seed_files:
+              src = default_profile_dir / rel_path
+              dst = profile_dir / rel_path
+              if dst.exists():
+                  continue
+              dst.parent.mkdir(parents=True, exist_ok=True)
+              shutil.copy2(src, dst)
+      PY
+  - |
+      python - <<'PY'
+      from pathlib import Path
+
+      api_key = {{ api_key | tojson }}
+      sheets_service_account = {{ (sheets_service_account if source_type == "google_sheets" else "") | tojson }}
+
+      # Keep secrets out of tracked config by writing them into local .env.
+      content = [
+          f"WORDLIFT_API_KEY={api_key}",
+          f"SHEETS_SERVICE_ACCOUNT={sheets_service_account.replace(chr(10), '\\\\n')}",
+          "YOUTUBE_API_KEY=",
+          "",
+      ]
+      Path(".env").write_text("\\n".join(content), encoding="utf-8")
+      PY
 
 project_slug:
   type: str

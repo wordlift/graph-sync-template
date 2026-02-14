@@ -32,7 +32,10 @@ class YouTubeEnricher:
             Dictionary with title, description, thumbnailUrl, and publishedAt or None if API fails
         """
         if not self.api_key:
-            self.logger.warning("YOUTUBE_API_KEY not found, skipping enrichment.")
+            self.logger.warning(
+                "YOUTUBE_API_KEY is not configured. YouTube enrichment is skipped but graph sync will continue. "
+                "Set YOUTUBE_API_KEY in local .env and in GitHub Actions secrets if you want metadata enrichment."
+            )
             return None
 
         try:

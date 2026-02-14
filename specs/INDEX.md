@@ -7,6 +7,8 @@ Technical specifications for implementation and maintenance.
 - Template contract is defined by `copier.yml`.
 - Workflow contract is defined in `.github/workflows/graph-sync.yml`.
 - Runtime import contract is defined in `worai.toml`.
+- Graph sync runtime behavior docs are under `specs/graph-sync/`:
+  - `specs/graph-sync/INDEX.md`
 
 ## Scope
 
