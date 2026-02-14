@@ -64,4 +64,5 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 - `docs/QUICKSTART.md`
 - `docs/TEMPLATE_SETUP.md`
 - `docs/STATE_OF_ART.md`
+- `docs/WORAI_TOML_EXAMPLES.md`
 - `specs/INDEX.md`

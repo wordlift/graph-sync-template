@@ -14,6 +14,7 @@
 - [x] Scaffold per-profile `mappings`/`templates`/`postprocessors` directories at generation time.
 - [x] Improve YouTube missing-key warning with actionable guidance and non-fatal behavior.
 - [x] Align `README.md`, `docs/`, `specs/`, and `AGENTS.md` with template scope.
+- [x] Add practical `worai.toml` examples with fake data in docs.
 
 ## Next Steps
 
