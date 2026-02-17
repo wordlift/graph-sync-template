@@ -40,9 +40,11 @@ _tasks:
       sheets_service_account = {{ (sheets_service_account if source_type == "google_sheets" else "") | tojson }}
 
       # Keep secrets out of tracked config by writing them into local .env.
+      escaped_service_account = sheets_service_account.replace("\n", "\\n")
+      
       content = [
           f"WORDLIFT_API_KEY={api_key}",
-          f"SHEETS_SERVICE_ACCOUNT={sheets_service_account.replace(chr(10), '\\\\n')}",
+          f"SHEETS_SERVICE_ACCOUNT={escaped_service_account}",
           "YOUTUBE_API_KEY=",
           "",
       ]
