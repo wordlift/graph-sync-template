@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 import sys
 
 
@@ -47,6 +48,14 @@ def test_copier_contract_contains_required_questions() -> None:
     assert "Path(\".env\").write_text" in copier
     assert "(profile_dir / \"mappings\").mkdir" in copier
     assert "(profile_dir / \"templates\").mkdir" in copier
+
+
+def test_copier_secret_questions_have_defaults() -> None:
+    copier = Path("copier.yml").read_text(encoding="utf-8")
+    api_key_block = re.search(r"^api_key:\n(?:(?:  ).*\n)+", copier, flags=re.MULTILINE)
+    assert api_key_block is not None
+    assert '  secret: true\n  default: ""\n' in api_key_block.group(0)
+    assert "api_key is required" in api_key_block.group(0)
 
 
 def test_youtube_missing_key_warning_message() -> None:

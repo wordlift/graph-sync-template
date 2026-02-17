@@ -60,7 +60,9 @@ customer_name:
 api_key:
   type: str
   secret: true
+  default: ""
   help: WordLift API key used by generated profiles
+  validator: "{% if not api_key or not api_key|trim %}api_key is required{% endif %}"
 
 source_type:
   type: str

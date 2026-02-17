@@ -15,6 +15,8 @@
 - [x] Improve YouTube missing-key warning with actionable guidance and non-fatal behavior.
 - [x] Align `README.md`, `docs/`, `specs/`, and `AGENTS.md` with template scope.
 - [x] Add practical `worai.toml` examples with fake data in docs.
+- [x] Ensure secret Copier inputs define defaults for Copier v9 compatibility.
+- [x] Enforce non-empty `api_key` input with a Copier validator.
 
 ## Next Steps
 
