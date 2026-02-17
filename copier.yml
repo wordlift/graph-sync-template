@@ -74,17 +74,13 @@ source_type:
 
 urls:
   type: yaml
-  default: []
   help: List of URLs to import
   when: "{{ source_type == 'urls' }}"
-  validator: "{% if source_type == 'urls' and (not urls or urls|length == 0) %}urls is required when source_type=urls{% endif %}"
 
 sitemap_url:
   type: str
-  default: ""
   help: Source sitemap URL
   when: "{{ source_type == 'sitemap' }}"
-  validator: "{% if source_type == 'sitemap' and not sitemap_url %}sitemap_url is required when source_type=sitemap{% endif %}"
 
 sitemap_url_pattern:
   type: str
@@ -94,17 +90,13 @@ sitemap_url_pattern:
 
 sheets_url:
   type: str
-  default: ""
   help: Google Sheets URL
   when: "{{ source_type == 'google_sheets' }}"
-  validator: "{% if source_type == 'google_sheets' and not sheets_url %}sheets_url is required when source_type=google_sheets{% endif %}"
 
 sheets_name:
   type: str
-  default: ""
   help: Google Sheets tab name
   when: "{{ source_type == 'google_sheets' }}"
-  validator: "{% if source_type == 'google_sheets' and not sheets_name %}sheets_name is required when source_type=google_sheets{% endif %}"
 
 sheets_service_account:
   type: str
