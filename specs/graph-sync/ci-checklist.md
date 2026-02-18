@@ -3,6 +3,7 @@
 ## Minimum Smoke Coverage
 - `worai graph sync --profile <name> --help` succeeds.
 - Profile loads from `worai.toml` under `[profiles.<name>]`.
+- Template smoke render check passes (`scripts/smoke_render_template.sh`).
 - Route selection order is validated with representative URLs.
 - Relative and absolute mapping paths are both validated.
 - `.j2`/`.liquid` mapping template resolution is validated.

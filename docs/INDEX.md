@@ -10,3 +10,4 @@ This repository is a Copier template for `worai graph sync` projects.
 - `docs/STATE_OF_ART.md`: current scope and constraints.
 - `docs/WORAI_TOML_EXAMPLES.md`: practical `worai.toml` examples with fake data.
 - `specs/INDEX.md`: internal spec scope.
+- `scripts/smoke_render_template.sh`: template render smoke verification.

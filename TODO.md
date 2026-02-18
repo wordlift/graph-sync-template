@@ -17,6 +17,13 @@
 - [x] Add practical `worai.toml` examples with fake data in docs.
 - [x] Ensure secret Copier inputs define defaults for Copier v9 compatibility.
 - [x] Enforce non-empty `api_key` input with a Copier validator.
+- [x] Ensure runtime/workflow templates are rendered via Copier (`worai.toml.jinja`, `graph-sync.yml.jinja`).
+- [x] Fix `.env` generation to use real newline separators.
+- [x] Add missing source-specific validators for `urls`, `sitemap_url`, `sheets_url`, and `sheets_name`.
+- [x] Add template smoke render validation script and CI workflow.
+- [x] Remove unused `project_slug` prompt from Copier contract.
+- [x] Remove unused `customer_name` prompt from Copier contract.
+- [x] Tune Copier prompts/defaults and hide selected advanced options from interactive prompts.
 
 ## Next Steps
 

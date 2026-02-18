@@ -4,8 +4,8 @@
 
 - Repository acts as a Copier template for `worai graph sync` projects.
 - Template config is defined in `copier.yml`.
-- Runtime config is generated from `worai.toml` with source-type-dependent fields.
-- Workflow is profile-based (`.github/workflows/graph-sync.yml`) and does not use country-specific inputs.
+- Runtime config is generated from `worai.toml.jinja` with source-type-dependent fields.
+- Workflow is profile-based (`.github/workflows/graph-sync.yml.jinja`) and does not use country-specific inputs.
 
 ## Runtime Entry Point
 

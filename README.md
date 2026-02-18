@@ -4,10 +4,10 @@ Copier template for bootstrapping a `worai graph sync` project.
 
 This repository provides:
 - template configuration (`copier.yml`)
-- runtime config template (`worai.toml`)
+- runtime config template (`worai.toml.jinja`, rendered as `worai.toml`)
 - profile assets (`profiles/*`)
 - optional local postprocessor example (`src/acme_kg/postprocessors/youtube.py`)
-- GitHub Actions workflow for graph sync (`.github/workflows/graph-sync.yml`)
+- GitHub Actions workflow template (`.github/workflows/graph-sync.yml.jinja`, rendered as `.github/workflows/graph-sync.yml`)
 
 ## Use This Template
 
@@ -23,14 +23,8 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 
 ## Required Copier Inputs
 
-- `project_slug`
-- `customer_name`
 - `api_key`
 - `source_type` (`urls`, `sitemap`, `google_sheets`)
-- `profiles`
-- `default_profile`
-
-`default_profile` must be one of `profiles`.
 
 ## Source-Specific Inputs
 
@@ -38,13 +32,15 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 - `sitemap`: `sitemap_url`, optional `sitemap_url_pattern`
 - `google_sheets`: `sheets_url`, `sheets_name`, `sheets_service_account`
 
-## Runtime Knobs
+## Runtime Knobs (Template Defaults)
 
 - `overwrite`
-- `concurrency`
-- `web_page_import_mode`
-- `web_page_import_timeout`
-- `google_search_console`
+- `concurrency` (default `4`, hidden prompt)
+- `web_page_import_mode` (default `""`, hidden prompt)
+- `web_page_import_timeout` (default `120`, hidden prompt)
+- `google_search_console` (default `false`, hidden prompt)
+- `profiles` (default `["default"]`, hidden prompt)
+- `default_profile` (default `"default"`, hidden prompt; must be one of `profiles`)
 
 ## Generated Workflow
 - `.github/workflows/graph-sync.yml`
@@ -66,3 +62,8 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 - `docs/STATE_OF_ART.md`
 - `docs/WORAI_TOML_EXAMPLES.md`
 - `specs/INDEX.md`
+
+## Verification
+
+- `pytest -q`
+- `scripts/smoke_render_template.sh` (renders template and validates `worai.toml`/`.env` output)

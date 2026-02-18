@@ -16,12 +16,8 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 
 ## Required Answers
 
-- `project_slug`
-- `customer_name`
 - `api_key`
 - `source_type` (`urls`, `sitemap`, `google_sheets`)
-- `profiles`
-- `default_profile` (must be in `profiles`)
 
 ## Source-Specific Answers
 
@@ -29,16 +25,20 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 - `source_type=sitemap`: provide `sitemap_url` and optional `sitemap_url_pattern`
 - `source_type=google_sheets`: provide `sheets_url`, `sheets_name`, `sheets_service_account`
 
-## Optional Runtime Answers
+## Runtime Defaults (Not Prompted)
 
-- `overwrite`
-- `concurrency`
-- `web_page_import_mode`
-- `web_page_import_timeout`
-- `google_search_console`
+- `overwrite=true`
+- `concurrency=4`
+- `web_page_import_mode=""`
+- `web_page_import_timeout=120`
+- `google_search_console=false`
+- `profiles=["default"]`
+- `default_profile="default"` (must be one of `profiles`)
 
 ## What Copier Creates
 
+- Renders `worai.toml` from `worai.toml.jinja`.
+- Renders `.github/workflows/graph-sync.yml` from `.github/workflows/graph-sync.yml.jinja`.
 - Moves `specs/graph-sync/AGENTS.md` to root `AGENTS.md`.
 - Generates local `.env` with:
   - `WORDLIFT_API_KEY`

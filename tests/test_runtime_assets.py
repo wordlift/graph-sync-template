@@ -6,12 +6,12 @@ import sys
 def test_runtime_assets_present() -> None:
     root = Path.cwd()
     assert (root / "copier.yml").exists()
-    assert (root / "worai.toml").exists()
+    assert (root / "worai.toml.jinja").exists()
     assert not (root / "profiles" / "_base" / "postprocessors.toml").exists()
     assert (root / "profiles" / "_base" / "postprocessors.example.toml").exists()
     assert (root / "profiles" / "default" / "mappings" / "default.yarrrml.j2").exists()
     assert (root / "profiles" / "default" / "templates" / "1_organization.ttl.j2").exists()
-    assert (root / ".github" / "workflows" / "graph-sync.yml").exists()
+    assert (root / ".github" / "workflows" / "graph-sync.yml.jinja").exists()
     assert not (root / ".github" / "workflows" / "update-kg.yml").exists()
     assert (root / "src" / "acme_kg" / "postprocessors" / "youtube.py").exists()
     assert not (root / "src" / "acme_kg" / "postprocessors" / "pricing.py").exists()
@@ -23,7 +23,7 @@ def test_runtime_imports() -> None:
 
 
 def test_profile_based_workflow_contract() -> None:
-    workflow = Path(".github/workflows/graph-sync.yml").read_text(encoding="utf-8")
+    workflow = Path(".github/workflows/graph-sync.yml.jinja").read_text(encoding="utf-8")
     assert "workflow_dispatch" in workflow
     assert "profile:" in workflow
     assert "country:" not in workflow
@@ -32,8 +32,6 @@ def test_profile_based_workflow_contract() -> None:
 def test_copier_contract_contains_required_questions() -> None:
     copier = Path("copier.yml").read_text(encoding="utf-8")
     for key in (
-        "project_slug:",
-        "customer_name:",
         "api_key:",
         "source_type:",
         "profiles:",
@@ -44,8 +42,26 @@ def test_copier_contract_contains_required_questions() -> None:
     assert "urls is required when source_type=urls" in copier
     assert "sitemap_url is required when source_type=sitemap" in copier
     assert "sheets_url is required when source_type=google_sheets" in copier
+    assert "sheets_name is required when source_type=google_sheets" in copier
+    assert "help: WordLift API key (required)" in copier
+    assert "help: Source of your page list" in copier
+    assert '"Manual URL list": urls' in copier
+    assert '"Sitemap XML": sitemap' in copier
+    assert '"Google Sheets": google_sheets' in copier
+    assert "help: Sitemap URL" in copier
+    assert "concurrency:\n  type: int\n  default: 4" in copier
+    assert 'concurrency:\n  type: int\n  default: 4\n  help: Parallel import workers\n  when: "{{ false }}"' in copier
+    assert 'web_page_import_mode:\n  type: str\n  default: ""\n  help: Import mode override (optional)\n  when: "{{ false }}"' in copier
+    assert "web_page_import_timeout:\n  type: int\n  default: 120" in copier
+    assert 'google_search_console:\n  type: bool\n  default: false\n  help: Enable Google Search Console enrichment\n  when: "{{ false }}"' in copier
+    assert 'profiles:\n  type: yaml' in copier
+    assert 'validator: "{% if not profiles or profiles|length == 0 %}profiles must include at least one profile{% endif %}"\n  when: "{{ false }}"' in copier
+    assert 'default_profile:\n  type: str\n  default: default' in copier
+    assert 'validator: "{% if default_profile not in profiles %}default_profile must be one of the selected profiles{% endif %}"\n  when: "{{ false }}"' in copier
+    assert '- ".git"' in copier
+    assert '- ".github/workflows/template-smoke.yml"' in copier
     assert "mv specs/graph-sync/AGENTS.md AGENTS.md" in copier
-    assert "Path(\".env\").write_text" in copier
+    assert 'Path(".env").write_text(chr(10).join(content), encoding="utf-8")' in copier
     assert "(profile_dir / \"mappings\").mkdir" in copier
     assert "(profile_dir / \"templates\").mkdir" in copier
 

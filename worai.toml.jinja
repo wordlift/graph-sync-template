@@ -3,19 +3,17 @@ overwrite = {{ overwrite | lower }}
 concurrency = {{ concurrency }}
 web_page_import_timeout = {{ web_page_import_timeout }}
 google_search_console = {{ google_search_console | lower }}
-{% if web_page_import_mode %}web_page_import_mode = "{{ web_page_import_mode }}"
+{% if web_page_import_mode %}web_page_import_mode = {{ web_page_import_mode | tojson }}
 {% endif %}
 {% if source_type == "urls" %}
-urls = [
-{% for url in urls %}  "{{ url }}"{% if not loop.last %},{% endif %}
-{% endfor %}]
+urls = {{ urls | tojson }}
 {% elif source_type == "sitemap" %}
-sitemap_url = "{{ sitemap_url }}"
-{% if sitemap_url_pattern %}sitemap_url_pattern = "{{ sitemap_url_pattern }}"
+sitemap_url = {{ sitemap_url | tojson }}
+{% if sitemap_url_pattern %}sitemap_url_pattern = {{ sitemap_url_pattern | tojson }}
 {% endif %}
 {% elif source_type == "google_sheets" %}
-sheets_url = "{{ sheets_url }}"
-sheets_name = "{{ sheets_name }}"
+sheets_url = {{ sheets_url | tojson }}
+sheets_name = {{ sheets_name | tojson }}
 sheets_service_account = "${SHEETS_SERVICE_ACCOUNT}"
 {% endif %}
 
