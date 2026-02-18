@@ -34,6 +34,7 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 - `google_search_console=false`
 - `profiles=["default"]`
 - `default_profile="default"` (must be one of `profiles`)
+- `validate_api_key=true` (validates key via `https://api.wordlift.io/accounts/me`)
 
 ## What Copier Creates
 
@@ -44,6 +45,12 @@ copier copy gh:wordlift/graph-build-template my-graph-project
   - `WORDLIFT_API_KEY`
   - `SHEETS_SERVICE_ACCOUNT`
   - `YOUTUBE_API_KEY` (empty by default)
+- Validates `api_key` against the WordLift API (`/accounts/me`) by default.
+- Derives package name from response `dataset_uri` path, normalized and suffixed with `_graph_sync`.
+- Example: `https://data.wordlift.io/wl123/customer-x` -> `wl123_customer_x_graph_sync`.
+- If validation is skipped (`--data validate_api_key=false`) or API is unreachable, fallback package is `acme_graph_sync`.
+- Set `--data validate_api_key=false` to skip this check in offline/CI scenarios.
+- Renames local runtime package from `acme_kg` to the derived package name.
 - Ensures each selected profile has:
   - `profiles/<profile>/mappings/`
   - `profiles/<profile>/templates/`

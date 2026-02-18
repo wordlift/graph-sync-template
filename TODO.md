@@ -24,6 +24,9 @@
 - [x] Remove unused `project_slug` prompt from Copier contract.
 - [x] Remove unused `customer_name` prompt from Copier contract.
 - [x] Tune Copier prompts/defaults and hide selected advanced options from interactive prompts.
+- [x] Raise `wordlift-sdk` minimum version to `>=3.9.0,<4.0.0`.
+- [x] Validate WordLift API key during generation via `/accounts/me` (with network-failure warning fallback).
+- [x] Derive runtime package name from `dataset_uri` path (`_graph_sync` suffix) and rename generated `acme_kg` package accordingly.
 
 ## Next Steps
 

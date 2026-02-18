@@ -13,6 +13,8 @@
 - Repository scope is a Copier template for `worai graph sync` projects.
 - Template question contract is in `copier.yml`.
 - Copier post-generation tasks create `.env` from sensitive answers and scaffold per-profile runtime directories.
+- Copier can validate API keys via WordLift `/accounts/me` during generation.
+- Copier derives runtime package name from `dataset_uri` and renames local runtime package from `acme_kg` accordingly.
 - Workflow contract is profile-based (no country input), in `.github/workflows/graph-sync.yml.jinja` (rendered output: `.github/workflows/graph-sync.yml`).
 - Runtime config template is `worai.toml.jinja` (rendered output: `worai.toml`).
 - Template render smoke verification is in `scripts/smoke_render_template.sh` and CI workflow `.github/workflows/template-smoke.yml` (excluded from generated output).

@@ -22,6 +22,11 @@ def test_runtime_imports() -> None:
     from acme_kg.postprocessors import YouTubePostprocessor  # noqa: F401
 
 
+def test_sdk_version_constraint() -> None:
+    pyproject = Path("pyproject.toml").read_text(encoding="utf-8")
+    assert 'wordlift-sdk>=3.9.0,<4.0.0' in pyproject
+
+
 def test_profile_based_workflow_contract() -> None:
     workflow = Path(".github/workflows/graph-sync.yml.jinja").read_text(encoding="utf-8")
     assert "workflow_dispatch" in workflow
@@ -44,6 +49,16 @@ def test_copier_contract_contains_required_questions() -> None:
     assert "sheets_url is required when source_type=google_sheets" in copier
     assert "sheets_name is required when source_type=google_sheets" in copier
     assert "help: WordLift API key (required)" in copier
+    assert "validate_api_key:" in copier
+    assert "Validate API key against WordLift API during project generation" in copier
+    assert "https://api.wordlift.io/accounts/me" in copier
+    assert "Authorization" in copier
+    assert "dataset_uri" in copier
+    assert "acme_graph_sync" in copier
+    assert "package_from_dataset_uri" in copier
+    assert 'package_name_file = Path(".package_name")' in copier
+    assert "old_package = \"acme_kg\"" in copier
+    assert "shutil.move(str(old_dir), str(new_dir))" in copier
     assert "help: Source of your page list" in copier
     assert '"Manual URL list": urls' in copier
     assert '"Sitemap XML": sitemap' in copier

@@ -32,6 +32,7 @@ rsync -a \
   cd "$src"
   copier copy . "$out" --trust --defaults \
     --data api_key='abc123' \
+    --data validate_api_key=false \
     --data source_type='sitemap' \
     --data sitemap_url='https://example.com/sitemap.xml' \
     --data sitemap_url_pattern='' \
@@ -42,6 +43,8 @@ rsync -a \
 test -f "$out/worai.toml"
 test -f "$out/.github/workflows/graph-sync.yml"
 test -f "$out/.env"
+test -d "$out/src/acme_graph_sync"
+test ! -d "$out/src/acme_kg"
 test ! -f "$out/.github/workflows/template-smoke.yml"
 test ! -d "$out/.git"
 
@@ -53,6 +56,8 @@ fi
 rg -n 'sitemap_url = "https://example.com/sitemap.xml"' "$out/worai.toml" >/dev/null
 rg -n 'api_key = "\$\{WORDLIFT_API_KEY\}"' "$out/worai.toml" >/dev/null
 rg -n 'default: "default"' "$out/.github/workflows/graph-sync.yml" >/dev/null
+rg -n 'from acme_graph_sync\.postprocessors import YouTubePostprocessor' "$out/tests/test_runtime_assets.py" >/dev/null
+rg -n 'class = "acme_graph_sync\.postprocessors\.youtube:YouTubePostprocessor"' "$out/profiles/_base/postprocessors.example.toml" >/dev/null
 
 if rg -n '\\n' "$out/.env" >/dev/null; then
   echo "Generated .env contains literal \\\\n sequences"

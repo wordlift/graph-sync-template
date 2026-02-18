@@ -11,3 +11,4 @@ This repository is a Copier template for `worai graph sync` projects.
 - `docs/WORAI_TOML_EXAMPLES.md`: practical `worai.toml` examples with fake data.
 - `specs/INDEX.md`: internal spec scope.
 - `scripts/smoke_render_template.sh`: template render smoke verification.
+- API key validation and package rename behavior are documented in `docs/TEMPLATE_SETUP.md`.

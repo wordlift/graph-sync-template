@@ -41,6 +41,7 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 - `google_search_console` (default `false`, hidden prompt)
 - `profiles` (default `["default"]`, hidden prompt)
 - `default_profile` (default `"default"`, hidden prompt; must be one of `profiles`)
+- `validate_api_key` (default `true`, hidden prompt; checks key via WordLift API during generation)
 
 ## Generated Workflow
 - `.github/workflows/graph-sync.yml`
@@ -52,6 +53,11 @@ copier copy gh:wordlift/graph-build-template my-graph-project
   - `WORDLIFT_API_KEY`
   - `SHEETS_SERVICE_ACCOUNT`
   - `YOUTUBE_API_KEY` (empty by default)
+- Copier validates `api_key` against `https://api.wordlift.io/accounts/me` by default.
+- Copier derives local runtime package name from `dataset_uri` returned by `/accounts/me`: path is normalized and `_graph_sync` is appended.
+- Example: `https://data.wordlift.io/wl123/customer-x` -> `wl123_customer_x_graph_sync`.
+- If validation is skipped or API is unreachable, fallback package is `acme_graph_sync`.
+- To skip validation in automation/offline mode, pass `--data validate_api_key=false`.
 - Copier scaffolds `profiles/<profile>/mappings` and `profiles/<profile>/templates` for all selected profiles.
 
 ## Docs

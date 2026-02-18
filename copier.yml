@@ -54,6 +54,123 @@ _tasks:
       ]
       Path(".env").write_text(chr(10).join(content), encoding="utf-8")
       PY
+  - |
+      python - <<'PY'
+      from pathlib import Path
+      from urllib.error import HTTPError, URLError
+      from urllib.parse import urlparse
+      from urllib.request import Request, urlopen
+      import json
+      import re
+      import sys
+
+      api_key = {{ api_key | tojson }}
+      validate_api_key = json.loads({{ validate_api_key | tojson | tojson }})
+      package_name_file = Path(".package_name")
+      fallback_package = "acme_graph_sync"
+
+      def package_from_dataset_uri(dataset_uri: str) -> str:
+          path = urlparse(dataset_uri).path
+          parts = [p for p in re.split(r"[^a-zA-Z0-9]+", path.lower()) if p]
+          base = "_".join(parts) if parts else "wordlift"
+          if base[0].isdigit():
+              base = f"pkg_{base}"
+          return f"{base}_graph_sync"
+
+      if not validate_api_key:
+          package_name_file.write_text(fallback_package, encoding="utf-8")
+          raise SystemExit(0)
+
+      request = Request(
+          "https://api.wordlift.io/accounts/me",
+          headers={
+              "Authorization": f"Key {api_key}",
+              "Accept": "application/json",
+          },
+          method="GET",
+      )
+
+      try:
+          with urlopen(request, timeout=10) as response:
+              # Any 2xx response is considered valid.
+              if 200 <= response.status < 300:
+                  payload = json.loads(response.read().decode("utf-8"))
+                  dataset_uri = str(payload.get("dataset_uri", "")).strip()
+                  if not dataset_uri:
+                      print(
+                          "WordLift API key validation succeeded but dataset_uri is missing in response.",
+                          file=sys.stderr,
+                      )
+                      raise SystemExit(1)
+                  package_name_file.write_text(
+                      package_from_dataset_uri(dataset_uri), encoding="utf-8"
+                  )
+                  raise SystemExit(0)
+              print(
+                  f"Unexpected response while validating WordLift API key: HTTP {response.status}",
+                  file=sys.stderr,
+              )
+              raise SystemExit(1)
+      except HTTPError as exc:
+          if exc.code in (401, 403):
+              print(
+                  "WordLift API key validation failed (unauthorized). "
+                  "Please check the key and run generation again.",
+                  file=sys.stderr,
+              )
+          else:
+              body = exc.read().decode("utf-8", errors="replace")[:300]
+              print(
+                  f"WordLift API key validation failed: HTTP {exc.code}. {body}",
+                  file=sys.stderr,
+              )
+          raise SystemExit(1)
+      except URLError as exc:
+          # Keep generation usable when offline or API is temporarily unreachable.
+          package_name_file.write_text(fallback_package, encoding="utf-8")
+          print(
+              f"Warning: could not validate WordLift API key due to network/API error: {exc}",
+              file=sys.stderr,
+          )
+          raise SystemExit(0)
+      except Exception as exc:
+          package_name_file.write_text(fallback_package, encoding="utf-8")
+          print(f"Warning: unexpected error during API key validation: {exc}", file=sys.stderr)
+          raise SystemExit(0)
+      PY
+  - |
+      python - <<'PY'
+      from pathlib import Path
+      import shutil
+
+      old_package = "acme_kg"
+      package_name_file = Path(".package_name")
+      new_package = (
+          package_name_file.read_text(encoding="utf-8").strip()
+          if package_name_file.exists()
+          else "acme_graph_sync"
+      )
+      package_name_file.unlink(missing_ok=True)
+
+      if new_package == old_package:
+          raise SystemExit(0)
+
+      old_dir = Path("src") / old_package
+      new_dir = Path("src") / new_package
+      if old_dir.exists():
+          if new_dir.exists():
+              raise SystemExit(f"Cannot rename package: destination already exists: {new_dir}")
+          shutil.move(str(old_dir), str(new_dir))
+
+      suffixes = {".py", ".md", ".toml", ".yml", ".j2"}
+      for file_path in Path(".").rglob("*"):
+          if not file_path.is_file() or file_path.suffix not in suffixes:
+              continue
+          content = file_path.read_text(encoding="utf-8")
+          if old_package not in content:
+              continue
+          file_path.write_text(content.replace(old_package, new_package), encoding="utf-8")
+      PY
 
 api_key:
   type: str
@@ -61,6 +178,12 @@ api_key:
   default: ""
   help: WordLift API key (required)
   validator: "{% if not api_key or not api_key|trim %}api_key is required{% endif %}"
+
+validate_api_key:
+  type: bool
+  default: true
+  help: Validate API key against WordLift API during project generation
+  when: "{{ false }}"
 
 source_type:
   type: str
