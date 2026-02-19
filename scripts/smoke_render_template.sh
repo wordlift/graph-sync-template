@@ -56,7 +56,8 @@ fi
 rg -n 'sitemap_url = "https://example.com/sitemap.xml"' "$out/worai.toml" >/dev/null
 rg -n 'api_key = "\$\{WORDLIFT_API_KEY\}"' "$out/worai.toml" >/dev/null
 rg -n 'default: "default"' "$out/.github/workflows/graph-sync.yml" >/dev/null
-rg -n 'from acme_graph_sync\.postprocessors import YouTubePostprocessor' "$out/tests/test_runtime_assets.py" >/dev/null
+test ! -f "$out/tests/test_runtime_assets.py"
+test ! -f "$out/tests/test_template_smoke.py"
 rg -n 'class = "acme_graph_sync\.postprocessors\.youtube:YouTubePostprocessor"' "$out/profiles/_base/postprocessors.example.toml" >/dev/null
 
 if rg -n '\\n' "$out/.env" >/dev/null; then

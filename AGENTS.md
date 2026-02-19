@@ -18,6 +18,7 @@
 - Workflow contract is profile-based (no country input), in `.github/workflows/graph-sync.yml.jinja` (rendered output: `.github/workflows/graph-sync.yml`).
 - Runtime config template is `worai.toml.jinja` (rendered output: `worai.toml`).
 - Template render smoke verification is in `scripts/smoke_render_template.sh` and CI workflow `.github/workflows/template-smoke.yml` (excluded from generated output).
+- Template-maintenance tests (`tests/test_runtime_assets.py`, `tests/test_template_smoke.py`) are excluded from generated output.
 - Postprocessor example contract is in `profiles/_base/postprocessors.example.toml`.
 - Local Python example runtime code is in:
   - `src/acme_kg/postprocessors/youtube.py`

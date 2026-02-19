@@ -27,6 +27,7 @@
 - [x] Raise `wordlift-sdk` minimum version to `>=3.9.0,<4.0.0`.
 - [x] Validate WordLift API key during generation via `/accounts/me` (with network-failure warning fallback).
 - [x] Derive runtime package name from `dataset_uri` path (`_graph_sync` suffix) and rename generated `acme_kg` package accordingly.
+- [x] Exclude Copier/template-maintenance tests from generated projects to prevent reified-project test failures.
 
 ## Next Steps
 

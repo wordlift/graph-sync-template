@@ -12,3 +12,4 @@ This repository is a Copier template for `worai graph sync` projects.
 - `specs/INDEX.md`: internal spec scope.
 - `scripts/smoke_render_template.sh`: template render smoke verification.
 - API key validation and package rename behavior are documented in `docs/TEMPLATE_SETUP.md`.
+- Generated projects exclude template-maintenance tests (`tests/test_runtime_assets.py`, `tests/test_template_smoke.py`).

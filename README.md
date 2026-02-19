@@ -59,6 +59,7 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 - If validation is skipped or API is unreachable, fallback package is `acme_graph_sync`.
 - To skip validation in automation/offline mode, pass `--data validate_api_key=false`.
 - Copier scaffolds `profiles/<profile>/mappings` and `profiles/<profile>/templates` for all selected profiles.
+- Generated projects exclude template-maintenance tests (`tests/test_runtime_assets.py`, `tests/test_template_smoke.py`).
 
 ## Docs
 

@@ -75,6 +75,8 @@ def test_copier_contract_contains_required_questions() -> None:
     assert 'validator: "{% if default_profile not in profiles %}default_profile must be one of the selected profiles{% endif %}"\n  when: "{{ false }}"' in copier
     assert '- ".git"' in copier
     assert '- ".github/workflows/template-smoke.yml"' in copier
+    assert '- "tests/test_runtime_assets.py"' in copier
+    assert '- "tests/test_template_smoke.py"' in copier
     assert "mv specs/graph-sync/AGENTS.md AGENTS.md" in copier
     assert 'Path(".env").write_text(chr(10).join(content), encoding="utf-8")' in copier
     assert "(profile_dir / \"mappings\").mkdir" in copier

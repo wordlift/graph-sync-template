@@ -3,6 +3,8 @@ _exclude:
   - ".git"
   - ".git/**"
   - ".github/workflows/template-smoke.yml"
+  - "tests/test_runtime_assets.py"
+  - "tests/test_template_smoke.py"
 _tasks:
   - mv specs/graph-sync/AGENTS.md AGENTS.md
   - |
