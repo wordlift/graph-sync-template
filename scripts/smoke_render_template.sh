@@ -48,19 +48,29 @@ test ! -d "$out/src/acme_kg"
 test ! -f "$out/.github/workflows/template-smoke.yml"
 test ! -d "$out/.git"
 
-if rg -n '\{\{|\{%' "$out/worai.toml" >/dev/null; then
+search() {
+  local pattern="$1"
+  local file="$2"
+  if command -v rg >/dev/null 2>&1; then
+    rg -n "$pattern" "$file" >/dev/null
+  else
+    grep -nE "$pattern" "$file" >/dev/null
+  fi
+}
+
+if search '\{\{|\{%' "$out/worai.toml"; then
   echo "Unrendered template syntax found in generated worai.toml"
   exit 1
 fi
 
-rg -n 'sitemap_url = "https://example.com/sitemap.xml"' "$out/worai.toml" >/dev/null
-rg -n 'api_key = "\$\{WORDLIFT_API_KEY\}"' "$out/worai.toml" >/dev/null
-rg -n 'default: "default"' "$out/.github/workflows/graph-sync.yml" >/dev/null
+search 'sitemap_url = "https://example.com/sitemap.xml"' "$out/worai.toml"
+search 'api_key = "\$\{WORDLIFT_API_KEY\}"' "$out/worai.toml"
+search 'default: "default"' "$out/.github/workflows/graph-sync.yml"
 test ! -f "$out/tests/test_runtime_assets.py"
 test ! -f "$out/tests/test_template_smoke.py"
-rg -n 'class = "acme_graph_sync\.postprocessors\.youtube:YouTubePostprocessor"' "$out/profiles/_base/postprocessors.example.toml" >/dev/null
+search 'class = "acme_graph_sync\.postprocessors\.youtube:YouTubePostprocessor"' "$out/profiles/_base/postprocessors.example.toml"
 
-if rg -n '\\n' "$out/.env" >/dev/null; then
+if search '\\n' "$out/.env"; then
   echo "Generated .env contains literal \\\\n sequences"
   exit 1
 fi

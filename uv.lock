@@ -735,6 +735,7 @@ version = "4.9.0"
 source = { editable = "." }
 dependencies = [
     { name = "html2text" },
+    { name = "rdflib" },
     { name = "wordlift-sdk" },
 ]
 
@@ -748,6 +749,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "html2text", specifier = ">=2020.1.17" },
+    { name = "rdflib", specifier = ">=7.1.4" },
     { name = "wordlift-sdk", specifier = ">=3.9.0,<4.0.0" },
 ]
 
