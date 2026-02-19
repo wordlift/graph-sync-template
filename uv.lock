@@ -219,11 +219,11 @@ wheels = [
 
 [[package]]
 name = "certifi"
-version = "2024.12.14"
+version = "2026.1.4"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/0f/bd/1d41ee578ce09523c81a15426705dd20969f5abf006d1afe8aeff0dd776a/certifi-2024.12.14.tar.gz", hash = "sha256:b650d30f370c2b724812bee08008be0c4163b163ddaec3f2546c1caf65f191db", size = 166010, upload-time = "2024-12-14T13:52:38.02Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e0/2d/a891ca51311197f6ad14a7ef42e2399f36cf2f9bd44752b3dc4eab60fdc5/certifi-2026.1.4.tar.gz", hash = "sha256:ac726dd470482006e014ad384921ed6438c457018f4b3d204aea4281258b2120", size = 154268, upload-time = "2026-01-04T02:42:41.825Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/a5/32/8f6669fc4798494966bf446c8c4a162e0b5d893dff088afddf76414f70e1/certifi-2024.12.14-py3-none-any.whl", hash = "sha256:1275f7a45be9464efc1173084eaa30f866fe2e47d389406136d332ed4967ec56", size = 164927, upload-time = "2024-12-14T13:52:36.114Z" },
+    { url = "https://files.pythonhosted.org/packages/e6/ad/3cc14f097111b4de0040c83a525973216457bbeeb63739ef1ed275c1c021/certifi-2026.1.4-py3-none-any.whl", hash = "sha256:9943707519e4add1115f44c2bc244f782c0249876bf51b6599fee1ffbedd685c", size = 152900, upload-time = "2026-01-04T02:42:40.15Z" },
 ]
 
 [[package]]
@@ -570,11 +570,11 @@ wheels = [
 
 [[package]]
 name = "filelock"
-version = "3.24.2"
+version = "3.24.3"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/02/a8/dae62680be63cbb3ff87cfa2f51cf766269514ea5488479d42fec5aa6f3a/filelock-3.24.2.tar.gz", hash = "sha256:c22803117490f156e59fafce621f0550a7a853e2bbf4f87f112b11d469b6c81b", size = 37601, upload-time = "2026-02-16T02:50:45.614Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/73/92/a8e2479937ff39185d20dd6a851c1a63e55849e447a55e798cc2e1f49c65/filelock-3.24.3.tar.gz", hash = "sha256:011a5644dc937c22699943ebbfc46e969cdde3e171470a6e40b9533e5a72affa", size = 37935, upload-time = "2026-02-19T00:48:20.543Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e7/04/a94ebfb4eaaa08db56725a40de2887e95de4e8641b9e902c311bfa00aa39/filelock-3.24.2-py3-none-any.whl", hash = "sha256:667d7dc0b7d1e1064dd5f8f8e80bdac157a6482e8d2e02cd16fd3b6b33bd6556", size = 24152, upload-time = "2026-02-16T02:50:44Z" },
+    { url = "https://files.pythonhosted.org/packages/9c/0f/5d0c71a1aefeb08efff26272149e07ab922b64f46c63363756224bd6872e/filelock-3.24.3-py3-none-any.whl", hash = "sha256:426e9a4660391f7f8a810d71b0555bce9008b0a1cc342ab1f6947d37639e002d", size = 24331, upload-time = "2026-02-19T00:48:18.465Z" },
 ]
 
 [[package]]
@@ -731,7 +731,7 @@ aiohttp = [
 
 [[package]]
 name = "graph-build-template"
-version = "4.6.0"
+version = "4.7.0"
 source = { editable = "." }
 dependencies = [
     { name = "html2text" },
@@ -2356,16 +2356,16 @@ wheels = [
 
 [[package]]
 name = "virtualenv"
-version = "20.37.0"
+version = "20.38.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "distlib" },
     { name = "filelock" },
     { name = "platformdirs" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c1/ef/d9d4ce633df789bf3430bd81fb0d8b9d9465dfc1d1f0deb3fb62cd80f5c2/virtualenv-20.37.0.tar.gz", hash = "sha256:6f7e2064ed470aa7418874e70b6369d53b66bcd9e9fd5389763e96b6c94ccb7c", size = 5864710, upload-time = "2026-02-16T16:17:59.42Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d2/03/a94d404ca09a89a7301a7008467aed525d4cdeb9186d262154dd23208709/virtualenv-20.38.0.tar.gz", hash = "sha256:94f39b1abaea5185bf7ea5a46702b56f1d0c9aa2f41a6c2b8b0af4ddc74c10a7", size = 5864558, upload-time = "2026-02-19T07:48:02.385Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/42/4b/6cf85b485be7ec29db837ec2a1d8cd68bc1147b1abf23d8636c5bd65b3cc/virtualenv-20.37.0-py3-none-any.whl", hash = "sha256:5d3951c32d57232ae3569d4de4cc256c439e045135ebf43518131175d9be435d", size = 5837480, upload-time = "2026-02-16T16:17:57.341Z" },
+    { url = "https://files.pythonhosted.org/packages/42/d7/394801755d4c8684b655d35c665aea7836ec68320304f62ab3c94395b442/virtualenv-20.38.0-py3-none-any.whl", hash = "sha256:d6e78e5889de3a4742df2d3d44e779366325a90cf356f15621fddace82431794", size = 5837778, upload-time = "2026-02-19T07:47:59.778Z" },
 ]
 
 [[package]]
@@ -2388,7 +2388,7 @@ wheels = [
 
 [[package]]
 name = "wordlift-client"
-version = "1.140.0"
+version = "1.141.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiohttp" },
@@ -2398,14 +2398,14 @@ dependencies = [
     { name = "typing-extensions" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/00/c2/34e9b78f799050c2467a23da06b1373c9ed37d1fc31e6ddf552a978cf138/wordlift_client-1.140.0.tar.gz", hash = "sha256:005967580636d67aebfb8b0a4bec665bcc9e4609406b48400ac397a936c001a8", size = 198817, upload-time = "2026-02-18T04:32:10.276Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/bd/bb/9a24736508a4ab81dca1140aaa79258bdb83eb6dcfed36cc8e86c82e1438/wordlift_client-1.141.0.tar.gz", hash = "sha256:2028e8e37ca7f4b22142c8e1002a45731ebf0ed09b9ce5010ff398a11219fee1", size = 199180, upload-time = "2026-02-19T10:44:23.447Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/57/8c/7dd0421efa04525d4fb8274f6e819e4cde953bcdf67aa335feb082195507/wordlift_client-1.140.0-py3-none-any.whl", hash = "sha256:d553b4cb0af33a47b4596c47d5dad1815ab7018f15f050c70e5ae874ce3dd634", size = 530288, upload-time = "2026-02-18T04:32:08.384Z" },
+    { url = "https://files.pythonhosted.org/packages/28/a6/4a93f1992eae376f7f279476b5b98c4d46b178b4539cd89c84a966b098d3/wordlift_client-1.141.0-py3-none-any.whl", hash = "sha256:c62dcfa04d06b9090580fa92f104904d845f6ab02702449b4e68956a30bd153a", size = 530630, upload-time = "2026-02-19T10:44:21.5Z" },
 ]
 
 [[package]]
 name = "wordlift-sdk"
-version = "3.9.0"
+version = "3.11.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "advertools" },
@@ -2426,9 +2426,9 @@ dependencies = [
     { name = "tqdm" },
     { name = "wordlift-client" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/a8/1f/5be5d67529061d75b11357d3b886d2a2fa6d03a3c3ba999185f38cdbf542/wordlift_sdk-3.9.0.tar.gz", hash = "sha256:28bcb434d90c1388a020da108878e51fcd318b39466f489fb20a05ddc797fab7", size = 273279, upload-time = "2026-02-18T21:33:53.32Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a8/7e/ed374a0fcc6ba1f19306cb9eb30f982e42fa0e478bd557c86f530c5e6804/wordlift_sdk-3.11.2.tar.gz", hash = "sha256:7e6db1114c8b03d8d1b9ea0a7467aa5632a3ca46bbe15fbacf06e238afbcab59", size = 274427, upload-time = "2026-02-18T22:29:50.757Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/11/3f/945331b415e4d60dcb1ef5d6c30ea73b3772ecfa62c2b6c84c0b7ba06e5a/wordlift_sdk-3.9.0-py3-none-any.whl", hash = "sha256:c99b814a8c4c6ea375fcbdda721d938472ece93cb944f2ab56f584efa1efdce8", size = 342601, upload-time = "2026-02-18T21:33:51.824Z" },
+    { url = "https://files.pythonhosted.org/packages/37/f0/8e76a1000a8a353965e389467617bb7adee3fc717266a02ea483203b5785/wordlift_sdk-3.11.2-py3-none-any.whl", hash = "sha256:c682ea795ba34fbf53610260ae22816b01a0833b401becbf01c3f6a61eb244c5", size = 343771, upload-time = "2026-02-18T22:29:49.046Z" },
 ]
 
 [[package]]
