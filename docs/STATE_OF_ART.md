@@ -1,4 +1,4 @@
-# State of the Art (February 13, 2026)
+# State of the Art (February 19, 2026)
 
 ## Current Capability
 
@@ -8,6 +8,9 @@
 - Workflow is profile-based (`.github/workflows/graph-sync.yml.jinja`) and does not use country-specific inputs.
 - API key can be validated against WordLift `/accounts/me` during generation.
 - Local runtime Python package is derived from `dataset_uri` path and normalized with `_graph_sync` suffix.
+- Static scaffold follows one-node-per-file templates with explicit IRIs and no blank nodes.
+- Static template filenames use depth prefixes (`20_*`, `40_*`, ...).
+- Exported root IRIs in `exports.toml.j2` are stable/human-readable and not URL-hashed.
 
 ## Runtime Entry Point
 

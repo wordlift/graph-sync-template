@@ -47,6 +47,7 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 - `.github/workflows/graph-sync.yml`
 - Manual input uses `profile` (or `all`)
 - Matrix runs selected `profiles`
+
 ## Generation Notes
 
 - Copier generates `.env` with:
@@ -61,6 +62,20 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 - Copier scaffolds `profiles/<profile>/mappings` and `profiles/<profile>/templates` for all selected profiles.
 - Generated projects exclude template-maintenance tests (`tests/test_runtime_assets.py`, `tests/test_template_smoke.py`).
 
+## Static Template Standard
+
+- One static template file MUST define exactly one subject node.
+- Static templates MUST NOT emit blank nodes.
+- Every node MUST use explicit IRIs.
+- `schema:url` and `schema:sameAs` in static templates MUST be URL literals.
+- Static template filenames MUST use depth prefixes (`10_`, `20_`, `30_`, ...).
+- Exported root IRIs in `exports.toml(.j2)` MUST remain stable/unhashed.
+
+Default scaffold example:
+- `profiles/default/templates/20_organization.ttl.j2`
+- `profiles/default/templates/20_website.ttl.j2`
+- `profiles/default/templates/40_organization_postal_address.ttl.j2`
+
 ## Docs
 
 - `docs/INDEX.md`
@@ -69,6 +84,14 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 - `docs/STATE_OF_ART.md`
 - `docs/WORAI_TOML_EXAMPLES.md`
 - `specs/INDEX.md`
+
+## Migration Notes (Existing Generated Projects)
+
+- Split multi-node static files into one node per `.ttl(.j2/.liquid)` file.
+- Rename static template files to depth-prefixed names derived from subject IRI depth.
+- Replace `schema:url` / `schema:sameAs` IRI objects with string URL literals.
+- Remove blank nodes by exporting explicit dependent IRIs in `exports.toml(.j2)`.
+- Keep exported top-level root IRIs stable (no URL hash suffix).
 
 ## Verification
 

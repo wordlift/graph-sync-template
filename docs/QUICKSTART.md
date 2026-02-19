@@ -43,6 +43,13 @@ With debug output:
 worai --config worai.toml graph sync --profile <default_profile> --debug
 ```
 
+## Static Template Quick Checks
+
+- One subject node per static template file.
+- No blank nodes in static templates.
+- `schema:url` and `schema:sameAs` use URL literals.
+- Template filenames are depth-prefixed (`20_*`, `40_*`, ...).
+
 ## Postprocessors
 
 - Example template: `profiles/_base/postprocessors.example.toml`

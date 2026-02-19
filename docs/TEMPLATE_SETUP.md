@@ -59,6 +59,29 @@ copier copy gh:wordlift/graph-build-template my-graph-project
   - `profiles/<profile>/templates/`
   - `profiles/<profile>/postprocessors/`
 
+## Static Entity Rules (Generated Scaffold)
+
+- One static template file per subject node.
+- No blank nodes in static templates.
+- `schema:url` and `schema:sameAs` are URL literals in static templates.
+- Depth-prefixed template filenames by IRI depth (`20_*`, `40_*`, ...).
+- Deterministic IDs in `exports.toml(.j2)` with lowercase-dashed containers and slugs.
+- Exported top-level root IRIs remain stable/unhashed.
+
+Default static templates:
+- `profiles/default/templates/20_organization.ttl.j2`
+- `profiles/default/templates/20_website.ttl.j2`
+- `profiles/default/templates/40_organization_postal_address.ttl.j2`
+
+## Migration Notes
+
+For projects generated before this standard:
+- Split any multi-node static file into one node per file.
+- Rename each file to depth-prefixed format based on the subject IRI.
+- Replace `schema:url` and `schema:sameAs` IRI objects with URL string literals.
+- Replace blank nodes with exported explicit dependent IRIs.
+- Preserve existing exported root IRIs as stable/human-readable (no URL hash suffix).
+
 ## GitHub Secrets
 
 Set in generated repository:

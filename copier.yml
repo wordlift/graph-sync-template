@@ -17,8 +17,9 @@ _tasks:
       seed_files = (
           "exports.toml.j2",
           "mappings/default.yarrrml.j2",
-          "templates/1_organization.ttl.j2",
-          "templates/2_website.ttl.j2",
+          "templates/20_organization.ttl.j2",
+          "templates/20_website.ttl.j2",
+          "templates/40_organization_postal_address.ttl.j2",
       )
 
       for profile in profiles:

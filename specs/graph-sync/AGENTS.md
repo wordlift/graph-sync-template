@@ -13,6 +13,8 @@ Use this file as the root `AGENTS.md` in vanilla graph-sync template projects.
   - `specs/graph-sync/mappings.md`
 - Static templates and exports behavior:
   - `specs/graph-sync/static-templates.md`
+- Static entity ID conventions:
+  - `specs/graph-sync/static-entity-ids.md`
 - Postprocessor runtime loading/execution:
   - `specs/graph-sync/postprocessors.md`
 - Writing custom postprocessors:

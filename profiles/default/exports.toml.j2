@@ -1,2 +1,6 @@
-organization_iri = "{{ dataset_uri }}/organizations/acme"
-website_iri = "{{ dataset_uri }}/websites/acme"
+# Root canonical IRIs (stable, never URL-hashed in exports).
+organization_root_iri = "{{ dataset_uri }}/organizations/acme"
+website_root_iri = "{{ dataset_uri }}/web-sites/acme"
+
+# Dependent IRI nested under its parent container and slug.
+organization_postal_address_iri = "{{ dataset_uri }}/organizations/acme/postal-addresses/main"
