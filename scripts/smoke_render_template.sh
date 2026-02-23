@@ -65,7 +65,6 @@ fi
 
 search 'sitemap_url = "https://example.com/sitemap.xml"' "$out/worai.toml"
 search 'api_key = "\$\{WORDLIFT_API_KEY\}"' "$out/worai.toml"
-search 'default: "default"' "$out/.github/workflows/graph-sync.yml"
 test ! -f "$out/tests/test_runtime_assets.py"
 test ! -f "$out/tests/test_template_smoke.py"
 search 'class = "acme_graph_sync\.postprocessors\.youtube:YouTubePostprocessor"' "$out/profiles/_base/postprocessors.example.toml"

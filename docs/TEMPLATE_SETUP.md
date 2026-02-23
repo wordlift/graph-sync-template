@@ -39,7 +39,7 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 ## What Copier Creates
 
 - Renders `worai.toml` from `worai.toml.jinja`.
-- Renders `.github/workflows/graph-sync.yml` from `.github/workflows/graph-sync.yml.jinja`.
+- Renders `.github/workflows/graph-sync.yml`.
 - Moves `specs/graph-sync/AGENTS.md` to root `AGENTS.md`.
 - Generates local `.env` with:
   - `WORDLIFT_API_KEY`

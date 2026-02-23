@@ -7,7 +7,7 @@ This repository provides:
 - runtime config template (`worai.toml.jinja`, rendered as `worai.toml`)
 - profile assets (`profiles/*`)
 - optional local postprocessor example (`src/acme_kg/postprocessors/youtube.py`)
-- GitHub Actions workflow template (`.github/workflows/graph-sync.yml.jinja`, rendered as `.github/workflows/graph-sync.yml`)
+- GitHub Actions workflow template (`.github/workflows/graph-sync.yml`)
 
 ## Use This Template
 

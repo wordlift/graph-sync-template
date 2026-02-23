@@ -5,7 +5,7 @@
 - Repository acts as a Copier template for `worai graph sync` projects.
 - Template config is defined in `copier.yml`.
 - Runtime config is generated from `worai.toml.jinja` with source-type-dependent fields.
-- Workflow is profile-based (`.github/workflows/graph-sync.yml.jinja`) and does not use country-specific inputs.
+- Workflow is profile-based (`.github/workflows/graph-sync.yml`) and does not use country-specific inputs.
 - API key can be validated against WordLift `/accounts/me` during generation.
 - Local runtime Python package is derived from `dataset_uri` path and normalized with `_graph_sync` suffix.
 - Static scaffold follows one-node-per-file templates with explicit IRIs and no blank nodes.

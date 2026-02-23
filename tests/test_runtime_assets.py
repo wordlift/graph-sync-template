@@ -27,7 +27,7 @@ def test_runtime_assets_present() -> None:
     assert (root / "profiles" / "default" / "templates" / "20_organization.ttl.j2").exists()
     assert (root / "profiles" / "default" / "templates" / "20_website.ttl.j2").exists()
     assert (root / "profiles" / "default" / "templates" / "40_organization_postal_address.ttl.j2").exists()
-    assert (root / ".github" / "workflows" / "graph-sync.yml.jinja").exists()
+    assert (root / ".github" / "workflows" / "graph-sync.yml").exists()
     assert not (root / ".github" / "workflows" / "update-kg.yml").exists()
     assert (root / "src" / "acme_kg" / "postprocessors" / "youtube.py").exists()
     assert not (root / "src" / "acme_kg" / "postprocessors" / "pricing.py").exists()
@@ -100,11 +100,11 @@ def test_runtime_imports() -> None:
 
 def test_sdk_version_constraint() -> None:
     pyproject = Path("pyproject.toml").read_text(encoding="utf-8")
-    assert 'wordlift-sdk>=3.9.0,<4.0.0' in pyproject
+    assert 'wordlift-sdk>=5.3.0,<6.0.0' in pyproject
 
 
 def test_profile_based_workflow_contract() -> None:
-    workflow = Path(".github/workflows/graph-sync.yml.jinja").read_text(encoding="utf-8")
+    workflow = Path(".github/workflows/graph-sync.yml").read_text(encoding="utf-8")
     assert "workflow_dispatch" in workflow
     assert "profile:" in workflow
     assert "country:" not in workflow
