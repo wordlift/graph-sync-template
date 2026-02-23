@@ -568,7 +568,7 @@ aiohttp = [
 
 [[package]]
 name = "graph-build-template"
-version = "4.12.0"
+version = "4.12.1"
 source = { editable = "." }
 dependencies = [
     { name = "html2text" },
