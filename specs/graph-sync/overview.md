@@ -47,6 +47,7 @@ profiles/<profile_name>/
 - Deterministic static IDs and export stability are defined in `specs/graph-sync/static-entity-ids.md`.
 
 ## Related Docs
+- `specs/graph-sync/implementation-playbook.md`
 - `specs/graph-sync/mappings.md`
 - `specs/graph-sync/static-templates.md`
 - `specs/graph-sync/static-entity-ids.md`

@@ -10,6 +10,7 @@ Technical specifications for implementation and maintenance.
 - Runtime import contract template is defined in `worai.toml.jinja` (rendered output: `worai.toml`).
 - Graph sync runtime behavior docs are under `specs/graph-sync/`:
   - `specs/graph-sync/INDEX.md`
+  - `specs/graph-sync/implementation-playbook.md`
   - `specs/graph-sync/static-entity-ids.md`
 
 ## Scope

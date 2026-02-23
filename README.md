@@ -84,6 +84,7 @@ Default scaffold example:
 - `docs/STATE_OF_ART.md`
 - `docs/WORAI_TOML_EXAMPLES.md`
 - `specs/INDEX.md`
+- `specs/graph-sync/implementation-playbook.md`
 
 ## Migration Notes (Existing Generated Projects)
 

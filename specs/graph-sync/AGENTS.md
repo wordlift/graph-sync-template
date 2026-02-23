@@ -9,6 +9,8 @@ Use this file as the root `AGENTS.md` in vanilla graph-sync template projects.
 ## File Routing
 - Core workflow and high-level contract:
   - `specs/graph-sync/overview.md`
+- Implementation lifecycle and quality guardrails for concrete syncs:
+  - `specs/graph-sync/implementation-playbook.md`
 - Mapping behavior and config:
   - `specs/graph-sync/mappings.md`
 - Static templates and exports behavior:

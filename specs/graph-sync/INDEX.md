@@ -7,6 +7,8 @@ This folder contains modular agent context for vanilla `worai graph sync` projec
 2. Open only the focused docs needed for the current task.
 
 ## Task-to-File Map
+- Implementation lifecycle and quality playbook:
+  - `specs/graph-sync/implementation-playbook.md`
 - Mapping behavior and `worai.toml` mapping config:
   - `specs/graph-sync/mappings.md`
 - Static templates and exports behavior:

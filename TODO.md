@@ -29,6 +29,7 @@
 - [x] Derive runtime package name from `dataset_uri` path (`_graph_sync` suffix) and rename generated `acme_kg` package accordingly.
 - [x] Exclude Copier/template-maintenance tests from generated projects to prevent reified-project test failures.
 - [x] Enforce static-entity scaffold standards: one-node-per-file, no blank nodes, depth-prefixed filenames, URL literals for `schema:url`/`schema:sameAs`, and stable unhashed exported root IRIs.
+- [x] Add graph-sync implementation playbook covering lifecycle guardrails, schema contract non-negotiables, and validation/review expectations.
 
 ## Next Steps
 
