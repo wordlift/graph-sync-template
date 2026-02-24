@@ -100,7 +100,7 @@ def test_runtime_imports() -> None:
 
 def test_sdk_version_constraint() -> None:
     pyproject = Path("pyproject.toml").read_text(encoding="utf-8")
-    assert 'wordlift-sdk>=5.3.0,<6.0.0' in pyproject
+    assert 'wordlift-sdk>=6.0.0,<7.0.0' in pyproject
 
 
 def test_profile_based_workflow_contract() -> None:
@@ -108,6 +108,7 @@ def test_profile_based_workflow_contract() -> None:
     assert "workflow_dispatch" in workflow
     assert "profile:" in workflow
     assert "country:" not in workflow
+    assert "wordlift/graph-sync@v6" in workflow
 
 
 def test_copier_contract_contains_required_questions() -> None:
@@ -142,8 +143,8 @@ def test_copier_contract_contains_required_questions() -> None:
     assert "help: Sitemap URL" in copier
     assert "concurrency:\n  type: int\n  default: 4" in copier
     assert 'concurrency:\n  type: int\n  default: 4\n  help: Parallel import workers\n  when: "{{ false }}"' in copier
-    assert 'web_page_import_mode:\n  type: str\n  default: ""\n  help: Import mode override (optional)\n  when: "{{ false }}"' in copier
-    assert "web_page_import_timeout:\n  type: int\n  default: 120" in copier
+    assert 'ingest_loader:\n  type: str\n  default: web_scrape_api\n  help: Ingestion loader' in copier
+    assert "ingest_timeout_ms:\n  type: int\n  default: 120000" in copier
     assert 'google_search_console:\n  type: bool\n  default: false\n  help: Enable Google Search Console enrichment\n  when: "{{ false }}"' in copier
     assert 'profiles:\n  type: yaml' in copier
     assert 'validator: "{% if not profiles or profiles|length == 0 %}profiles must include at least one profile{% endif %}"\n  when: "{{ false }}"' in copier

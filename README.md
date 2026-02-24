@@ -36,12 +36,21 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 
 - `overwrite`
 - `concurrency` (default `4`, hidden prompt)
-- `web_page_import_mode` (default `""`, hidden prompt)
-- `web_page_import_timeout` (default `120`, hidden prompt)
+- `ingest_loader` (default `"web_scrape_api"`, hidden prompt)
+- `ingest_timeout_ms` (default `120000`, hidden prompt)
 - `google_search_console` (default `false`, hidden prompt)
 - `profiles` (default `["default"]`, hidden prompt)
 - `default_profile` (default `"default"`, hidden prompt; must be one of `profiles`)
 - `validate_api_key` (default `true`, hidden prompt; checks key via WordLift API during generation)
+
+## SDK Compatibility
+
+- Template dependency range: `wordlift-sdk>=6.0.0,<7.0.0`.
+- Aligned to SDK `6.0.0` canonical cloud workflow contract:
+  - explicit `ingest_loader`
+  - explicit `ingest_timeout_ms`
+  - explicit `ingest_source` derived from selected source mode
+  - no legacy `web_page_import_mode` / `web_page_import_timeout` keys
 
 ## Generated Workflow
 - `.github/workflows/graph-sync.yml`

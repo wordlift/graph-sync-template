@@ -17,6 +17,7 @@
 - Copier derives runtime package name from `dataset_uri` and renames local runtime package from `acme_kg` accordingly.
 - Workflow contract is profile-based (no country input), in `.github/workflows/graph-sync.yml`.
 - Runtime config template is `worai.toml.jinja` (rendered output: `worai.toml`).
+- Runtime template follows SDK v6 cloud-flow contract (`ingest_source`, `ingest_loader`, `ingest_timeout_ms`; no `web_page_import_*` fallback keys).
 - Template render smoke verification is in `scripts/smoke_render_template.sh` and CI workflow `.github/workflows/template-smoke.yml` (excluded from generated output).
 - Template-maintenance tests (`tests/test_runtime_assets.py`, `tests/test_template_smoke.py`) are excluded from generated output.
 - Postprocessor example contract is in `profiles/_base/postprocessors.example.toml`.

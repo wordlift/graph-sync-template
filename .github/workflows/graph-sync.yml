@@ -57,7 +57,7 @@ jobs:
 
       - run: uv sync --locked --no-dev
 
-      - uses: wordlift/graph-sync@v1
+      - uses: wordlift/graph-sync@v6
         with:
           profile: ${{ matrix.profile }}
           debug: ${{ inputs.debug }}

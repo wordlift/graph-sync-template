@@ -245,16 +245,23 @@ concurrency:
   help: Parallel import workers
   when: "{{ false }}"
 
-web_page_import_mode:
+ingest_loader:
   type: str
-  default: ""
-  help: Import mode override (optional)
+  default: web_scrape_api
+  help: Ingestion loader
+  choices:
+    - web_scrape_api
+    - simple
+    - proxy
+    - playwright
+    - premium_scraper
+    - passthrough
   when: "{{ false }}"
 
-web_page_import_timeout:
+ingest_timeout_ms:
   type: int
-  default: 120
-  help: Per-page timeout (seconds)
+  default: 120000
+  help: Per-page timeout (milliseconds)
   when: "{{ false }}"
 
 google_search_console:

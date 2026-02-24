@@ -8,6 +8,9 @@ Practical, minimal, complete examples using fake data.
 [profiles._base]
 overwrite = true
 concurrency = 8
+ingest_loader = "web_scrape_api"
+ingest_timeout_ms = 120000
+ingest_source = "urls"
 urls = [
   "https://www.acme.example/insurance/home",
   "https://www.acme.example/insurance/auto"
@@ -23,6 +26,9 @@ api_key = "${WORDLIFT_API_KEY}"
 [profiles._base]
 overwrite = true
 concurrency = 8
+ingest_loader = "web_scrape_api"
+ingest_timeout_ms = 120000
+ingest_source = "sitemap"
 sitemap_url = "https://www.acme.example/sitemap.xml"
 sitemap_url_pattern = "/insurance/.*"
 
@@ -36,6 +42,9 @@ api_key = "${WORDLIFT_API_KEY}"
 [profiles._base]
 overwrite = true
 concurrency = 8
+ingest_loader = "web_scrape_api"
+ingest_timeout_ms = 120000
+ingest_source = "sheets"
 sheets_url = "https://docs.google.com/spreadsheets/d/1FAKE_SHEET_ID_ABC123"
 sheets_name = "urls"
 sheets_service_account = "${SHEETS_SERVICE_ACCOUNT}"
@@ -50,6 +59,9 @@ api_key = "${WORDLIFT_API_KEY}"
 [profiles._base]
 overwrite = true
 concurrency = 4
+ingest_loader = "web_scrape_api"
+ingest_timeout_ms = 120000
+ingest_source = "sitemap"
 sitemap_url = "https://www.acme.example/sitemap.xml"
 
 [profiles.retail]
@@ -65,9 +77,10 @@ api_key = "${WORDLIFT_API_KEY}"
 [profiles._base]
 overwrite = false
 concurrency = 2
-web_page_import_mode = "smart"
-web_page_import_timeout = 45
+ingest_loader = "playwright"
+ingest_timeout_ms = 45000
 google_search_console = true
+ingest_source = "urls"
 urls = ["https://www.acme.example/"]
 
 [profiles.default]

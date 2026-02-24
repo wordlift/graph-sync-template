@@ -29,8 +29,8 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 
 - `overwrite=true`
 - `concurrency=4`
-- `web_page_import_mode=""`
-- `web_page_import_timeout=120`
+- `ingest_loader="web_scrape_api"`
+- `ingest_timeout_ms=120000`
 - `google_search_console=false`
 - `profiles=["default"]`
 - `default_profile="default"` (must be one of `profiles`)

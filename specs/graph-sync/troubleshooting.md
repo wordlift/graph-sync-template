@@ -1,5 +1,13 @@
 # Graph Sync Troubleshooting
 
+## Ingestion Source/Loader Resolution Errors (SDK 6.0.0+)
+- Symptom:
+  - runtime fails fast during ingestion setup (`INGEST_SOURCE` / `INGEST_LOADER` related errors).
+- Check:
+  - `ingest_source` is explicitly set to one of `urls|sitemap|sheets`.
+  - `ingest_loader` is explicitly set (for example `web_scrape_api`).
+  - do not rely on legacy fallback keys `web_page_import_mode` / `web_page_import_timeout`.
+
 ## Mapping Routes Do Not Match
 - Symptom:
   - URL-specific mapping is never selected.

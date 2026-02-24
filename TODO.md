@@ -30,6 +30,7 @@
 - [x] Exclude Copier/template-maintenance tests from generated projects to prevent reified-project test failures.
 - [x] Enforce static-entity scaffold standards: one-node-per-file, no blank nodes, depth-prefixed filenames, URL literals for `schema:url`/`schema:sameAs`, and stable unhashed exported root IRIs.
 - [x] Add graph-sync implementation playbook covering lifecycle guardrails, schema contract non-negotiables, and validation/review expectations.
+- [x] Migrate template to `wordlift-sdk>=6.0.0,<7.0.0` contract (`ingest_source`, `ingest_loader`, `ingest_timeout_ms`) and update graph-sync GitHub Action to `v6`.
 
 ## Next Steps
 

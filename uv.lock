@@ -568,7 +568,7 @@ aiohttp = [
 
 [[package]]
 name = "graph-build-template"
-version = "4.12.2"
+version = "6.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "html2text" },
@@ -587,7 +587,7 @@ dev = [
 requires-dist = [
     { name = "html2text", specifier = ">=2020.1.17" },
     { name = "rdflib", specifier = ">=7.1.4" },
-    { name = "wordlift-sdk", specifier = ">=5.3.0,<6.0.0" },
+    { name = "wordlift-sdk", specifier = ">=6.0.0,<7.0.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -1936,7 +1936,7 @@ wheels = [
 
 [[package]]
 name = "wordlift-sdk"
-version = "5.3.0"
+version = "6.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "advertools" },
@@ -1957,9 +1957,9 @@ dependencies = [
     { name = "tqdm" },
     { name = "wordlift-client" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/bb/a3/8e3a5ef46cf6658e8371fb187e74697430ac6544bf1b9c5c64efbd024756/wordlift_sdk-5.3.0.tar.gz", hash = "sha256:255257ef4fd2ca8c18c708580a94318c2f1f8117583794d1f97af9fffed2faa6", size = 289076, upload-time = "2026-02-23T10:03:25.435Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/9b/c8/b086fe82dccea5f403ab97688092108bd008ef4ba196bf294da12189db95/wordlift_sdk-6.0.0.tar.gz", hash = "sha256:f418152fb3a6eb5c7bb829bc6675e288eee5b05894f110cc211d4682e731c3ed", size = 314399, upload-time = "2026-02-24T14:03:12.275Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/30/04/daa603c9edcf83b3bd316395f7ae99c2daa200a846b7131447563549b412/wordlift_sdk-5.3.0-py3-none-any.whl", hash = "sha256:663415d29cbb139a6708dc53b7e42a07aa3546c0dc98b5f55bab06357972e453", size = 363248, upload-time = "2026-02-23T10:03:23.882Z" },
+    { url = "https://files.pythonhosted.org/packages/b3/14/54e42c6053f1e4b286eceb6850660ccef32888b76533440e0894ee0b80bf/wordlift_sdk-6.0.0-py3-none-any.whl", hash = "sha256:53e8225cbf97aba2a79ff42a8098904b0995c80956067d1bda98baa84f1d0d5b", size = 366436, upload-time = "2026-02-24T14:03:10.448Z" },
 ]
 
 [[package]]

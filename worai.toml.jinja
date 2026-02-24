@@ -1,17 +1,19 @@
 [profiles._base]
 overwrite = {{ overwrite | lower }}
 concurrency = {{ concurrency }}
-web_page_import_timeout = {{ web_page_import_timeout }}
+ingest_loader = {{ ingest_loader | tojson }}
+ingest_timeout_ms = {{ ingest_timeout_ms }}
 google_search_console = {{ google_search_console | lower }}
-{% if web_page_import_mode %}web_page_import_mode = {{ web_page_import_mode | tojson }}
-{% endif %}
 {% if source_type == "urls" %}
+ingest_source = "urls"
 urls = {{ urls | tojson }}
 {% elif source_type == "sitemap" %}
+ingest_source = "sitemap"
 sitemap_url = {{ sitemap_url | tojson }}
 {% if sitemap_url_pattern %}sitemap_url_pattern = {{ sitemap_url_pattern | tojson }}
 {% endif %}
 {% elif source_type == "google_sheets" %}
+ingest_source = "sheets"
 sheets_url = {{ sheets_url | tojson }}
 sheets_name = {{ sheets_name | tojson }}
 sheets_service_account = "${SHEETS_SERVICE_ACCOUNT}"
