@@ -74,3 +74,12 @@ python -m wordlift_sdk.kg_build.postprocessor_runner \
   - context payload fields
   - manifest parsing/defaults
   - runner module path and flags
+
+## SDK 5.1.1+ Context Migration
+- `context.settings` was removed.
+  - Before: `context.settings["api_url"]`
+  - After: `context.profile["settings"]["api_url"]`
+- `context.account.key` is no longer injected.
+  - Before: `context.account["key"]` or `context.account.key`
+  - After: `context.account_key`
+- `context.account` remains the clean `/me` account object.

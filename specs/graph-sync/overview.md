@@ -30,27 +30,17 @@ profiles/<profile_name>/mappings/
   product.yarrrml.j2
 profiles/<profile_name>/templates/
   exports.toml
-  20_organization.ttl.j2
-  20_website.ttl.j2
-  40_organization_postal_address.ttl.j2
+  static.ttl
 profiles/_base/
   postprocessors.toml
 profiles/<profile_name>/
   postprocessors.toml
 ```
 
-## Static Entity Conventions
-- Static templates are one-node-per-file.
-- Static templates do not use blank nodes.
-- `schema:url` / `schema:sameAs` use URL literals in static templates.
-- Static template filenames use depth prefixes (`10`, `20`, `30`, ...).
-- Deterministic static IDs and export stability are defined in `specs/graph-sync/static-entity-ids.md`.
-
 ## Related Docs
-- `specs/graph-sync/implementation-playbook.md`
+- `specs/graph-sync/developer-agent-workflow.md`
 - `specs/graph-sync/mappings.md`
 - `specs/graph-sync/static-templates.md`
-- `specs/graph-sync/static-entity-ids.md`
 - `specs/graph-sync/postprocessors.md`
 - `specs/graph-sync/postprocessors-authoring.md`
 - `specs/graph-sync/troubleshooting.md`

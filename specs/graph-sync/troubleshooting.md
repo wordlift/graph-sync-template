@@ -26,8 +26,16 @@
 - Symptom:
   - `.j2` or `.liquid` rendering fails.
 - Check:
-  - required context keys exist (`dataset_uri`, `account`, `exports`).
+  - required context keys exist (`dataset_uri`, `account`, `exports`, `profile` when needed).
   - template references valid variable names.
+
+## Postprocessor Context Key Errors (SDK 5.1.1+)
+- Symptom:
+  - custom postprocessor crashes on missing `context.settings` or `context.account.key`.
+- Check:
+  - replace `context.settings` with `context.profile`.
+  - replace `context.account.key` with `context.account_key`.
+  - keep using `context.account` only for `/me` account fields.
 
 ## Postprocessor Class Import Failure
 - Symptom:

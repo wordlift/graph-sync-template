@@ -3,18 +3,17 @@
 This folder contains modular agent context for vanilla `worai graph sync` projects.
 
 ## Read Order
-1. `specs/graph-sync/overview.md`
-2. Open only the focused docs needed for the current task.
+1. `specs/graph-sync/developer-agent-workflow.md`
+2. `specs/graph-sync/overview.md`
+3. Open only the focused docs needed for the current task.
 
 ## Task-to-File Map
-- Implementation lifecycle and quality playbook:
-  - `specs/graph-sync/implementation-playbook.md`
+- Agent execution protocol (required):
+  - `specs/graph-sync/developer-agent-workflow.md`
 - Mapping behavior and `worai.toml` mapping config:
   - `specs/graph-sync/mappings.md`
 - Static templates and exports behavior:
   - `specs/graph-sync/static-templates.md`
-- Deterministic static entity IDs and path conventions:
-  - `specs/graph-sync/static-entity-ids.md`
 - Postprocessor runtime loading/execution:
   - `specs/graph-sync/postprocessors.md`
 - Building custom postprocessors:
@@ -27,3 +26,7 @@ This folder contains modular agent context for vanilla `worai graph sync` projec
 ## Scope
 - This index is for agent context in template projects.
 - Runtime behavior must match current SDK implementation.
+- Tasks are not complete until tests run and docs/specs/todo are synced.
+- CLI entrypoints in worai:
+  - `worai graph sync run --profile <name> [--debug]`
+  - `worai graph sync create <destination> ...`

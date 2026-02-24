@@ -34,9 +34,15 @@
 - `dataset_uri`
 - `country_code`
 - `exports`
-- `settings`
+- `profile` (resolved/interpolated profile object)
+- `account_key` (runtime auth key)
+- `account` (`/me` account payload without injected `key`)
 - callback response payload (`id`, `web_page.url`, `web_page.html`)
 - `ids` allocator when dataset URI is available
+
+## SDK 5.1.1+ Compatibility Note
+- `context.settings` is removed; read config from `context.profile`.
+- `context.account.key` is not injected; use `context.account_key`.
 
 ## Manifest Example
 ```toml
