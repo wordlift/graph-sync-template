@@ -100,7 +100,7 @@ def test_runtime_imports() -> None:
 
 def test_sdk_version_constraint() -> None:
     pyproject = Path("pyproject.toml").read_text(encoding="utf-8")
-    assert 'wordlift-sdk>=6.0.0,<7.0.0' in pyproject
+    assert 'wordlift-sdk>=6.5.1,<7.0.0' in pyproject
 
 
 def test_profile_based_workflow_contract() -> None:
@@ -109,6 +109,7 @@ def test_profile_based_workflow_contract() -> None:
     assert "profile:" in workflow
     assert "country:" not in workflow
     assert "wordlift/graph-sync@v6" in workflow
+    assert "cache-python:" not in workflow
 
 
 def test_copier_contract_contains_required_questions() -> None:
@@ -136,6 +137,10 @@ def test_copier_contract_contains_required_questions() -> None:
     assert 'package_name_file = Path(".package_name")' in copier
     assert "old_package = \"acme_kg\"" in copier
     assert "shutil.move(str(old_dir), str(new_dir))" in copier
+    assert "project_dir_name = Path.cwd().name" in copier
+    assert "def normalize_project_name(raw: str) -> str:" in copier
+    assert 'normalized = re.sub(r"[^a-z0-9._-]+", "-", raw.lower())' in copier
+    assert 'f\'name = "{normalize_project_name(project_dir_name)}"\'' in copier
     assert "help: Source of your page list" in copier
     assert '"Manual URL list": urls' in copier
     assert '"Sitemap XML": sitemap' in copier
@@ -154,6 +159,7 @@ def test_copier_contract_contains_required_questions() -> None:
     assert '- ".github/workflows/template-smoke.yml"' in copier
     assert '- "tests/test_runtime_assets.py"' in copier
     assert '- "tests/test_template_smoke.py"' in copier
+    assert '- "tests/test_youtube_runtime.py"' in copier
     assert "mv specs/graph-sync/AGENTS.md AGENTS.md" in copier
     assert 'Path(".env").write_text(chr(10).join(content), encoding="utf-8")' in copier
     assert "(profile_dir / \"mappings\").mkdir" in copier

@@ -5,6 +5,7 @@ _exclude:
   - ".github/workflows/template-smoke.yml"
   - "tests/test_runtime_assets.py"
   - "tests/test_template_smoke.py"
+  - "tests/test_youtube_runtime.py"
 _tasks:
   - mv specs/graph-sync/AGENTS.md AGENTS.md
   - |
@@ -56,6 +57,35 @@ _tasks:
           "",
       ]
       Path(".env").write_text(chr(10).join(content), encoding="utf-8")
+      PY
+  - |
+      python - <<'PY'
+      from pathlib import Path
+      import re
+
+      pyproject_path = Path("pyproject.toml")
+      if not pyproject_path.exists():
+          raise SystemExit(0)
+
+      project_dir_name = Path.cwd().name
+
+      def normalize_project_name(raw: str) -> str:
+          normalized = re.sub(r"[^a-z0-9._-]+", "-", raw.lower())
+          normalized = re.sub(r"[-_.]+", "-", normalized).strip("-")
+          if not normalized:
+              normalized = "graph-sync-project"
+          if normalized[0].isdigit():
+              normalized = f"proj-{normalized}"
+          return normalized
+
+      pyproject_content = pyproject_path.read_text(encoding="utf-8")
+      pyproject_content = re.sub(
+          r'(?m)^name\s*=\s*"[^"]*"\s*$',
+          f'name = "{normalize_project_name(project_dir_name)}"',
+          pyproject_content,
+          count=1,
+      )
+      pyproject_path.write_text(pyproject_content, encoding="utf-8")
       PY
   - |
       python - <<'PY'

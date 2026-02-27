@@ -48,12 +48,14 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 - Validates `api_key` against the WordLift API (`/accounts/me`) by default.
 - Derives package name from response `dataset_uri` path, normalized and suffixed with `_graph_sync`.
 - Example: `https://data.wordlift.io/wl123/customer-x` -> `wl123_customer_x_graph_sync`.
+- Sets `[project].name` in `pyproject.toml` from the destination directory name (normalized to a valid Python project name).
 - If validation is skipped (`--data validate_api_key=false`) or API is unreachable, fallback package is `acme_graph_sync`.
 - Set `--data validate_api_key=false` to skip this check in offline/CI scenarios.
 - Renames local runtime package from `acme_kg` to the derived package name.
 - Excludes template-only maintenance tests from generated projects:
   - `tests/test_runtime_assets.py`
   - `tests/test_template_smoke.py`
+  - `tests/test_youtube_runtime.py`
 - Ensures each selected profile has:
   - `profiles/<profile>/mappings/`
   - `profiles/<profile>/templates/`

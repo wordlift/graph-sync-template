@@ -67,6 +67,8 @@ python -m wordlift_sdk.kg_build.postprocessor_runner \
 - Avoid deleting unrelated triples unless explicitly intended.
 - Preserve expected root `WebPage` identity behavior.
 - Avoid logging secrets from context payloads.
+- Do not rely on constants extracted from sample pages used for mapping/postprocessor testing; implement selectors/rules/normalization that work across pages in the configured source.
+- Do not add hard-coded fallbacks unless the user explicitly authorizes that behavior.
 
 ## Compatibility
 - Pin `wordlift-sdk` to a tested range.

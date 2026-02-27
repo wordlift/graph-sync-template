@@ -3,7 +3,7 @@ set -euo pipefail
 
 tmpbase="$(mktemp -d)"
 src="$tmpbase/template"
-out="$tmpbase/out"
+out="$tmpbase/My-Graph_Project.demo"
 
 cleanup() {
   rm -rf "$tmpbase"
@@ -41,6 +41,7 @@ rsync -a \
 )
 
 test -f "$out/worai.toml"
+test -f "$out/pyproject.toml"
 test -f "$out/.github/workflows/graph-sync.yml"
 test -f "$out/.env"
 test -d "$out/src/acme_graph_sync"
@@ -65,8 +66,10 @@ fi
 
 search 'sitemap_url = "https://example.com/sitemap.xml"' "$out/worai.toml"
 search 'api_key = "\$\{WORDLIFT_API_KEY\}"' "$out/worai.toml"
+search '^name = "my-graph-project-demo"$' "$out/pyproject.toml"
 test ! -f "$out/tests/test_runtime_assets.py"
 test ! -f "$out/tests/test_template_smoke.py"
+test ! -f "$out/tests/test_youtube_runtime.py"
 search 'class = "acme_graph_sync\.postprocessors\.youtube:YouTubePostprocessor"' "$out/profiles/_base/postprocessors.example.toml"
 
 if search '\\n' "$out/.env"; then

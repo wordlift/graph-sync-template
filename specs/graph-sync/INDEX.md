@@ -4,12 +4,15 @@ This folder contains modular agent context for vanilla `worai graph sync` projec
 
 ## Read Order
 1. `specs/graph-sync/developer-agent-workflow.md`
-2. `specs/graph-sync/overview.md`
-3. Open only the focused docs needed for the current task.
+2. `specs/graph-sync/agent-working-agreement.md`
+3. `specs/graph-sync/overview.md`
+4. Open only the focused docs needed for the current task.
 
 ## Task-to-File Map
 - Agent execution protocol (required):
   - `specs/graph-sync/developer-agent-workflow.md`
+- Practical collaboration defaults (DOs/DONTs/code-of-conduct style rules):
+  - `specs/graph-sync/agent-working-agreement.md`
 - Mapping behavior and `worai.toml` mapping config:
   - `specs/graph-sync/mappings.md`
 - Static templates and exports behavior:

@@ -45,8 +45,8 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 
 ## SDK Compatibility
 
-- Template dependency range: `wordlift-sdk>=6.0.0,<7.0.0`.
-- Aligned to SDK `6.0.0` canonical cloud workflow contract:
+- Template dependency range: `wordlift-sdk>=6.5.1,<7.0.0`.
+- Aligned to SDK `6.5.1` canonical cloud workflow contract:
   - explicit `ingest_loader`
   - explicit `ingest_timeout_ms`
   - explicit `ingest_source` derived from selected source mode
@@ -66,10 +66,11 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 - Copier validates `api_key` against `https://api.wordlift.io/accounts/me` by default.
 - Copier derives local runtime package name from `dataset_uri` returned by `/accounts/me`: path is normalized and `_graph_sync` is appended.
 - Example: `https://data.wordlift.io/wl123/customer-x` -> `wl123_customer_x_graph_sync`.
+- Copier sets `[project].name` in `pyproject.toml` from the destination directory name, normalized to a PEP 621-compatible project name.
 - If validation is skipped or API is unreachable, fallback package is `acme_graph_sync`.
 - To skip validation in automation/offline mode, pass `--data validate_api_key=false`.
 - Copier scaffolds `profiles/<profile>/mappings` and `profiles/<profile>/templates` for all selected profiles.
-- Generated projects exclude template-maintenance tests (`tests/test_runtime_assets.py`, `tests/test_template_smoke.py`).
+- Generated projects exclude template-maintenance tests (`tests/test_runtime_assets.py`, `tests/test_template_smoke.py`, `tests/test_youtube_runtime.py`).
 
 ## Static Template Standard
 
@@ -94,6 +95,7 @@ Default scaffold example:
 - `docs/WORAI_TOML_EXAMPLES.md`
 - `specs/INDEX.md`
 - `specs/graph-sync/implementation-playbook.md`
+- `specs/graph-sync/agent-working-agreement.md`
 
 ## Migration Notes (Existing Generated Projects)
 
