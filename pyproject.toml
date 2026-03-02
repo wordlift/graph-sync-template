@@ -1,6 +1,6 @@
 [project]
 name = "graph-build-template"
-version = "6.1.0"
+version = "6.1.1"
 description = "Copier template for worai graph sync projects"
 readme = "README.md"
 requires-python = ">=3.13"
