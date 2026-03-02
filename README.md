@@ -45,8 +45,8 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 
 ## SDK Compatibility
 
-- Template dependency range: `wordlift-sdk>=6.5.1,<7.0.0`.
-- Aligned to SDK `6.5.1` canonical cloud workflow contract:
+- Template dependency range: `wordlift-sdk>=6.6.2,<7.0.0`.
+- Aligned to SDK `6.6.2` canonical cloud workflow contract:
   - explicit `ingest_loader`
   - explicit `ingest_timeout_ms`
   - explicit `ingest_source` derived from selected source mode
@@ -71,6 +71,7 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 - To skip validation in automation/offline mode, pass `--data validate_api_key=false`.
 - Copier scaffolds `profiles/<profile>/mappings` and `profiles/<profile>/templates` for all selected profiles.
 - Generated projects exclude template-maintenance tests (`tests/test_runtime_assets.py`, `tests/test_template_smoke.py`, `tests/test_youtube_runtime.py`).
+- Generated projects also remove Copier control artifacts (`copier.yml`, `.copier-answers.yml`) so the generated instance is detached from template update workflows by default.
 
 ## Static Template Standard
 

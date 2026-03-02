@@ -2,6 +2,7 @@ _min_copier_version: "9.0.0"
 _exclude:
   - ".git"
   - ".git/**"
+  - "copier.yml"
   - ".github/workflows/template-smoke.yml"
   - "tests/test_runtime_assets.py"
   - "tests/test_template_smoke.py"
@@ -204,6 +205,13 @@ _tasks:
           if old_package not in content:
               continue
           file_path.write_text(content.replace(old_package, new_package), encoding="utf-8")
+      PY
+  - |
+      python - <<'PY'
+      from pathlib import Path
+
+      # Detach generated projects from Copier updates by removing the answers file.
+      Path(".copier-answers.yml").unlink(missing_ok=True)
       PY
 
 api_key:

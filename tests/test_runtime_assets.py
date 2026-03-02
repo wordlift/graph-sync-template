@@ -100,7 +100,7 @@ def test_runtime_imports() -> None:
 
 def test_sdk_version_constraint() -> None:
     pyproject = Path("pyproject.toml").read_text(encoding="utf-8")
-    assert 'wordlift-sdk>=6.5.1,<7.0.0' in pyproject
+    assert 'wordlift-sdk>=6.6.2,<7.0.0' in pyproject
 
 
 def test_profile_based_workflow_contract() -> None:
@@ -156,6 +156,7 @@ def test_copier_contract_contains_required_questions() -> None:
     assert 'default_profile:\n  type: str\n  default: default' in copier
     assert 'validator: "{% if default_profile not in profiles %}default_profile must be one of the selected profiles{% endif %}"\n  when: "{{ false }}"' in copier
     assert '- ".git"' in copier
+    assert '- "copier.yml"' in copier
     assert '- ".github/workflows/template-smoke.yml"' in copier
     assert '- "tests/test_runtime_assets.py"' in copier
     assert '- "tests/test_template_smoke.py"' in copier
@@ -167,6 +168,7 @@ def test_copier_contract_contains_required_questions() -> None:
     assert "templates/20_organization.ttl.j2" in copier
     assert "templates/20_website.ttl.j2" in copier
     assert "templates/40_organization_postal_address.ttl.j2" in copier
+    assert 'Path(".copier-answers.yml").unlink(missing_ok=True)' in copier
 
 
 def test_copier_secret_questions_have_defaults() -> None:

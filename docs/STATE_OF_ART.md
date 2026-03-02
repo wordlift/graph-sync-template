@@ -5,7 +5,7 @@
 - Repository acts as a Copier template for `worai graph sync` projects.
 - Template config is defined in `copier.yml`.
 - Runtime config is generated from `worai.toml.jinja` with source-type-dependent fields.
-- Runtime template is aligned with SDK `6.5.1` canonical cloud workflow contract (`ingest_source`, `ingest_loader`, `ingest_timeout_ms`).
+- Runtime template is aligned with SDK `6.6.2` canonical cloud workflow contract (`ingest_source`, `ingest_loader`, `ingest_timeout_ms`).
 - Workflow is profile-based (`.github/workflows/graph-sync.yml`) and does not use country-specific inputs.
 - Graph sync workflow uses `wordlift/graph-sync@v6`.
 - API key can be validated against WordLift `/accounts/me` during generation.

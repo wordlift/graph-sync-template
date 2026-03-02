@@ -56,6 +56,9 @@ copier copy gh:wordlift/graph-build-template my-graph-project
   - `tests/test_runtime_assets.py`
   - `tests/test_template_smoke.py`
   - `tests/test_youtube_runtime.py`
+- Removes Copier control artifacts from generated projects so they do not track template updates by default:
+  - `copier.yml`
+  - `.copier-answers.yml`
 - Ensures each selected profile has:
   - `profiles/<profile>/mappings/`
   - `profiles/<profile>/templates/`

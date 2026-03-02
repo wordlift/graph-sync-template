@@ -48,6 +48,8 @@ test -d "$out/src/acme_graph_sync"
 test ! -d "$out/src/acme_kg"
 test ! -f "$out/.github/workflows/template-smoke.yml"
 test ! -d "$out/.git"
+test ! -f "$out/copier.yml"
+test ! -f "$out/.copier-answers.yml"
 
 search() {
   local pattern="$1"

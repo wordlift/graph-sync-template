@@ -15,3 +15,4 @@ This repository is a Copier template for `worai graph sync` projects.
 - API key validation and package rename behavior are documented in `docs/TEMPLATE_SETUP.md`.
 - Static-template conventions are documented in `specs/graph-sync/static-templates.md` and `specs/graph-sync/static-entity-ids.md`.
 - Generated projects exclude template-maintenance tests (`tests/test_runtime_assets.py`, `tests/test_template_smoke.py`, `tests/test_youtube_runtime.py`).
+- Generated projects remove Copier control artifacts (`copier.yml`, `.copier-answers.yml`) after rendering.

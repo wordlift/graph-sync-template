@@ -13,6 +13,7 @@
 - Repository scope is a Copier template for `worai graph sync` projects.
 - Template question contract is in `copier.yml`.
 - Copier post-generation tasks create `.env` from sensitive answers and scaffold per-profile runtime directories.
+- Copier post-generation tasks remove `.copier-answers.yml`, and generated output excludes `copier.yml`, to detach generated projects from Copier update tracking.
 - Copier can validate API keys via WordLift `/accounts/me` during generation.
 - Copier derives runtime package name from `dataset_uri` and renames local runtime package from `acme_kg` accordingly.
 - Copier sets generated `pyproject.toml` `[project].name` from the destination directory, normalized to a valid Python project name.
