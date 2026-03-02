@@ -118,7 +118,7 @@ _tasks:
           "https://api.wordlift.io/accounts/me",
           headers={
               "Authorization": f"Key {api_key}",
-              "Accept": "application/json",
+              "Accept": "application/vnd.wordlift.account-info.v2+json",
           },
           method="GET",
       )
@@ -128,10 +128,10 @@ _tasks:
               # Any 2xx response is considered valid.
               if 200 <= response.status < 300:
                   payload = json.loads(response.read().decode("utf-8"))
-                  dataset_uri = str(payload.get("dataset_uri", "")).strip()
+                  dataset_uri = str(payload.get("datasetUri", "")).strip()
                   if not dataset_uri:
                       print(
-                          "WordLift API key validation succeeded but dataset_uri is missing in response.",
+                          "WordLift API key validation succeeded but datasetUri is missing in response.",
                           file=sys.stderr,
                       )
                       raise SystemExit(1)
