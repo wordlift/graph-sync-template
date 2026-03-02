@@ -119,6 +119,7 @@ _tasks:
           headers={
               "Authorization": f"Key {api_key}",
               "Accept": "application/vnd.wordlift.account-info.v2+json",
+              "User-Agent": "wordlift-key-check/1.0",
           },
           method="GET",
       )
