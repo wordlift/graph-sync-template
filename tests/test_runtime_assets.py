@@ -100,7 +100,7 @@ def test_runtime_imports() -> None:
 
 def test_sdk_version_constraint() -> None:
     pyproject = Path("pyproject.toml").read_text(encoding="utf-8")
-    assert 'wordlift-sdk>=6.6.2,<7.0.0' in pyproject
+    assert 'wordlift-sdk>=6.9.0,<7.0.0' in pyproject
 
 
 def test_profile_based_workflow_contract() -> None:

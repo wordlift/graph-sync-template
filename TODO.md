@@ -34,6 +34,7 @@
 - [x] Migrate template to `wordlift-sdk>=6.0.0,<7.0.0` contract (`ingest_source`, `ingest_loader`, `ingest_timeout_ms`) and update graph-sync GitHub Action to `v6`.
 - [x] Raise template SDK minimum to `wordlift-sdk>=6.5.1,<7.0.0` and remove unsupported `cache-python` from `astral-sh/setup-uv@v6` workflow input.
 - [x] Raise template SDK minimum to `wordlift-sdk>=6.6.2,<7.0.0` and align documentation/tests to the current SDK baseline.
+- [x] Raise template SDK minimum to `wordlift-sdk>=6.9.0,<7.0.0` and align tests to the current SDK baseline.
 - [x] Set generated `pyproject.toml` project name from Copier destination directory name with Python-project-safe normalization.
 - [x] Increase runtime example test coverage to >=90% with direct unit tests for YouTube enrichment/postprocessor flows.
 - [x] Exclude `tests/test_youtube_runtime.py` from generated projects as template-maintenance coverage.
