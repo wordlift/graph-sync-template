@@ -109,7 +109,23 @@ def test_profile_based_workflow_contract() -> None:
     assert "profile:" in workflow
     assert "country:" not in workflow
     assert "wordlift/graph-sync@v6" in workflow
+    assert "python-version: '3.12'" in workflow
+    assert "enable-cache: true" in workflow
+    assert "cache-dependency-glob:" in workflow
+    assert "uv sync --locked --no-dev" in workflow
     assert "cache-python:" not in workflow
+
+
+def test_template_smoke_workflow_uses_uv() -> None:
+    workflow = Path(".github/workflows/template-smoke.yml").read_text(encoding="utf-8")
+    assert "astral-sh/setup-uv@v6" in workflow
+    assert "actions/setup-python" not in workflow
+    assert "python-version: '3.12'" in workflow
+    assert "enable-cache: true" in workflow
+    assert "cache-dependency-glob:" in workflow
+    assert "uv sync --all-extras --dev" in workflow
+    assert "uv run pytest -q" in workflow
+    assert "uv run scripts/smoke_render_template.sh" in workflow
 
 
 def test_copier_contract_contains_required_questions() -> None:

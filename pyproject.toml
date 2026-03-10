@@ -1,9 +1,9 @@
 [project]
 name = "graph-build-template"
-version = "6.2.3"
+version = "6.2.4"
 description = "Copier template for worai graph sync projects"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
     "html2text>=2020.1.17",
     "rdflib>=7.1.4",
