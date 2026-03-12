@@ -35,6 +35,7 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 ## Runtime Knobs (Template Defaults)
 
 - `overwrite`
+- `canonical_id_strategy` (default `"dependency_graph"`, hidden template default)
 - `concurrency` (default `4`, hidden prompt)
 - `ingest_loader` (default `"web_scrape_api"`, hidden prompt)
 - `ingest_timeout_ms` (default `120000`, hidden prompt)

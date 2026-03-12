@@ -50,6 +50,7 @@
 - [x] Document fallback authorization guardrail: do not use hard-coded fallbacks unless explicitly authorized by the user.
 - [x] Document YARRRML XPath guardrail: use relative XPath selectors in mappings, not absolute XPath paths.
 - [x] Set `graph_write_strategy = "put"` by default in `[profiles._base]` for generated `worai.toml`.
+- [x] Set `canonical_id_strategy = "dependency_graph"` by default in `[profiles._base]` for generated `worai.toml`.
 
 ## Next Steps
 

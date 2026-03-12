@@ -22,6 +22,7 @@ def test_runtime_assets_present() -> None:
     assert (root / "copier.yml").exists()
     assert (root / "worai.toml.jinja").exists()
     assert 'graph_write_strategy = "put"' in (root / "worai.toml.jinja").read_text(encoding="utf-8")
+    assert 'canonical_id_strategy = "dependency_graph"' in (root / "worai.toml.jinja").read_text(encoding="utf-8")
     assert not (root / "profiles" / "_base" / "postprocessors.toml").exists()
     assert (root / "profiles" / "_base" / "postprocessors.example.toml").exists()
     assert (root / "profiles" / "default" / "mappings" / "default.yarrrml.j2").exists()
