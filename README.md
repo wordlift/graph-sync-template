@@ -45,8 +45,8 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 
 ## SDK Compatibility
 
-- Template dependency range: `wordlift-sdk>=6.6.2,<7.0.0`.
-- Aligned to SDK `6.6.2` canonical cloud workflow contract:
+- Template dependency range: `wordlift-sdk>=6.15.1,<7.0.0`.
+- Aligned to SDK `6.15.1` canonical cloud workflow contract:
   - explicit `ingest_loader`
   - explicit `ingest_timeout_ms`
   - explicit `ingest_source` derived from selected source mode

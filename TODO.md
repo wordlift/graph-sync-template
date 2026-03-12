@@ -36,6 +36,7 @@
 - [x] Raise template SDK minimum to `wordlift-sdk>=6.5.1,<7.0.0` and remove unsupported `cache-python` from `astral-sh/setup-uv@v6` workflow input.
 - [x] Raise template SDK minimum to `wordlift-sdk>=6.6.2,<7.0.0` and align documentation/tests to the current SDK baseline.
 - [x] Raise template SDK minimum to `wordlift-sdk>=6.9.0,<7.0.0` and align tests to the current SDK baseline.
+- [x] Raise template SDK minimum to `wordlift-sdk>=6.15.1,<7.0.0` and align docs/tests to the current SDK baseline.
 - [x] Lower template Python baseline to `>=3.12` and align GitHub Actions workflows on cached `uv` setup.
 - [x] Set generated `pyproject.toml` project name from Copier destination directory name with Python-project-safe normalization.
 - [x] Increase runtime example test coverage to >=90% with direct unit tests for YouTube enrichment/postprocessor flows.
@@ -48,6 +49,7 @@
 - [x] Document sample-page hardcoding guardrail: mappings/postprocessors must not use constants that only hold for sample test pages.
 - [x] Document fallback authorization guardrail: do not use hard-coded fallbacks unless explicitly authorized by the user.
 - [x] Document YARRRML XPath guardrail: use relative XPath selectors in mappings, not absolute XPath paths.
+- [x] Set `graph_write_strategy = "put"` by default in `[profiles._base]` for generated `worai.toml`.
 
 ## Next Steps
 

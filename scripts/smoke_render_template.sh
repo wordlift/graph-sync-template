@@ -67,6 +67,7 @@ if search '\{\{|\{%' "$out/worai.toml"; then
 fi
 
 search 'sitemap_url = "https://example.com/sitemap.xml"' "$out/worai.toml"
+search 'graph_write_strategy = "put"' "$out/worai.toml"
 search 'api_key = "\$\{WORDLIFT_API_KEY\}"' "$out/worai.toml"
 search '^name = "my-graph-project-demo"$' "$out/pyproject.toml"
 test ! -f "$out/tests/test_runtime_assets.py"

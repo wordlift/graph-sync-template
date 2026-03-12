@@ -1,6 +1,6 @@
 # Graph Sync Troubleshooting
 
-## Ingestion Source/Loader Resolution Errors (SDK 6.6.2+)
+## Ingestion Source/Loader Resolution Errors (SDK 6.15.1+)
 - Symptom:
   - runtime fails fast during ingestion setup (`INGEST_SOURCE` / `INGEST_LOADER` related errors).
 - Check:

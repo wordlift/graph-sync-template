@@ -21,6 +21,7 @@ def test_runtime_assets_present() -> None:
     root = Path.cwd()
     assert (root / "copier.yml").exists()
     assert (root / "worai.toml.jinja").exists()
+    assert 'graph_write_strategy = "put"' in (root / "worai.toml.jinja").read_text(encoding="utf-8")
     assert not (root / "profiles" / "_base" / "postprocessors.toml").exists()
     assert (root / "profiles" / "_base" / "postprocessors.example.toml").exists()
     assert (root / "profiles" / "default" / "mappings" / "default.yarrrml.j2").exists()
@@ -100,7 +101,7 @@ def test_runtime_imports() -> None:
 
 def test_sdk_version_constraint() -> None:
     pyproject = Path("pyproject.toml").read_text(encoding="utf-8")
-    assert 'wordlift-sdk>=6.9.0,<7.0.0' in pyproject
+    assert 'wordlift-sdk>=6.15.1,<7.0.0' in pyproject
 
 
 def test_profile_based_workflow_contract() -> None:

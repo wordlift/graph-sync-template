@@ -1,5 +1,6 @@
 [profiles._base]
 overwrite = {{ overwrite | lower }}
+graph_write_strategy = "put"
 concurrency = {{ concurrency }}
 ingest_loader = {{ ingest_loader | tojson }}
 ingest_timeout_ms = {{ ingest_timeout_ms }}
