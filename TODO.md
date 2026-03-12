@@ -21,6 +21,7 @@
 - [x] Fix `.env` generation to use real newline separators.
 - [x] Add missing source-specific validators for `urls`, `sitemap_url`, `sheets_url`, and `sheets_name`.
 - [x] Add template smoke render validation script and CI workflow.
+- [x] Add `copier` as a dev dependency so template smoke CI can render the template in a clean environment.
 - [x] Remove unused `project_slug` prompt from Copier contract.
 - [x] Remove unused `customer_name` prompt from Copier contract.
 - [x] Tune Copier prompts/defaults and hide selected advanced options from interactive prompts.
