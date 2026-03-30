@@ -34,7 +34,7 @@ concurrency:
 
 jobs:
   graph-sync:
-    runs-on: ubuntu-latest
+    runs-on: arc-runner-set-graph-sync
     timeout-minutes: 300
 
     strategy:
@@ -63,3 +63,4 @@ jobs:
         env:
           WORDLIFT_API_KEY: ${{ secrets.WORDLIFT_API_KEY }}
           SHEETS_SERVICE_ACCOUNT: ${{ secrets.SHEETS_SERVICE_ACCOUNT }}
+          PIP_BREAK_SYSTEM_PACKAGES: '1'
