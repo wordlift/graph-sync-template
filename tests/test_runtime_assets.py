@@ -21,8 +21,23 @@ def test_runtime_assets_present() -> None:
     root = Path.cwd()
     assert (root / "copier.yml").exists()
     assert (root / "worai.toml.jinja").exists()
-    assert 'graph_write_strategy = "put"' in (root / "worai.toml.jinja").read_text(encoding="utf-8")
-    assert 'canonical_id_strategy = "dependency_graph"' in (root / "worai.toml.jinja").read_text(encoding="utf-8")
+    jinja = (root / "worai.toml.jinja").read_text(encoding="utf-8")
+    assert "log_level = {{ log_level | tojson }}" in jinja
+    assert "graph_write_strategy = {{ graph_write_strategy | tojson }}" in jinja
+    assert "canonical_id_strategy = {{ canonical_id_strategy | tojson }}" in jinja
+    assert "concurrency = {{ concurrency }}" in jinja
+    assert "postprocessor_pool_size = {{ postprocessor_pool_size }}" in jinja
+    assert "postprocessor_runtime = {{ postprocessor_runtime | tojson }}" in jinja
+    assert "shacl_pool_size = {{ shacl_pool_size }}" in jinja
+    assert "shacl_exclude_builtin_shapes = {{ shacl_exclude_builtin_shapes | tojson }}" in jinja
+    assert "mapping_pool_size = {{ mapping_pool_size }}" in jinja
+    assert "ingest_loader = {{ ingest_loader | tojson }}" in jinja
+    assert "playwright_wait_until = {{ playwright_wait_until | tojson }}" in jinja
+    assert "playwright_headless = {{ playwright_headless | lower }}" in jinja
+    assert "ingest_timeout_ms = {{ ingest_timeout_ms }}" in jinja
+    assert "ingest_retry_attempts = {{ ingest_retry_attempts }}" in jinja
+    assert "ingest_retry_backoff_ms = {{ ingest_retry_backoff_ms }}" in jinja
+    assert "google_search_console = {{ google_search_console | lower }}" in jinja
     assert not (root / "profiles" / "_base" / "postprocessors.toml").exists()
     assert (root / "profiles" / "_base" / "postprocessors.example.toml").exists()
     assert (root / "profiles" / "default" / "mappings" / "default.yarrrml.j2").exists()
@@ -166,8 +181,20 @@ def test_copier_contract_contains_required_questions() -> None:
     assert "help: Sitemap URL" in copier
     assert "concurrency:\n  type: int\n  default: 4" in copier
     assert 'concurrency:\n  type: int\n  default: 4\n  help: Parallel import workers\n  when: "{{ false }}"' in copier
-    assert 'ingest_loader:\n  type: str\n  default: web_scrape_api\n  help: Ingestion loader' in copier
-    assert "ingest_timeout_ms:\n  type: int\n  default: 120000" in copier
+    assert 'log_level:\n  type: str\n  default: warning' in copier
+    assert 'graph_write_strategy:\n  type: str\n  default: put' in copier
+    assert 'canonical_id_strategy:\n  type: str\n  default: dependency_graph' in copier
+    assert 'postprocessor_pool_size:\n  type: int\n  default: 2' in copier
+    assert 'postprocessor_runtime:\n  type: str\n  default: persistent' in copier
+    assert 'shacl_pool_size:\n  type: int\n  default: 1' in copier
+    assert '- google-course\n    - google-recipe' in copier
+    assert 'mapping_pool_size:\n  type: int\n  default: 1' in copier
+    assert 'playwright_wait_until:\n  type: str\n  default: domcontentloaded' in copier
+    assert 'playwright_headless:\n  type: bool\n  default: true' in copier
+    assert 'ingest_retry_attempts:\n  type: int\n  default: 2' in copier
+    assert 'ingest_retry_backoff_ms:\n  type: int\n  default: 3000' in copier
+    assert 'ingest_loader:\n  type: str\n  default: playwright\n  help: Ingestion loader' in copier
+    assert "ingest_timeout_ms:\n  type: int\n  default: 10000" in copier
     assert 'google_search_console:\n  type: bool\n  default: false\n  help: Enable Google Search Console enrichment\n  when: "{{ false }}"' in copier
     assert 'profiles:\n  type: yaml' in copier
     assert 'validator: "{% if not profiles or profiles|length == 0 %}profiles must include at least one profile{% endif %}"\n  when: "{{ false }}"' in copier
