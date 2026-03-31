@@ -1,113 +1,180 @@
-# Graph Build Template (Copier)
+# Graph Sync Template
 
-Copier template for bootstrapping a `worai graph sync` project.
+<p align="center">
+  <img src="assets/graph-sync-logo.png" alt="Graph Sync Template logo" width="220">
+</p>
 
-This repository provides:
-- template configuration (`copier.yml`)
-- runtime config template (`worai.toml.jinja`, rendered as `worai.toml`)
-- profile assets (`profiles/*`)
-- optional local postprocessor example (`src/acme_kg/postprocessors/youtube.py`)
-- GitHub Actions workflow template (`.github/workflows/graph-sync.yml`)
+<p align="center">
+  <a href="https://github.com/wordlift/graph-sync-template/actions/workflows/template-smoke.yml"><img src="https://github.com/wordlift/graph-sync-template/actions/workflows/template-smoke.yml/badge.svg" alt="Template Smoke"></a>
+  <img src="https://img.shields.io/badge/python-3.12-blue" alt="Python 3.12">
+  <img src="https://img.shields.io/badge/copier-9.x-ffb000" alt="Copier 9">
+  <img src="https://img.shields.io/badge/package%20manager-uv-5f5cff" alt="uv">
+  <img src="https://img.shields.io/badge/wordlift--sdk-6.15.1%2B-0a7b83" alt="wordlift-sdk 6.15.1+">
+</p>
 
-## Use This Template
+Copier template for bootstrapping `worai graph sync` projects with the current WordLift SDK v6 cloud-flow contract.
+
+## Why This Template
+
+Use this repository when you need a new graph sync project with the WordLift runtime contract, GitHub Actions workflow, profile scaffolding, and local examples already aligned.
+
+This template gives you:
+
+- a validated Copier question contract in [`copier.yml`](/Users/ziodave/Developer/wordlift/graph-sync-template/copier.yml)
+- a runtime config template in [`worai.toml.jinja`](/Users/ziodave/Developer/wordlift/graph-sync-template/worai.toml.jinja)
+- profile scaffolding under [`profiles/`](/Users/ziodave/Developer/wordlift/graph-sync-template/profiles)
+- a generated GitHub Actions workflow based on [`.github/workflows/graph-sync.yml`](/Users/ziodave/Developer/wordlift/graph-sync-template/.github/workflows/graph-sync.yml)
+- example local runtime code in [`src/acme_kg/postprocessors/youtube.py`](/Users/ziodave/Developer/wordlift/graph-sync-template/src/acme_kg/postprocessors/youtube.py) and [`src/acme_kg/enrichment/youtube.py`](/Users/ziodave/Developer/wordlift/graph-sync-template/src/acme_kg/enrichment/youtube.py)
+- smoke coverage and maintenance tests for the template itself
+
+## Quick Start
+
+Generate from the local checkout:
 
 ```bash
 copier copy . ../my-graph-project
 ```
 
-Or from a remote repository:
+Generate from GitHub:
 
 ```bash
-copier copy gh:wordlift/graph-build-template my-graph-project
+copier copy gh:wordlift/graph-sync-template my-graph-project
 ```
 
-## Required Copier Inputs
+For offline or automation-friendly generation, skip API-key validation explicitly:
+
+```bash
+copier copy --data validate_api_key=false gh:wordlift/graph-sync-template my-graph-project
+```
+
+## Template Contract
+
+### Required inputs
 
 - `api_key`
-- `source_type` (`urls`, `sitemap`, `google_sheets`)
+- `source_type` with one of: `urls`, `sitemap`, `google_sheets`
 
-## Source-Specific Inputs
+### Source-specific inputs
 
 - `urls`: `urls`
 - `sitemap`: `sitemap_url`, optional `sitemap_url_pattern`
 - `google_sheets`: `sheets_url`, `sheets_name`, `sheets_service_account`
 
-## Runtime Knobs (Template Defaults)
+### Runtime defaults baked into the template
 
-- `overwrite`
-- `canonical_id_strategy` (default `"dependency_graph"`, hidden template default)
-- `concurrency` (default `4`, hidden prompt)
-- `ingest_loader` (default `"web_scrape_api"`, hidden prompt)
-- `ingest_timeout_ms` (default `120000`, hidden prompt)
-- `google_search_console` (default `false`, hidden prompt)
-- `profiles` (default `["default"]`, hidden prompt)
-- `default_profile` (default `"default"`, hidden prompt; must be one of `profiles`)
-- `validate_api_key` (default `true`, hidden prompt; checks key via WordLift API during generation)
+- `overwrite = true`
+- `canonical_id_strategy = "dependency_graph"`
+- `concurrency = 4`
+- `ingest_loader = "web_scrape_api"`
+- `ingest_timeout_ms = 120000`
+- `google_search_console = false`
+- `profiles = ["default"]`
+- `default_profile = "default"`
+- `validate_api_key = true`
 
-## SDK Compatibility
+## What Generation Does
 
-- Template dependency range: `wordlift-sdk>=6.15.1,<7.0.0`.
-- Aligned to SDK `6.15.1` canonical cloud workflow contract:
-  - explicit `ingest_loader`
-  - explicit `ingest_timeout_ms`
-  - explicit `ingest_source` derived from selected source mode
-  - no legacy `web_page_import_mode` / `web_page_import_timeout` keys
+During `copier copy`, the template:
 
-## Generated Workflow
+- validates the WordLift API key against `/accounts/me` by default
+- derives the runtime package name from the returned `dataset_uri`
+- renames the local runtime package from `acme_kg` to `<dataset>_graph_sync`
+- writes secrets to a local `.env` instead of tracked config
+- sets generated `pyproject.toml` `[project].name` from the destination directory name
+- scaffolds `profiles/<profile>/mappings`, `templates`, and `postprocessors`
+- removes `.copier-answers.yml` and excludes `copier.yml` from generated output
+
+If validation is skipped or the API is unreachable, the fallback package name is `acme_graph_sync`.
+
+## Generated Project Shape
+
+Generated projects include:
+
+- `worai.toml`
 - `.github/workflows/graph-sync.yml`
-- Manual input uses `profile` (or `all`)
-- Matrix runs selected `profiles`
+- `.env`
+- `profiles/<profile>/mappings`
+- `profiles/<profile>/templates`
+- `profiles/<profile>/postprocessors`
 
-## Generation Notes
+Generated projects do not include template-maintenance assets such as:
 
-- Copier generates `.env` with:
-  - `WORDLIFT_API_KEY`
-  - `SHEETS_SERVICE_ACCOUNT`
-  - `YOUTUBE_API_KEY` (empty by default)
-- Copier validates `api_key` against `https://api.wordlift.io/accounts/me` by default.
-- Copier derives local runtime package name from `dataset_uri` returned by `/accounts/me`: path is normalized and `_graph_sync` is appended.
-- Example: `https://data.wordlift.io/wl123/customer-x` -> `wl123_customer_x_graph_sync`.
-- Copier sets `[project].name` in `pyproject.toml` from the destination directory name, normalized to a PEP 621-compatible project name.
-- If validation is skipped or API is unreachable, fallback package is `acme_graph_sync`.
-- To skip validation in automation/offline mode, pass `--data validate_api_key=false`.
-- Copier scaffolds `profiles/<profile>/mappings` and `profiles/<profile>/templates` for all selected profiles.
-- Generated projects exclude template-maintenance tests (`tests/test_runtime_assets.py`, `tests/test_template_smoke.py`, `tests/test_youtube_runtime.py`).
-- Generated projects also remove Copier control artifacts (`copier.yml`, `.copier-answers.yml`) so the generated instance is detached from template update workflows by default.
+- `copier.yml`
+- `.github/workflows/template-smoke.yml`
+- [`tests/test_runtime_assets.py`](/Users/ziodave/Developer/wordlift/graph-sync-template/tests/test_runtime_assets.py)
+- [`tests/test_template_smoke.py`](/Users/ziodave/Developer/wordlift/graph-sync-template/tests/test_template_smoke.py)
+- [`tests/test_youtube_runtime.py`](/Users/ziodave/Developer/wordlift/graph-sync-template/tests/test_youtube_runtime.py)
 
-## Static Template Standard
+## Runtime Compatibility
 
-- One static template file MUST define exactly one subject node.
-- Static templates MUST NOT emit blank nodes.
-- Every node MUST use explicit IRIs.
-- `schema:url` and `schema:sameAs` in static templates MUST be URL literals.
-- Static template filenames MUST use depth prefixes (`10_`, `20_`, `30_`, ...).
-- Exported root IRIs in `exports.toml(.j2)` MUST remain stable/unhashed.
+The template is aligned to the SDK v6 cloud-flow contract:
 
-Default scaffold example:
+- `wordlift-sdk>=6.15.1,<7.0.0`
+- explicit `ingest_source`
+- explicit `ingest_loader`
+- explicit `ingest_timeout_ms`
+- no legacy `web_page_import_mode` or `web_page_import_timeout` fallback keys
+
+## Static Template Rules
+
+Static entity templates in generated projects must follow these constraints:
+
+- one static template file defines exactly one subject node
+- no blank nodes
+- explicit IRIs only
+- `schema:url` and `schema:sameAs` must be URL literals
+- filenames use depth prefixes such as `10_`, `20_`, `30_`
+- exported root IRIs in `exports.toml(.j2)` remain stable and unhashed
+
+Default scaffold examples:
+
 - `profiles/default/templates/20_organization.ttl.j2`
 - `profiles/default/templates/20_website.ttl.j2`
 - `profiles/default/templates/40_organization_postal_address.ttl.j2`
 
-## Docs
+## Development
 
-- `docs/INDEX.md`
-- `docs/QUICKSTART.md`
-- `docs/TEMPLATE_SETUP.md`
-- `docs/STATE_OF_ART.md`
-- `docs/WORAI_TOML_EXAMPLES.md`
-- `specs/INDEX.md`
-- `specs/graph-sync/implementation-playbook.md`
-- `specs/graph-sync/agent-working-agreement.md`
+This repository uses:
 
-## Migration Notes (Existing Generated Projects)
+- Python `3.12`
+- `uv` for dependency management
+- `pytest` for verification
 
-- Split multi-node static files into one node per `.ttl(.j2/.liquid)` file.
-- Rename static template files to depth-prefixed names derived from subject IRI depth.
-- Replace `schema:url` / `schema:sameAs` IRI objects with string URL literals.
-- Remove blank nodes by exporting explicit dependent IRIs in `exports.toml(.j2)`.
-- Keep exported top-level root IRIs stable (no URL hash suffix).
+Install dependencies:
 
-## Verification
+```bash
+uv sync --dev
+```
 
-- `pytest -q`
-- `scripts/smoke_render_template.sh` (renders template and validates `worai.toml`/`.env` output)
+Run the template-maintenance test suite:
+
+```bash
+uv run pytest -q
+```
+
+Run the render smoke check:
+
+```bash
+uv run scripts/smoke_render_template.sh
+```
+
+## Repository Map
+
+- [`docs/INDEX.md`](/Users/ziodave/Developer/wordlift/graph-sync-template/docs/INDEX.md)
+- [`docs/QUICKSTART.md`](/Users/ziodave/Developer/wordlift/graph-sync-template/docs/QUICKSTART.md)
+- [`docs/TEMPLATE_SETUP.md`](/Users/ziodave/Developer/wordlift/graph-sync-template/docs/TEMPLATE_SETUP.md)
+- [`docs/WORAI_TOML_EXAMPLES.md`](/Users/ziodave/Developer/wordlift/graph-sync-template/docs/WORAI_TOML_EXAMPLES.md)
+- [`docs/STATE_OF_ART.md`](/Users/ziodave/Developer/wordlift/graph-sync-template/docs/STATE_OF_ART.md)
+- [`specs/INDEX.md`](/Users/ziodave/Developer/wordlift/graph-sync-template/specs/INDEX.md)
+- [`specs/graph-sync/overview.md`](/Users/ziodave/Developer/wordlift/graph-sync-template/specs/graph-sync/overview.md)
+- [`specs/graph-sync/agent-working-agreement.md`](/Users/ziodave/Developer/wordlift/graph-sync-template/specs/graph-sync/agent-working-agreement.md)
+
+## CI
+
+The template-maintenance workflow lives in [`.github/workflows/template-smoke.yml`](/Users/ziodave/Developer/wordlift/graph-sync-template/.github/workflows/template-smoke.yml). It:
+
+- installs dependencies with `uv`
+- runs `uv run pytest -q`
+- runs `uv run scripts/smoke_render_template.sh`
+
+Generated projects receive [`.github/workflows/graph-sync.yml`](/Users/ziodave/Developer/wordlift/graph-sync-template/.github/workflows/graph-sync.yml), which exposes profile-based manual dispatch and reusable workflow inputs.

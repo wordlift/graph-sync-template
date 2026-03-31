@@ -43,6 +43,11 @@
   - postprocessor load order and execution
   - CLI contract for `graph sync run` and `graph sync create`
 
+## Subagent Delegation
+- For parallel, bounded review tasks (mapping audits, TTL sampling, validation/log triage), prefer spawning subagents with `GPT-5.3-Codex-Spark`.
+- Keep final integration and semantic decisions in the main agent.
+- Do not delegate critical-path integration work that blocks the immediate next local action.
+
 ## Guardrails
 - Do not change runtime semantics without explicit approval.
 - Do not update only one layer of documentation when contract behavior changed.

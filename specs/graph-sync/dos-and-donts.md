@@ -1,0 +1,38 @@
+# Graph Sync DOs and DONTs
+
+Operational rules for this project.
+
+## DOs
+
+- Always assign an explicit IRI to entities.
+- Start with static entities for `WebSite`, `Organization`, and other vertical entities; then prefer YARRRML mappings; use postprocessors only after that.
+- Ground all implementation decisions in observed repository behavior and source evidence; do not invent assumptions.
+- In YARRRML files, use relative XPath selectors.
+- Be careful with `@` filtering in XPath selectors; treat it as unsupported unless proven otherwise.
+- For geographic entities, always try to provide `schema:sameAs` links to Wikidata, GeoNames, and DBpedia.
+- Always scout for question/answer pairs to create `FAQPage` markup connected to the main entity, unless `FAQPage` is the main entity itself.
+- Look for ratings and connect them to `Organization` or emit output markup where supported.
+- Always try to add authorship markup on creative works (`Article`, blog posts, and related content) with an E-E-A-T mindset.
+- Always write URL-valued schema properties as plain literals (not IRIs and not `xsd:anyURI`), including `schema:url`, `schema:contentUrl`, and similar URL fields.
+- When social sharing links are present, add `schema:potentialAction` using `ShareAction` and connect it to the page entity.
+- When linking content already modeled in other clusters, prefer lightweight link structures (for example collection items with URL literals) instead of re-creating full page entities.
+- When possible, add collection page markup with list items that link to related URLs.
+- For parallel, bounded QA/review delegations, prefer subagents on `GPT-5.3-Codex-Spark`.
+- Follow an OOP and KISS approach.
+
+## DONTs
+
+- Do not use blank nodes.
+- Do not create duplicate mappings.
+- Do not write schema URL properties as IRIs; use plain literals.
+- Do not type URL-valued schema properties as `xsd:anyURI`; keep them as plain literals.
+- Do not emit image URLs as IRIs (for example `schema:image` / `schema:contentUrl` when URL-valued); keep them as plain literals.
+- Do not ingest image or static asset URLs as source pages (for example `/wp-content/uploads/*`, `.webp`, `.png`, `.jpg`, `.pdf`) even if they appear in sitemaps.
+- Do not create duplicate `WebPage` entities in collection/related-link sections when those pages are already defined elsewhere; link them by URL literals in item nodes.
+- Do not relate entities to the web page canonical URL.
+- DO NOT hardcode the dataset URI; use provided placeholders or runtime context.
+- Do not use `WebPage` markup when a more specific entity type is available.
+- In YARRRML files, do not use absolute XPath selectors.
+- Do not use JSON-LD or any other structured data markup as a data source for extraction, because it may be removed in the future.
+- You may still use JSON-LD/structured data only to infer the best semantic type when creating configurations.
+- Do not delegate final semantic modeling or integration decisions to subagents; keep those in the main agent.
