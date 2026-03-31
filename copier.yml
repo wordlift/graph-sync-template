@@ -278,6 +278,80 @@ overwrite:
   default: true
   help: Overwrite existing entities
 
+log_level:
+  type: str
+  default: warning
+  help: Log level
+  when: "{{ false }}"
+
+graph_write_strategy:
+  type: str
+  default: put
+  help: Graph write strategy
+  when: "{{ false }}"
+
+canonical_id_strategy:
+  type: str
+  default: dependency_graph
+  help: Canonical ID strategy
+  when: "{{ false }}"
+
+postprocessor_pool_size:
+  type: int
+  default: 2
+  help: Postprocessor pool size
+  when: "{{ false }}"
+
+postprocessor_runtime:
+  type: str
+  default: persistent
+  help: Postprocessor runtime
+  when: "{{ false }}"
+
+shacl_pool_size:
+  type: int
+  default: 1
+  help: SHACL pool size
+  when: "{{ false }}"
+
+shacl_exclude_builtin_shapes:
+  type: yaml
+  default:
+    - google-course
+    - google-recipe
+  help: SHACL built-in shapes to exclude
+  when: "{{ false }}"
+
+mapping_pool_size:
+  type: int
+  default: 1
+  help: Mapping pool size
+  when: "{{ false }}"
+
+playwright_wait_until:
+  type: str
+  default: domcontentloaded
+  help: Playwright wait_until event
+  when: "{{ false }}"
+
+playwright_headless:
+  type: bool
+  default: true
+  help: Run Playwright in headless mode
+  when: "{{ false }}"
+
+ingest_retry_attempts:
+  type: int
+  default: 2
+  help: Ingest retry attempts
+  when: "{{ false }}"
+
+ingest_retry_backoff_ms:
+  type: int
+  default: 3000
+  help: Ingest retry backoff (milliseconds)
+  when: "{{ false }}"
+
 concurrency:
   type: int
   default: 4
@@ -286,7 +360,7 @@ concurrency:
 
 ingest_loader:
   type: str
-  default: web_scrape_api
+  default: playwright
   help: Ingestion loader
   choices:
     - web_scrape_api
@@ -299,7 +373,7 @@ ingest_loader:
 
 ingest_timeout_ms:
   type: int
-  default: 120000
+  default: 10000
   help: Per-page timeout (milliseconds)
   when: "{{ false }}"
 

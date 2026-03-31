@@ -1,10 +1,22 @@
 [profiles._base]
 overwrite = {{ overwrite | lower }}
-graph_write_strategy = "put"
-canonical_id_strategy = "dependency_graph"
+log_level = {{ log_level | tojson }}
+graph_write_strategy = {{ graph_write_strategy | tojson }}
+canonical_id_strategy = {{ canonical_id_strategy | tojson }}
 concurrency = {{ concurrency }}
+postprocessor_pool_size = {{ postprocessor_pool_size }}
+postprocessor_runtime = {{ postprocessor_runtime | tojson }}
+shacl_pool_size = {{ shacl_pool_size }}
+shacl_exclude_builtin_shapes = {{ shacl_exclude_builtin_shapes | tojson }}
+mapping_pool_size = {{ mapping_pool_size }}
 ingest_loader = {{ ingest_loader | tojson }}
+{% if ingest_loader == "playwright" %}
+playwright_wait_until = {{ playwright_wait_until | tojson }}
+playwright_headless = {{ playwright_headless | lower }}
+{% endif %}
 ingest_timeout_ms = {{ ingest_timeout_ms }}
+ingest_retry_attempts = {{ ingest_retry_attempts }}
+ingest_retry_backoff_ms = {{ ingest_retry_backoff_ms }}
 google_search_console = {{ google_search_console | lower }}
 {% if source_type == "urls" %}
 ingest_source = "urls"
