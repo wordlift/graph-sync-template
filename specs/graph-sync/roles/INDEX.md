@@ -4,10 +4,10 @@ Role guides for focused reviews and consultation.
 
 ## Available Roles
 
-- `specs/roles/seo-geo-expert.md`
-- `specs/roles/yarrrml-rml-expert.md`
-- `specs/roles/senior-engineer.md`
-- `specs/roles/github-advisor.md`
+- `specs/graph-sync/roles/seo-geo-expert.md`
+- `specs/graph-sync/roles/yarrrml-rml-expert.md`
+- `specs/graph-sync/roles/senior-engineer.md`
+- `specs/graph-sync/roles/github-advisor.md`
 
 ## Usage
 

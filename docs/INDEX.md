@@ -12,6 +12,8 @@ This repository is a Copier template for `worai graph sync` projects.
 - `specs/INDEX.md`: internal spec scope.
 - `specs/graph-sync/agent-working-agreement.md`: internal collaboration defaults learned from usage.
 - `scripts/smoke_render_template.sh`: template render smoke verification.
+- `scripts/deploy_release.sh`: release macro (`major|minor|patch`, default `patch`).
+- `scripts/upgrade_project.sh`: project upgrade macro (SDK + workflow + patch release).
 - API key validation and package rename behavior are documented in `docs/TEMPLATE_SETUP.md`.
 - Static-template conventions are documented in `specs/graph-sync/static-templates.md` and `specs/graph-sync/static-entity-ids.md`.
 - Generated projects exclude template-maintenance tests (`tests/test_runtime_assets.py`, `tests/test_template_smoke.py`, `tests/test_youtube_runtime.py`).

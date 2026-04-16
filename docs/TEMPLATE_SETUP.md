@@ -28,6 +28,7 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 ## Runtime Defaults (Not Prompted)
 
 - `overwrite=true`
+- `materialization_backend="worph"`
 - `concurrency=4`
 - `ingest_loader="web_scrape_api"`
 - `ingest_timeout_ms=120000`
@@ -35,6 +36,13 @@ copier copy gh:wordlift/graph-build-template my-graph-project
 - `profiles=["default"]`
 - `default_profile="default"` (must be one of `profiles`)
 - `validate_api_key=true` (validates key via `https://api.wordlift.io/accounts/me`)
+
+## Maintainer Macros
+
+- `deploy release [major|minor|patch]` (default: `patch`)
+  - `scripts/deploy_release.sh [major|minor|patch]`
+- `upgrade project`
+  - `scripts/upgrade_project.sh`
 
 ## What Copier Creates
 

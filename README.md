@@ -9,10 +9,10 @@
   <img src="https://img.shields.io/badge/python-3.12-blue" alt="Python 3.12">
   <img src="https://img.shields.io/badge/copier-9.x-ffb000" alt="Copier 9">
   <img src="https://img.shields.io/badge/package%20manager-uv-5f5cff" alt="uv">
-  <img src="https://img.shields.io/badge/wordlift--sdk-6.15.1%2B-0a7b83" alt="wordlift-sdk 6.15.1+">
+  <img src="https://img.shields.io/badge/wordlift--sdk-8.0.14%2B-0a7b83" alt="wordlift-sdk 8.0.14+">
 </p>
 
-Copier template for bootstrapping `worai graph sync` projects with the current WordLift SDK v6 cloud-flow contract.
+Copier template for bootstrapping `worai graph sync` projects with the current WordLift SDK v8 cloud-flow contract.
 
 ## Why This Template
 
@@ -63,6 +63,7 @@ copier copy --data validate_api_key=false gh:wordlift/graph-sync-template my-gra
 ### Runtime defaults baked into the template
 
 - `overwrite = true`
+- `materialization_backend = "worph"`
 - `canonical_id_strategy = "dependency_graph"`
 - `concurrency = 4`
 - `ingest_loader = "web_scrape_api"`
@@ -107,9 +108,9 @@ Generated projects do not include template-maintenance assets such as:
 
 ## Runtime Compatibility
 
-The template is aligned to the SDK v6 cloud-flow contract:
+The template is aligned to the SDK v8 cloud-flow contract:
 
-- `wordlift-sdk>=6.15.1,<7.0.0`
+- `wordlift-sdk>=8.0.14,<9.0.0`
 - explicit `ingest_source`
 - explicit `ingest_loader`
 - explicit `ingest_timeout_ms`
@@ -157,6 +158,16 @@ Run the render smoke check:
 ```bash
 uv run scripts/smoke_render_template.sh
 ```
+
+## Maintainer Macros
+
+- `deploy release [major|minor|patch]` (default: `patch`)
+  - `scripts/deploy_release.sh [major|minor|patch]`
+  - bumps version, refreshes dependencies and lockfile, requires docs/spec updates, then commits, tags, and pushes (including tags)
+
+- `upgrade project`
+  - `scripts/upgrade_project.sh`
+  - updates `wordlift-sdk` to latest, updates `.github/workflows/graph-sync.yml` to latest `wordlift/graph-sync` tag, then runs `deploy release patch`
 
 ## Repository Map
 

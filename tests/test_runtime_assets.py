@@ -24,6 +24,7 @@ def test_runtime_assets_present() -> None:
     jinja = (root / "worai.toml.jinja").read_text(encoding="utf-8")
     assert "log_level = {{ log_level | tojson }}" in jinja
     assert "graph_write_strategy = {{ graph_write_strategy | tojson }}" in jinja
+    assert 'materialization_backend = "worph"' in jinja
     assert "canonical_id_strategy = {{ canonical_id_strategy | tojson }}" in jinja
     assert "concurrency = {{ concurrency }}" in jinja
     assert "postprocessor_pool_size = {{ postprocessor_pool_size }}" in jinja
@@ -45,6 +46,8 @@ def test_runtime_assets_present() -> None:
     assert (root / "profiles" / "default" / "templates" / "20_website.ttl.j2").exists()
     assert (root / "profiles" / "default" / "templates" / "40_organization_postal_address.ttl.j2").exists()
     assert (root / ".github" / "workflows" / "graph-sync.yml").exists()
+    assert (root / "scripts" / "deploy_release.sh").exists()
+    assert (root / "scripts" / "upgrade_project.sh").exists()
     assert not (root / ".github" / "workflows" / "update-kg.yml").exists()
     assert (root / "src" / "acme_kg" / "postprocessors" / "youtube.py").exists()
     assert not (root / "src" / "acme_kg" / "postprocessors" / "pricing.py").exists()
@@ -117,7 +120,7 @@ def test_runtime_imports() -> None:
 
 def test_sdk_version_constraint() -> None:
     pyproject = Path("pyproject.toml").read_text(encoding="utf-8")
-    assert 'wordlift-sdk>=6.15.1,<7.0.0' in pyproject
+    assert 'wordlift-sdk>=8.0.14,<9.0.0' in pyproject
 
 
 def test_profile_based_workflow_contract() -> None:

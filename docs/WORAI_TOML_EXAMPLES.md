@@ -8,6 +8,7 @@ Practical, minimal, complete examples using fake data.
 [profiles._base]
 overwrite = true
 graph_write_strategy = "put"
+materialization_backend = "worph"
 concurrency = 8
 ingest_loader = "web_scrape_api"
 ingest_timeout_ms = 120000
@@ -27,6 +28,7 @@ api_key = "${WORDLIFT_API_KEY}"
 [profiles._base]
 overwrite = true
 graph_write_strategy = "put"
+materialization_backend = "worph"
 concurrency = 8
 ingest_loader = "web_scrape_api"
 ingest_timeout_ms = 120000
@@ -44,6 +46,7 @@ api_key = "${WORDLIFT_API_KEY}"
 [profiles._base]
 overwrite = true
 graph_write_strategy = "put"
+materialization_backend = "worph"
 concurrency = 8
 ingest_loader = "web_scrape_api"
 ingest_timeout_ms = 120000
@@ -62,6 +65,7 @@ api_key = "${WORDLIFT_API_KEY}"
 [profiles._base]
 overwrite = true
 graph_write_strategy = "put"
+materialization_backend = "worph"
 concurrency = 4
 ingest_loader = "web_scrape_api"
 ingest_timeout_ms = 120000
@@ -81,6 +85,7 @@ api_key = "${WORDLIFT_API_KEY}"
 [profiles._base]
 overwrite = false
 graph_write_strategy = "put"
+materialization_backend = "worph"
 concurrency = 2
 ingest_loader = "playwright"
 ingest_timeout_ms = 45000

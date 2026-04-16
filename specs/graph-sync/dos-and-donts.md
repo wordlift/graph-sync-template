@@ -2,13 +2,21 @@
 
 Operational rules for this project.
 
+## Policy Authority
+
+- This file is the canonical policy source for graph-sync implementation and review guardrails.
+- Other docs in `specs/graph-sync/` should reference this file for policy instead of duplicating policy text.
+
 ## DOs
 
 - Always assign an explicit IRI to entities.
 - Start with static entities for `WebSite`, `Organization`, and other vertical entities; then prefer YARRRML mappings; use postprocessors only after that.
 - Ground all implementation decisions in observed repository behavior and source evidence; do not invent assumptions.
+- Use `http://schema.org` as the default vocabulary base URI (use `https://schema.org` only if explicitly required).
 - In YARRRML files, use relative XPath selectors.
-- Be careful with `@` filtering in XPath selectors; treat it as unsupported unless proven otherwise.
+- Unless the user specifies a loader, use this loader priority: `simple`, `playwright`, `proxy`, `web_scrape_api`, `premium_scraper`.
+- Before attempting the `playwright` loader, confirm Playwright MCP integration is installed and available.
+- Inspect XHR/network traffic before finalizing extraction; if a structured upstream source exists, prefer it over HTML parsing.
 - For geographic entities, always try to provide `schema:sameAs` links to Wikidata, GeoNames, and DBpedia.
 - Always scout for question/answer pairs to create `FAQPage` markup connected to the main entity, unless `FAQPage` is the main entity itself.
 - Look for ratings and connect them to `Organization` or emit output markup where supported.
@@ -35,4 +43,7 @@ Operational rules for this project.
 - In YARRRML files, do not use absolute XPath selectors.
 - Do not use JSON-LD or any other structured data markup as a data source for extraction, because it may be removed in the future.
 - You may still use JSON-LD/structured data only to infer the best semantic type when creating configurations.
+- Do not hardcode constants from sample pages used during development; extraction/mapping rules must generalize across source pages.
+- Do not add hard-coded fallbacks (including static fallback templates/paths) unless explicitly authorized by the user.
 - Do not delegate final semantic modeling or integration decisions to subagents; keep those in the main agent.
+- Do not mark work complete without running tests.

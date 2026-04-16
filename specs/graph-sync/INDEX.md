@@ -4,18 +4,18 @@ This folder contains modular agent context for vanilla `worai graph sync` projec
 
 ## Read Order
 1. `specs/graph-sync/developer-agent-workflow.md`
-2. `specs/graph-sync/agent-working-agreement.md`
-3. `specs/graph-sync/dos-and-donts.md`
+2. `specs/graph-sync/dos-and-donts.md`
+3. `specs/graph-sync/agent-working-agreement.md`
 4. `specs/graph-sync/overview.md`
 5. Open only the focused docs needed for the current task.
 
 ## Task-to-File Map
 - Agent execution protocol (required):
   - `specs/graph-sync/developer-agent-workflow.md`
-- Practical collaboration defaults (DOs/DONTs/code-of-conduct style rules):
-  - `specs/graph-sync/agent-working-agreement.md`
 - Project-specific implementation constraints:
   - `specs/graph-sync/dos-and-donts.md`
+- Practical collaboration defaults (non-policy notes):
+  - `specs/graph-sync/agent-working-agreement.md`
 - Mapping behavior and `worai.toml` mapping config:
   - `specs/graph-sync/mappings.md`
 - Static templates and exports behavior:
@@ -28,6 +28,8 @@ This folder contains modular agent context for vanilla `worai graph sync` projec
   - `specs/graph-sync/troubleshooting.md`
 - CI smoke checks:
   - `specs/graph-sync/ci-checklist.md`
+- Cross-repository graph-sync rules inventory:
+  - `specs/graph-sync/gh-graph-sync-org-dos-donts.md`
 
 ## Scope
 - This index is for agent context in template projects.

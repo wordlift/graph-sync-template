@@ -2,6 +2,7 @@
 overwrite = {{ overwrite | lower }}
 log_level = {{ log_level | tojson }}
 graph_write_strategy = {{ graph_write_strategy | tojson }}
+materialization_backend = "worph"
 canonical_id_strategy = {{ canonical_id_strategy | tojson }}
 concurrency = {{ concurrency }}
 postprocessor_pool_size = {{ postprocessor_pool_size }}

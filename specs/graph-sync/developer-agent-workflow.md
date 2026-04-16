@@ -29,7 +29,7 @@
 3. Edit code and tests together; do not leave behavior changes untested.
 4. Update all impacted docs/specs in the same change:
    - template-level context files under `specs/graph-sync/`
-   - repo-level contract docs (`specs/graph_sync.md`, `README.md`) when user-visible or contract behavior changed
+   - repo-level contract docs (`README.md`, `docs/`) when user-visible or contract behavior changed
 5. Update task tracking in `TODO.md`.
 
 ## Verification Protocol
@@ -60,3 +60,11 @@
 - `uv run pytest` executed.
 - `specs/`, `README.md`, and `TODO.md` synced as needed.
 - Summary includes what changed, why, and any residual risks.
+
+## Maintainer Macros
+- `deploy release [major|minor|patch]` (default: `patch`)
+  - Run `scripts/deploy_release.sh [major|minor|patch]`.
+  - Includes version bump, dependency refresh/lock, docs+spec sync checkpoint, commit, tag, and push with tags.
+- `upgrade project`
+  - Run `scripts/upgrade_project.sh`.
+  - Updates latest `wordlift-sdk`, updates `.github/workflows/graph-sync.yml` to latest `wordlift/graph-sync` tag, then executes patch deploy release.

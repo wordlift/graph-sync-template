@@ -8,7 +8,7 @@
 - Primary workflow: `worai graph sync --profile <name>`.
 - Profile config section: `[profiles.<name>]` in `worai.toml`.
 - Selected profile must define `api_key`.
-- SDK v6 cloud-flow contract requires explicit ingestion config in profile/base settings:
+- SDK v8 cloud-flow contract requires explicit ingestion config in profile/base settings:
   - `ingest_source` (`urls|sitemap|sheets`)
   - `ingest_loader`
   - optional `ingest_timeout_ms`
