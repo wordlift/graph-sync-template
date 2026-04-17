@@ -320,7 +320,7 @@ wheels = [
 
 [[package]]
 name = "graph-build-template"
-version = "6.3.6"
+version = "6.3.7"
 source = { editable = "." }
 dependencies = [
     { name = "html2text" },
@@ -342,7 +342,7 @@ requires-dist = [
     { name = "html2text", specifier = ">=2020.1.17" },
     { name = "lxml", specifier = ">=5.4.0" },
     { name = "rdflib", specifier = ">=7.1.4" },
-    { name = "wordlift-sdk", specifier = ">=8.0.14,<9.0.0" },
+    { name = "wordlift-sdk", specifier = ">=8.0.16,<9.0.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -1172,7 +1172,7 @@ wheels = [
 
 [[package]]
 name = "wordlift-sdk"
-version = "8.0.14"
+version = "8.0.16"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiohttp" },
@@ -1180,9 +1180,9 @@ dependencies = [
     { name = "tenacity" },
     { name = "wordlift-client" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/10/27/83e8f56f8a1183cd09057b72873ad85aaa07550801dc4025f187415e391f/wordlift_sdk-8.0.14.tar.gz", hash = "sha256:2cc6da5ffd67fccf59b9e2461ecf773cc222a02c0a14bc67d1b3480e1b9a945e", size = 394607, upload-time = "2026-04-11T15:47:40.95Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/88/71/05044153a980eb09679103883371c4e4e2b59309e40f8d3deb74260d4d6a/wordlift_sdk-8.0.16.tar.gz", hash = "sha256:6b738bb611d06649c555d3f8731bc337b84efd6b5c7493fff0b042d06805fa72", size = 404964, upload-time = "2026-04-17T13:47:48.343Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/43/cb/a4e9b2c57576bfc749b5c38233b4549ee83bc2bb91c0a694407d19916558/wordlift_sdk-8.0.14-py3-none-any.whl", hash = "sha256:39b47dcd97f63b3b73f70294ef81f163510be334632ad0494fdbaac94e75a640", size = 447385, upload-time = "2026-04-11T15:47:39.461Z" },
+    { url = "https://files.pythonhosted.org/packages/1f/4e/9550177b0846f815df638a96e70e44e7eb2e98ba21a213049128acedbfe0/wordlift_sdk-8.0.16-py3-none-any.whl", hash = "sha256:53544d471c9c67b0482fb095df09fe20faaba3b572c9495b8d8922989908b27a", size = 457943, upload-time = "2026-04-17T13:47:46.223Z" },
 ]
 
 [[package]]

@@ -1,6 +1,6 @@
 [project]
 name = "graph-build-template"
-version = "6.3.6"
+version = "6.3.7"
 description = "Copier template for worai graph sync projects"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -8,7 +8,7 @@ dependencies = [
     "html2text>=2020.1.17",
     "lxml>=5.4.0",
     "rdflib>=7.1.4",
-    "wordlift-sdk>=8.0.14,<9.0.0",
+    "wordlift-sdk>=8.0.16,<9.0.0",
 ]
 
 [dependency-groups]

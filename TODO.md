@@ -60,6 +60,7 @@
 - [x] Remove outdated `@` XPath-limitation guardrail from DOs and DONTs policy docs now that Worph supports it.
 - [x] Fix template smoke CI import failure by adding missing `lxml` runtime dependency for the YouTube postprocessor example.
 - [x] Move maintainer macros from root `AGENTS.md` to `specs/graph-sync/AGENTS.md` and update `upgrade project` wording to worai workflow-version update.
+- [x] Update template SDK baseline to `wordlift-sdk>=8.0.16,<9.0.0`; keep generated workflow on `wordlift/graph-sync@v6` and set `worai_version` explicitly to `6.17.17`.
 
 ## Next Steps
 

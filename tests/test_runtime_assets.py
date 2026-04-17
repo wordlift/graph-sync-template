@@ -120,7 +120,7 @@ def test_runtime_imports() -> None:
 
 def test_sdk_version_constraint() -> None:
     pyproject = Path("pyproject.toml").read_text(encoding="utf-8")
-    assert 'wordlift-sdk>=8.0.14,<9.0.0' in pyproject
+    assert 'wordlift-sdk>=8.0.16,<9.0.0' in pyproject
 
 
 def test_profile_based_workflow_contract() -> None:
@@ -129,6 +129,7 @@ def test_profile_based_workflow_contract() -> None:
     assert "profile:" in workflow
     assert "country:" not in workflow
     assert "wordlift/graph-sync@v6" in workflow
+    assert 'worai_version: "6.17.17"' in workflow
     assert "python-version: '3.12'" in workflow
     assert "enable-cache: true" in workflow
     assert "cache-dependency-glob:" in workflow
