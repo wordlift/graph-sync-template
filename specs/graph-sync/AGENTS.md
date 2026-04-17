@@ -44,3 +44,19 @@ Use this file as the root `AGENTS.md` in vanilla graph-sync template projects.
 - Prefer `GPT-5.3-Codex-Spark` subagents for parallel, bounded QA/review tasks (mapping checks, TTL spot checks, log triage); keep final semantic modeling decisions in the main agent.
 - Keep docs/examples/changelog in sync when behavior contracts change.
 - Prefer minimal-context loading by reading only relevant files from the index.
+
+## Maintainer Macros
+- `deploy release [major|minor|patch]` (default: `patch`)
+  - Script: `scripts/deploy_release.sh [major|minor|patch]`
+  - Steps:
+    - bump release version
+    - refresh dependencies and lockfile (`uv sync --dev`, `uv lock`)
+    - update `AGENTS.md`, `README.md`, `specs/`, and `docs/`
+    - commit all changes, create tag, push branch and tags
+
+- `upgrade project`
+  - Script: `scripts/upgrade_project.sh`
+  - Steps:
+    - update to latest `wordlift-sdk` in `pyproject.toml` and lockfile
+    - update `worai` to the latest version in GH workflow
+    - run `deploy release patch` macro

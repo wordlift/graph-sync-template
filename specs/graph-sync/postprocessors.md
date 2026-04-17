@@ -44,6 +44,9 @@
 - `context.settings` is removed; read config from `context.profile`.
 - `context.account.key` is not injected; use `context.account_key`.
 
+## Template Example Dependency Note
+- The bundled YouTube example postprocessor (`src/acme_kg/postprocessors/youtube.py`) uses `lxml` for HTML iframe parsing.
+
 ## Manifest Example
 ```toml
 # profiles/_base/postprocessors.toml

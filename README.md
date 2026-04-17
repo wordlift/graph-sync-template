@@ -111,6 +111,7 @@ Generated projects do not include template-maintenance assets such as:
 The template is aligned to the SDK v8 cloud-flow contract:
 
 - `wordlift-sdk>=8.0.14,<9.0.0`
+- `lxml>=5.4.0` (required by the bundled YouTube postprocessor example)
 - explicit `ingest_source`
 - explicit `ingest_loader`
 - explicit `ingest_timeout_ms`

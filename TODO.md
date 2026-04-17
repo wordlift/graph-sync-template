@@ -58,6 +58,8 @@
 - [x] Set `materialization_backend = "worph"` in the generated `[profiles._base]` runtime template and smoke/test contracts.
 - [x] Add maintainer macros for `deploy release` and `upgrade project` under `scripts/` and document them in AGENTS/README/docs/specs.
 - [x] Remove outdated `@` XPath-limitation guardrail from DOs and DONTs policy docs now that Worph supports it.
+- [x] Fix template smoke CI import failure by adding missing `lxml` runtime dependency for the YouTube postprocessor example.
+- [x] Move maintainer macros from root `AGENTS.md` to `specs/graph-sync/AGENTS.md` and update `upgrade project` wording to worai workflow-version update.
 
 ## Next Steps
 
