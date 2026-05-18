@@ -1,13 +1,13 @@
-# State of the Art (March 12, 2026)
+# State of the Art (May 18, 2026)
 
 ## Current Capability
 
 - Repository acts as a Copier template for `worai graph sync` projects.
 - Template config is defined in `copier.yml`.
 - Runtime config is generated from `worai.toml.jinja` with source-type-dependent fields.
-- Runtime template is aligned with SDK `8.0.14` canonical cloud workflow contract (`ingest_source`, `ingest_loader`, `ingest_timeout_ms`).
+- Runtime template is aligned with SDK `8.0.17` canonical cloud workflow contract (`ingest_source`, `ingest_loader`, `ingest_timeout_ms`).
 - Workflow is profile-based (`.github/workflows/graph-sync.yml`) and does not use country-specific inputs.
-- Graph sync workflow uses `wordlift/graph-sync@v6`.
+- Graph sync workflow uses `wordlift/graph-sync@v6` with `worai_version` pinned to `6.17.19`.
 - API key can be validated against WordLift `/accounts/me` during generation.
 - Local runtime Python package is derived from `dataset_uri` path and normalized with `_graph_sync` suffix.
 - Generated `pyproject.toml` `[project].name` is derived from the Copier destination directory name and normalized to a valid project name.

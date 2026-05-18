@@ -120,7 +120,7 @@ def test_runtime_imports() -> None:
 
 def test_sdk_version_constraint() -> None:
     pyproject = Path("pyproject.toml").read_text(encoding="utf-8")
-    assert 'wordlift-sdk>=8.0.16,<9.0.0' in pyproject
+    assert 'wordlift-sdk>=8.0.17,<9.0.0' in pyproject
 
 
 def test_profile_based_workflow_contract() -> None:
@@ -129,7 +129,7 @@ def test_profile_based_workflow_contract() -> None:
     assert "profile:" in workflow
     assert "country:" not in workflow
     assert "wordlift/graph-sync@v6" in workflow
-    assert 'worai_version: "6.17.17"' in workflow
+    assert 'worai_version: "6.17.19"' in workflow
     assert "python-version: '3.12'" in workflow
     assert "enable-cache: true" in workflow
     assert "cache-dependency-glob:" in workflow
@@ -147,6 +147,15 @@ def test_template_smoke_workflow_uses_uv() -> None:
     assert "uv sync --all-extras --dev" in workflow
     assert "uv run pytest -q" in workflow
     assert "uv run scripts/smoke_render_template.sh" in workflow
+
+
+def test_upgrade_project_updates_sdk_and_worai_binary_version() -> None:
+    script = Path("scripts/upgrade_project.sh").read_text(encoding="utf-8")
+    assert "https://pypi.org/pypi/wordlift-sdk/json" in script
+    assert "uv lock --upgrade-package wordlift-sdk" in script
+    assert "https://pypi.org/pypi/worai/json" in script
+    assert 'worai_version: "[^"]+"' in script
+    assert "wordlift/graph-sync@" not in script
 
 
 def test_copier_contract_contains_required_questions() -> None:

@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/python-3.12-blue" alt="Python 3.12">
   <img src="https://img.shields.io/badge/copier-9.x-ffb000" alt="Copier 9">
   <img src="https://img.shields.io/badge/package%20manager-uv-5f5cff" alt="uv">
-  <img src="https://img.shields.io/badge/wordlift--sdk-8.0.16%2B-0a7b83" alt="wordlift-sdk 8.0.16+">
+  <img src="https://img.shields.io/badge/wordlift--sdk-8.0.17%2B-0a7b83" alt="wordlift-sdk 8.0.17+">
 </p>
 
 Copier template for bootstrapping `worai graph sync` projects with the current WordLift SDK v8 cloud-flow contract.
@@ -110,7 +110,7 @@ Generated projects do not include template-maintenance assets such as:
 
 The template is aligned to the SDK v8 cloud-flow contract:
 
-- `wordlift-sdk>=8.0.16,<9.0.0`
+- `wordlift-sdk>=8.0.17,<9.0.0`
 - `lxml>=5.4.0` (required by the bundled YouTube postprocessor example)
 - explicit `ingest_source`
 - explicit `ingest_loader`
@@ -168,7 +168,7 @@ uv run scripts/smoke_render_template.sh
 
 - `upgrade project`
   - `scripts/upgrade_project.sh`
-  - updates `wordlift-sdk` to latest, updates `.github/workflows/graph-sync.yml` to latest `wordlift/graph-sync` tag, then runs `deploy release patch`
+  - updates `wordlift-sdk` to latest, updates `.github/workflows/graph-sync.yml` to latest `worai_version`, then runs `deploy release patch`
 
 ## Repository Map
 

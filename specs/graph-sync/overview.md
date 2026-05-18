@@ -12,6 +12,8 @@
   - `ingest_source` (`urls|sitemap|sheets`)
   - `ingest_loader`
   - optional `ingest_timeout_ms`
+- Current template baseline is `wordlift-sdk>=8.0.17,<9.0.0`.
+- Generated GitHub Actions workflow keeps `wordlift/graph-sync@v6` and pins the `worai` binary through `worai_version`.
 
 ## Callback Processing Order (Per URL)
 1. Validate callback payload (`errors`, HTML availability, root ID).

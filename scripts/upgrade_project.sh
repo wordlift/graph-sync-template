@@ -37,26 +37,31 @@ PY
 echo "Updated SDK baseline to wordlift-sdk>=${latest_sdk}"
 uv lock --upgrade-package wordlift-sdk
 
-latest_graph_sync_tag="$(git ls-remote --tags --refs https://github.com/wordlift/graph-sync.git 'v*' | awk '{print $2}' | sed 's#refs/tags/##' | sort -V | tail -n 1)"
-if [ -z "$latest_graph_sync_tag" ]; then
-  echo "Failed to resolve latest wordlift/graph-sync tag"
-  exit 1
-fi
+latest_worai="$(python - <<'PY'
+from urllib.request import urlopen
+import json
 
-python - <<'PY' "$latest_graph_sync_tag"
+with urlopen("https://pypi.org/pypi/worai/json", timeout=10) as response:
+    payload = json.load(response)
+
+print(payload["info"]["version"])
+PY
+)"
+
+python - <<'PY' "$latest_worai"
 from pathlib import Path
 import re
 import sys
 
-tag = sys.argv[1]
+version = sys.argv[1]
 path = Path(".github/workflows/graph-sync.yml")
 text = path.read_text(encoding="utf-8")
-updated, count = re.subn(r"wordlift/graph-sync@v[0-9][^\s]*", f"wordlift/graph-sync@{tag}", text, count=1)
+updated, count = re.subn(r'worai_version: "[^"]+"', f'worai_version: "{version}"', text, count=1)
 if count != 1:
-    raise SystemExit("Failed to update wordlift/graph-sync action version in workflow")
+    raise SystemExit("Failed to update worai_version in workflow")
 path.write_text(updated, encoding="utf-8")
 PY
 
-echo "Updated workflow action to wordlift/graph-sync@${latest_graph_sync_tag}"
+echo "Updated workflow worai_version to ${latest_worai}"
 
 "$repo_root/scripts/deploy_release.sh" patch

@@ -67,4 +67,4 @@
   - Includes version bump, dependency refresh/lock, docs+spec sync checkpoint, commit, tag, and push with tags.
 - `upgrade project`
   - Run `scripts/upgrade_project.sh`.
-  - Updates latest `wordlift-sdk`, updates `.github/workflows/graph-sync.yml` to latest `wordlift/graph-sync` tag, then executes patch deploy release.
+  - Updates latest `wordlift-sdk`, updates `.github/workflows/graph-sync.yml` to latest `worai_version`, then executes patch deploy release.

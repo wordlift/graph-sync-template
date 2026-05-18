@@ -6,7 +6,7 @@ Technical specifications for implementation and maintenance.
 
 - Template contract is defined by `copier.yml`.
 - Template generation tasks include API key validation, runtime package rename, destination-derived `pyproject.toml` project naming, and Copier metadata cleanup in generated projects.
-- Workflow contract template is defined in `.github/workflows/graph-sync.yml`.
+- Workflow contract template is defined in `.github/workflows/graph-sync.yml` and keeps `wordlift/graph-sync@v6` separate from the pinned `worai_version`.
 - Runtime import contract template is defined in `worai.toml.jinja` (rendered output: `worai.toml`, with `materialization_backend = "worph"` in `[profiles._base]`).
 - Graph sync runtime behavior docs are under `specs/graph-sync/`:
   - `specs/graph-sync/INDEX.md`
