@@ -360,7 +360,7 @@ concurrency:
 
 ingest_loader:
   type: str
-  default: playwright
+  default: crawler
   help: Ingestion loader
   choices:
     - web_scrape_api
@@ -369,12 +369,35 @@ ingest_loader:
     - playwright
     - premium_scraper
     - passthrough
+    - crawler
   when: "{{ false }}"
 
 ingest_timeout_ms:
   type: int
-  default: 10000
-  help: Per-page timeout (milliseconds)
+  default: 600000
+  help: Per-page timeout override (ms); crawler default 600000 (10 min), other loaders default 30000 (30 s)
+  when: "{{ false }}"
+
+crawler_js_render_mode:
+  type: str
+  default: disabled
+  help: Crawler JS render mode (disabled | auto | enabled)
+  choices:
+    - disabled
+    - auto
+    - enabled
+  when: "{{ false }}"
+
+crawler_proxy_mode:
+  type: str
+  default: disabled
+  help: Crawler proxy mode (disabled | simple | standard | premium | auto)
+  choices:
+    - disabled
+    - simple
+    - standard
+    - premium
+    - auto
   when: "{{ false }}"
 
 google_search_console:
