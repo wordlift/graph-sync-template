@@ -19,7 +19,9 @@
 - Copier sets generated `pyproject.toml` `[project].name` from the destination directory, normalized to a valid Python project name.
 - Workflow contract is profile-based (no country input), in `.github/workflows/graph-sync.yml`.
 - Runtime config template is `worai.toml.jinja` (rendered output: `worai.toml`).
-- Runtime template follows SDK v8 cloud-flow contract (`ingest_source`, `ingest_loader`, `ingest_timeout_ms`; no `web_page_import_*` fallback keys).
+- Runtime template follows SDK v8.2.1 cloud-flow contract (`ingest_source`, `ingest_loader`, `ingest_timeout_ms`; no `web_page_import_*` fallback keys).
+- Default loader is `crawler`; `ingest_timeout_ms` is emitted as a comment in `worai.toml` (opt-in override); default is 600000 ms (10 min) for `crawler`, 30000 ms (30 s) for all other loaders.
+- `crawler` loader supports `crawler_js_render_mode` (disabled | auto | enabled) and `crawler_proxy_mode` (disabled | simple | standard | premium | auto).
 - Runtime template sets `materialization_backend = "worph"` in `[profiles._base]`.
 - Template render smoke verification is in `scripts/smoke_render_template.sh` and CI workflow `.github/workflows/template-smoke.yml` (excluded from generated output).
 - Template-maintenance tests (`tests/test_runtime_assets.py`, `tests/test_template_smoke.py`, `tests/test_youtube_runtime.py`) are excluded from generated output.

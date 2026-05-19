@@ -5,7 +5,9 @@
 - Repository acts as a Copier template for `worai graph sync` projects.
 - Template config is defined in `copier.yml`.
 - Runtime config is generated from `worai.toml.jinja` with source-type-dependent fields.
-- Runtime template is aligned with SDK `8.0.17` canonical cloud workflow contract (`ingest_source`, `ingest_loader`, `ingest_timeout_ms`).
+- Runtime template is aligned with SDK `8.2.1` canonical cloud workflow contract (`ingest_source`, `ingest_loader`, `ingest_timeout_ms`).
+- Default `ingest_loader` is `crawler`; `ingest_timeout_ms` is rendered as a comment (opt-in override); default is 600000 ms (10 min) for `crawler`, 30000 ms (30 s) for all other loaders.
+- `crawler` loader supports `crawler_js_render_mode` (disabled | auto | enabled) and `crawler_proxy_mode` (disabled | simple | standard | premium | auto).
 - Workflow is profile-based (`.github/workflows/graph-sync.yml`) and does not use country-specific inputs.
 - Graph sync workflow uses `wordlift/graph-sync@v6` with `worai_version` pinned to `6.17.19`.
 - API key can be validated against WordLift `/accounts/me` during generation.
