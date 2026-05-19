@@ -79,7 +79,26 @@ api_key = "${WORDLIFT_API_KEY}"
 api_key = "${WORDLIFT_API_KEY}"
 ```
 
-## 5. Optional Runtime Knobs
+## 5. Crawler Loader (default)
+
+```toml
+[profiles._base]
+overwrite = true
+graph_write_strategy = "put"
+materialization_backend = "worph"
+concurrency = 4
+ingest_loader = "crawler"
+crawler_js_render_mode = "disabled" # disabled | auto | enabled
+crawler_proxy_mode = "disabled"     # disabled | simple | standard | premium | auto
+# ingest_timeout_ms = 600000
+ingest_source = "sitemap"
+sitemap_url = "https://www.acme.example/sitemap.xml"
+
+[profiles.default]
+api_key = "${WORDLIFT_API_KEY}"
+```
+
+## 6. Optional Runtime Knobs
 
 ```toml
 [profiles._base]

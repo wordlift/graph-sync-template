@@ -14,7 +14,9 @@ Operational rules for this project.
 - Ground all implementation decisions in observed repository behavior and source evidence; do not invent assumptions.
 - Use `http://schema.org` as the default vocabulary base URI (use `https://schema.org` only if explicitly required).
 - In YARRRML files, use relative XPath selectors.
-- Unless the user specifies a loader, use this loader priority: `simple`, `playwright`, `proxy`, `web_scrape_api`, `premium_scraper`.
+- Unless the user specifies a loader, prefer `crawler` (the template default); fallback priority: `simple`, `playwright`, `proxy`, `web_scrape_api`, `premium_scraper`.
+- For `crawler`, set `crawler_js_render_mode` to `auto` or `enabled` when the target page requires JavaScript rendering; leave as `disabled` otherwise.
+- For `crawler`, set `crawler_proxy_mode` to `simple`, `standard`, or `premium` when the target site blocks direct crawling; use `auto` to let the crawler decide (higher cost); leave as `disabled` for unrestricted sites.
 - Before attempting the `playwright` loader, confirm Playwright MCP integration is installed and available.
 - Inspect XHR/network traffic before finalizing extraction; if a structured upstream source exists, prefer it over HTML parsing.
 - For geographic entities, always try to provide `schema:sameAs` links to Wikidata, GeoNames, and DBpedia.
