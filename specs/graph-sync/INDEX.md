@@ -28,7 +28,7 @@ This folder contains modular agent context for vanilla `worai graph sync` projec
   - `specs/graph-sync/troubleshooting.md`
 - CI smoke checks:
   - `specs/graph-sync/ci-checklist.md`
-- Cross-repository graph-sync rules inventory:
+- Reusable graph-sync rules inventory:
   - `specs/graph-sync/gh-graph-sync-org-dos-donts.md`
 
 ## Scope

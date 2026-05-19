@@ -23,7 +23,7 @@
 - [x] Add template smoke render validation script and CI workflow.
 - [x] Add `copier` as a dev dependency so template smoke CI can render the template in a clean environment.
 - [x] Remove unused `project_slug` prompt from Copier contract.
-- [x] Remove unused `customer_name` prompt from Copier contract.
+- [x] Remove unused legacy name prompt from Copier contract.
 - [x] Tune Copier prompts/defaults and hide selected advanced options from interactive prompts.
 - [x] Raise `wordlift-sdk` minimum version to `>=3.9.0,<4.0.0`.
 - [x] Validate WordLift API key during generation via `/accounts/me` (with network-failure warning fallback).
@@ -52,7 +52,8 @@
 - [x] Set `graph_write_strategy = "put"` by default in `[profiles._base]` for generated `worai.toml`.
 - [x] Set `canonical_id_strategy = "dependency_graph"` by default in `[profiles._base]` for generated `worai.toml`.
 - [x] Refresh `README.md` with branded template documentation, badges, and clearer usage/verification guidance.
-- [x] Inventory all `wordlift` GitHub `graph-sync` repositories and document merged DOs/DONTs in `specs/graph-sync/gh-graph-sync-org-dos-donts.md`.
+- [x] Consolidate reusable graph-sync DOs/DONTs in `specs/graph-sync/gh-graph-sync-org-dos-donts.md` without project-specific references.
+- [x] Remove project-specific graph-sync checklist and TTL review report files from the template repository.
 - [x] Aggregate policy guidance under `specs/graph-sync/dos-and-donts.md` and reduce policy duplication across `specs/graph-sync/` docs.
 - [x] Update template SDK baseline to `wordlift-sdk>=8.0.14,<9.0.0` and align docs/tests to the new baseline.
 - [x] Set `materialization_backend = "worph"` in the generated `[profiles._base]` runtime template and smoke/test contracts.

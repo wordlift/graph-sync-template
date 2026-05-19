@@ -55,7 +55,7 @@ copier copy gh:wordlift/graph-build-template my-graph-project
   - `YOUTUBE_API_KEY` (empty by default)
 - Validates `api_key` against the WordLift API (`/accounts/me`) by default.
 - Derives package name from response `dataset_uri` path, normalized and suffixed with `_graph_sync`.
-- Example: `https://data.wordlift.io/wl123/customer-x` -> `wl123_customer_x_graph_sync`.
+- Example: `https://data.wordlift.io/wl123/sample-dataset` -> `wl123_sample_dataset_graph_sync`.
 - Sets `[project].name` in `pyproject.toml` from the destination directory name (normalized to a valid Python project name).
 - If validation is skipped (`--data validate_api_key=false`) or API is unreachable, fallback package is `acme_graph_sync`.
 - Set `--data validate_api_key=false` to skip this check in offline/CI scenarios.
