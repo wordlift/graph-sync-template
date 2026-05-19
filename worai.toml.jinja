@@ -14,8 +14,15 @@ ingest_loader = {{ ingest_loader | tojson }}
 {% if ingest_loader == "playwright" %}
 playwright_wait_until = {{ playwright_wait_until | tojson }}
 playwright_headless = {{ playwright_headless | lower }}
+{% elif ingest_loader == "crawler" %}
+crawler_js_render_mode = {{ crawler_js_render_mode | tojson }} # disabled | auto | enabled
+crawler_proxy_mode = {{ crawler_proxy_mode | tojson }}         # disabled | simple | standard | premium | auto
 {% endif %}
-ingest_timeout_ms = {{ ingest_timeout_ms }}
+{% if ingest_loader == "crawler" %}
+# ingest_timeout_ms = {{ ingest_timeout_ms }}
+{% else %}
+# ingest_timeout_ms = 30000
+{% endif %}
 ingest_retry_attempts = {{ ingest_retry_attempts }}
 ingest_retry_backoff_ms = {{ ingest_retry_backoff_ms }}
 google_search_console = {{ google_search_console | lower }}

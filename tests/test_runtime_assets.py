@@ -36,6 +36,8 @@ def test_runtime_assets_present() -> None:
     assert "playwright_wait_until = {{ playwright_wait_until | tojson }}" in jinja
     assert "playwright_headless = {{ playwright_headless | lower }}" in jinja
     assert "ingest_timeout_ms = {{ ingest_timeout_ms }}" in jinja
+    assert "crawler_js_render_mode = {{ crawler_js_render_mode | tojson }}" in jinja
+    assert "crawler_proxy_mode = {{ crawler_proxy_mode | tojson }}" in jinja
     assert "ingest_retry_attempts = {{ ingest_retry_attempts }}" in jinja
     assert "ingest_retry_backoff_ms = {{ ingest_retry_backoff_ms }}" in jinja
     assert "google_search_console = {{ google_search_console | lower }}" in jinja
@@ -120,7 +122,7 @@ def test_runtime_imports() -> None:
 
 def test_sdk_version_constraint() -> None:
     pyproject = Path("pyproject.toml").read_text(encoding="utf-8")
-    assert 'wordlift-sdk>=8.0.17,<9.0.0' in pyproject
+    assert 'wordlift-sdk>=8.2.1,<9.0.0' in pyproject
 
 
 def test_profile_based_workflow_contract() -> None:
@@ -129,7 +131,7 @@ def test_profile_based_workflow_contract() -> None:
     assert "profile:" in workflow
     assert "country:" not in workflow
     assert "wordlift/graph-sync@v6" in workflow
-    assert 'worai_version: "6.17.19"' in workflow
+    assert 'worai_version: "6.18.0"' in workflow
     assert "python-version: '3.12'" in workflow
     assert "enable-cache: true" in workflow
     assert "cache-dependency-glob:" in workflow
@@ -206,8 +208,11 @@ def test_copier_contract_contains_required_questions() -> None:
     assert 'playwright_headless:\n  type: bool\n  default: true' in copier
     assert 'ingest_retry_attempts:\n  type: int\n  default: 2' in copier
     assert 'ingest_retry_backoff_ms:\n  type: int\n  default: 3000' in copier
-    assert 'ingest_loader:\n  type: str\n  default: playwright\n  help: Ingestion loader' in copier
-    assert "ingest_timeout_ms:\n  type: int\n  default: 10000" in copier
+    assert 'ingest_loader:\n  type: str\n  default: crawler\n  help: Ingestion loader' in copier
+    assert "    - crawler\n" in copier
+    assert "ingest_timeout_ms:\n  type: int\n  default: 600000" in copier
+    assert 'crawler_js_render_mode:\n  type: str\n  default: disabled' in copier
+    assert 'crawler_proxy_mode:\n  type: str\n  default: disabled' in copier
     assert 'google_search_console:\n  type: bool\n  default: false\n  help: Enable Google Search Console enrichment\n  when: "{{ false }}"' in copier
     assert 'profiles:\n  type: yaml' in copier
     assert 'validator: "{% if not profiles or profiles|length == 0 %}profiles must include at least one profile{% endif %}"\n  when: "{{ false }}"' in copier
