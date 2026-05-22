@@ -1055,7 +1055,7 @@ def run_monitor(args, root: Path, total_mib: int, cpu_count: int) -> None:
     # Dividing by sub_cnt (not expected_pp_procs) ensures the total reconstructs correctly
     # and avoids double-counting the extra processes in extra_sub_mib.
     expected_pp_procs = pp_pool_cfg * num_pp_classes
-    sub_mib_per = sub_rss / sub_cnt / (1024**2)
+    sub_mib_per = sub_rss / sub_cnt / (1024**2) if sub_cnt > 0 else 0
     extra_sub_cnt = max(0, sub_cnt - expected_pp_procs)
 
     target_mib = int(total_mib * MEMORY_FRACTION * SAFETY_MARGIN)
@@ -1095,10 +1095,11 @@ def run_monitor(args, root: Path, total_mib: int, cpu_count: int) -> None:
         new_shacl_pool = shacl_pool
         new_mapping_pool = mapping_pool
         fixed_pool = shacl_pool * shacl_mib_per + mapping_pool * mapping_mib_per
+        pp_divisor = num_pp_classes * sub_mib_per
         computed_pp_pool = max(
             1,
             min(
-                int((budget_for_pools - fixed_pool) / (num_pp_classes * sub_mib_per)),
+                int((budget_for_pools - fixed_pool) / pp_divisor) if pp_divisor > 0 else concurrency,
                 concurrency,
             ),
         )
@@ -1108,10 +1109,11 @@ def run_monitor(args, root: Path, total_mib: int, cpu_count: int) -> None:
         new_shacl_pool = min_shacl
         new_mapping_pool = min_mapping
         fixed_pool = min_shacl * shacl_mib_per + min_mapping * mapping_mib_per
+        pp_divisor = num_pp_classes * sub_mib_per
         new_pp_pool = max(
             1,
             min(
-                int((budget_for_pools - fixed_pool) / (num_pp_classes * sub_mib_per)),
+                int((budget_for_pools - fixed_pool) / pp_divisor) if pp_divisor > 0 else concurrency,
                 concurrency,
             ),
         )
