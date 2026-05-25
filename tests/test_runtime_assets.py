@@ -221,6 +221,7 @@ def test_copier_contract_contains_required_questions() -> None:
     assert '- ".git"' in copier
     assert '- "copier.yml"' in copier
     assert '- ".github/workflows/template-smoke.yml"' in copier
+    assert '- "scripts/smoke_render_template.sh"' in copier
     assert '- "tests/test_runtime_assets.py"' in copier
     assert '- "tests/test_template_smoke.py"' in copier
     assert '- "tests/test_youtube_runtime.py"' in copier
