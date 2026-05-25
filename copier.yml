@@ -4,6 +4,7 @@ _exclude:
   - ".git/**"
   - "copier.yml"
   - ".github/workflows/template-smoke.yml"
+  - "scripts/smoke_render_template.sh"
   - "tests/test_runtime_assets.py"
   - "tests/test_template_smoke.py"
   - "tests/test_youtube_runtime.py"
