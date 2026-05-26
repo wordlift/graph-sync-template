@@ -4,13 +4,13 @@ import json
 import re
 import shutil
 import sys
+from dataclasses import dataclass
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 
 
-FALLBACK_PACKAGE = "acme_graph_sync"
 OLD_PACKAGE = "acme_kg"
 SEED_FILES = (
     "exports.toml.j2",
@@ -19,6 +19,12 @@ SEED_FILES = (
     "templates/20_website.ttl.j2",
     "templates/40_organization_postal_address.ttl.j2",
 )
+
+
+@dataclass(frozen=True)
+class ProjectNames:
+    distribution_name: str
+    runtime_package: str
 
 
 def load_context(context_path: Path) -> dict[str, object]:
@@ -93,44 +99,97 @@ def write_env(api_key: str, sheets_service_account: str) -> None:
     Path(".env").write_text("\n".join(content), encoding="utf-8")
 
 
-def normalize_project_name(raw: str) -> str:
+def normalize_slug(raw: str) -> str:
     normalized = re.sub(r"[^a-z0-9._-]+", "-", raw.lower())
     normalized = re.sub(r"[-_.]+", "-", normalized).strip("-")
-    if not normalized:
-        normalized = "graph-sync-project"
-    if normalized[0].isdigit():
-        normalized = f"proj-{normalized}"
     return normalized
 
 
-def update_project_name() -> None:
+def distribution_name_from_slug(raw: str) -> str:
+    slug = normalize_slug(raw)
+    if not slug:
+        slug = "project"
+    if slug.startswith("graph-sync-"):
+        return slug
+    return f"graph-sync-{slug}"
+
+
+def runtime_package_from_distribution_name(distribution_name: str) -> str:
+    package_name = distribution_name.replace("-", "_")
+    package_name = re.sub(r"[^a-z0-9_]+", "_", package_name.lower()).strip("_")
+    if not package_name:
+        package_name = "graph_sync_project"
+    if package_name[0].isdigit():
+        package_name = f"pkg_{package_name}"
+    return package_name
+
+
+def project_names_from_slug(raw: str) -> ProjectNames:
+    distribution_name = distribution_name_from_slug(raw)
+    return ProjectNames(
+        distribution_name=distribution_name,
+        runtime_package=runtime_package_from_distribution_name(distribution_name),
+    )
+
+
+def update_project_name(distribution_name: str) -> None:
     pyproject_path = Path("pyproject.toml")
     if not pyproject_path.exists():
         return
 
-    project_dir_name = Path.cwd().name
     pyproject_content = pyproject_path.read_text(encoding="utf-8")
     pyproject_content = re.sub(
         r'(?m)^name\s*=\s*"[^"]*"\s*$',
-        f'name = "{normalize_project_name(project_dir_name)}"',
+        f'name = "{distribution_name}"',
         pyproject_content,
         count=1,
     )
     pyproject_path.write_text(pyproject_content, encoding="utf-8")
 
 
-def package_from_dataset_uri(dataset_uri: str) -> str:
+def slug_from_account_url(account_url: str) -> str:
+    parsed = urlparse(account_url)
+    host = parsed.netloc or ""
+    if host.startswith("www."):
+        host = host[4:]
+    source = f"{host}{parsed.path}" if host else account_url
+    return normalize_slug(source)
+
+
+def slug_from_dataset_uri(dataset_uri: str) -> str:
     path = urlparse(dataset_uri).path
-    parts = [p for p in re.split(r"[^a-zA-Z0-9]+", path.lower()) if p]
-    base = "_".join(parts) if parts else "wordlift"
-    if base[0].isdigit():
-        base = f"pkg_{base}"
-    return f"{base}_graph_sync"
+    slug = normalize_slug(path)
+    if slug:
+        return slug
+    return normalize_slug(dataset_uri)
 
 
-def derive_runtime_package(api_key: str, validate_api_key: bool) -> str:
+def project_names_from_account_payload(
+    payload: dict[str, object],
+    fallback_project_dir: str,
+) -> ProjectNames:
+    account_url = str(payload.get("url", "")).strip()
+    if account_url:
+        return project_names_from_slug(slug_from_account_url(account_url))
+
+    dataset_uri = str(payload.get("datasetUri", "")).strip()
+    if dataset_uri:
+        return project_names_from_slug(slug_from_dataset_uri(dataset_uri))
+
+    print(
+        "WordLift API key validation succeeded but account url and datasetUri are missing in response.",
+        file=sys.stderr,
+    )
+    return project_names_from_slug(fallback_project_dir)
+
+
+def derive_project_names(
+    api_key: str,
+    validate_api_key: bool,
+    fallback_project_dir: str,
+) -> ProjectNames:
     if not validate_api_key:
-        return FALLBACK_PACKAGE
+        return project_names_from_slug(fallback_project_dir)
 
     request = Request(
         "https://api.wordlift.io/accounts/me",
@@ -146,14 +205,7 @@ def derive_runtime_package(api_key: str, validate_api_key: bool) -> str:
         with urlopen(request, timeout=10) as response:
             if 200 <= response.status < 300:
                 payload = json.loads(response.read().decode("utf-8"))
-                dataset_uri = str(payload.get("datasetUri", "")).strip()
-                if not dataset_uri:
-                    print(
-                        "WordLift API key validation succeeded but datasetUri is missing in response.",
-                        file=sys.stderr,
-                    )
-                    raise SystemExit(1)
-                return package_from_dataset_uri(dataset_uri)
+                return project_names_from_account_payload(payload, fallback_project_dir)
 
             print(
                 f"Unexpected response while validating WordLift API key: HTTP {response.status}",
@@ -179,7 +231,7 @@ def derive_runtime_package(api_key: str, validate_api_key: bool) -> str:
             f"Warning: could not validate WordLift API key due to network/API error: {exc}",
             file=sys.stderr,
         )
-        return FALLBACK_PACKAGE
+        return project_names_from_slug(fallback_project_dir)
     except ValueError as exc:
         print(
             "WordLift API key validation failed before the request. "
@@ -189,7 +241,7 @@ def derive_runtime_package(api_key: str, validate_api_key: bool) -> str:
         raise SystemExit(1) from exc
     except Exception as exc:
         print(f"Warning: unexpected error during API key validation: {exc}", file=sys.stderr)
-        return FALLBACK_PACKAGE
+        return project_names_from_slug(fallback_project_dir)
 
 
 def rename_runtime_package(new_package: str) -> None:
@@ -220,7 +272,7 @@ def cleanup_copier_answers() -> None:
 def main(argv: list[str]) -> int:
     context_path = Path(argv[1]) if len(argv) > 1 else Path(".copier-tasks/context.json")
     helper_dir = context_path.parent
-    package_name = FALLBACK_PACKAGE
+    project_names = project_names_from_slug(Path.cwd().name)
 
     try:
         context = load_context(context_path)
@@ -230,17 +282,20 @@ def main(argv: list[str]) -> int:
             api_key,
             context_string(context, "sheets_service_account"),
         )
-        update_project_name()
-        package_name = derive_runtime_package(
+        project_names = derive_project_names(
             api_key,
             context_bool(context, "validate_api_key"),
+            Path.cwd().name,
         )
-        rename_runtime_package(package_name)
+        update_project_name(project_names.distribution_name)
+        rename_runtime_package(project_names.runtime_package)
         cleanup_copier_answers()
     finally:
         shutil.rmtree(helper_dir, ignore_errors=True)
 
-    print(f"Graph Sync project post-copy setup completed. Runtime package: {package_name}.")
+    print("Graph Sync project post-copy setup completed.")
+    print(f"Project package: {project_names.distribution_name}")
+    print(f"Runtime module: {project_names.runtime_package}")
     return 0
 
 
