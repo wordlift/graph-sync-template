@@ -123,6 +123,14 @@ fi
   cd "$out"
   test "$(git rev-list --count HEAD)" -eq 1
   test "$(git log --format=%s -1)" = "initial commit"
+  if [ "$(git log --format=%an -1)" != "Graph Sync Project" ]; then
+    echo "Generated git commit has unexpected author name"
+    exit 1
+  fi
+  if [ "$(git log --format=%ae -1)" != "dev@wordlift.io" ]; then
+    echo "Generated git commit has unexpected author email"
+    exit 1
+  fi
   git diff --quiet
   git diff --cached --quiet
   git check-ignore -q .env
