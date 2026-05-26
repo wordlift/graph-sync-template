@@ -15,19 +15,9 @@ Copier template for bootstrapping graph-sync projects with the current WordLift 
 
 ## Agent Skill Kit
 
-Agent-driven graph-sync workflows are handled through `wordlift/graph-sync-agent-kit`, not by reusable specs copied into generated projects.
+Agent-driven graph-sync workflows are handled through [wordlift/graph-sync-agent-kit](https://github.com/wordlift/graph-sync-agent-kit).
 
-Recommended installs:
-
-```bash
-claude plugin marketplace add wordlift/agent-marketplace
-claude plugin install graph-sync-agent-kit@wordlift
-
-codex plugin marketplace add wordlift/agent-marketplace --ref main
-codex plugin add graph-sync-agent-kit@wordlift
-```
-
-Generated projects receive a small `AGENTS.md` pointer to the skill kit and may add project-specific notes there.
+Generated projects receive a small `AGENTS.md` pointer to the skill kit and may add project-specific notes there. Install and update commands live in the Graph Sync Agent Kit documentation.
 
 ## Why This Template
 
@@ -67,16 +57,7 @@ See `docs/QUICKSTART.md` for the generated-project quick start.
 
 ## Template Contract
 
-Required inputs:
-
-- `api_key`
-- `source_type` with one of `urls`, `sitemap`, or `google_sheets`
-
-Source-specific inputs:
-
-- `urls`: `urls`
-- `sitemap`: `sitemap_url`, optional `sitemap_url_pattern`
-- `google_sheets`: `sheets_url`, `sheets_name`, `sheets_service_account`
+The full question contract is defined in `copier.yml`. At a high level, generated projects start from a WordLift API key and one source type: manual URLs, sitemap, or Google Sheets.
 
 Runtime defaults are rendered into generated `worai.toml`. Keep reusable modeling, mapping, validation, and review strategy in the installed graph-sync skills.
 
@@ -95,33 +76,26 @@ During `copier copy`, the template:
 
 If validation is skipped or the API is unreachable, the fallback package name is `acme_graph_sync`.
 
-## Generated Project Shape
+## Generated Project Scope
 
-Generated projects include:
+Generated projects include the runtime files needed to run graph-sync: runtime configuration, the graph-sync GitHub workflow, profile folders, local runtime code, docs, and a small `AGENTS.md` pointer to the Graph Sync Agent Kit.
 
-- `AGENTS.md`
-- `README.md`
-- `docs/QUICKSTART.md`
-- `worai.toml`
-- `.github/workflows/graph-sync.yml`
-- `.env`
-- `profiles/<profile>/mappings`
-- `profiles/<profile>/templates`
-- `profiles/<profile>/postprocessors`
-
-Generated projects do not include template-maintenance assets such as:
-
-- `copier.yml`
-- `.github/workflows/template-smoke.yml`
-- `scripts/smoke_render_template.sh`
-- `tests/`
-- `specs/`
+Generated projects intentionally exclude template-maintenance assets such as `copier.yml`, `.github/workflows/template-smoke.yml`, `scripts/smoke_render_template.sh`, `tests/`, and `specs/`.
 
 ## Runtime Compatibility
 
 Supported runtime settings depend on the `wordlift-sdk` version resolved by the generated project's `pyproject.toml` and `uv.lock`. The pinned `worai` version in the generated GitHub workflow acts as the CLI/action executor for that SDK contract.
 
 For `worai` CLI configuration, profile selection, and command usage, see the official `worai` documentation. Graph-sync runtime settings are interpreted by the resolved `wordlift-sdk` version.
+
+## Source Of Truth
+
+- Copier questions and generation behavior: `copier.yml`
+- Runtime dependency constraints: `pyproject.toml`
+- Resolved dependency versions: `uv.lock`
+- Graph-sync workflow executor version: `.github/workflows/graph-sync.yml`
+- Generated project agent pointer: `AGENTS.md.jinja`
+- Reusable agent workflows: [wordlift/graph-sync-agent-kit](https://github.com/wordlift/graph-sync-agent-kit)
 
 ## Development
 
@@ -145,13 +119,8 @@ uv run scripts/smoke_render_template.sh
 
 ## Maintainer Macros
 
-- `deploy release [major|minor|patch]` (default: `patch`)
-  - `scripts/deploy_release.sh [major|minor|patch]`
-  - bumps version, refreshes dependencies and lockfile, requires docs updates, then commits, tags, and pushes
-
-- `upgrade project`
-  - `scripts/upgrade_project.sh`
-  - updates `wordlift-sdk` to latest, updates `.github/workflows/graph-sync.yml` to latest `worai_version`, then runs `deploy release patch`
+- `deploy release [major|minor|patch]`: run `scripts/deploy_release.sh [major|minor|patch]`.
+- `upgrade project`: run `scripts/upgrade_project.sh`.
 
 ## CI
 

@@ -8,7 +8,7 @@ Ask Codex or Claude Code to run the graph-sync workflow end to end through the i
 Use $graph-sync-curator to start the graph-sync workflow for example.org.
 ```
 
-The graph-sync skills coordinate project setup, curation, implementation, credential checks, sync/audit validation, and publish handoff.
+The graph-sync skills coordinate project setup, curation, implementation, credential checks, sync/audit validation, and publish handoff. Install and update commands live in `wordlift/graph-sync-agent-kit`.
 
 ## Manual Approach
 
@@ -42,7 +42,7 @@ YOUTUBE_API_KEY=your_youtube_api_key_optional
 
 The GitHub workflow is the repeatable manual path because it pins the graph-sync action and `worai` version.
 
-For a local run with the current `worai` CLI syntax:
+For a local run, use the command shape documented by the installed `worai` version. Current generated projects are compatible with:
 
 ```bash
 set -a && source .env && set +a
