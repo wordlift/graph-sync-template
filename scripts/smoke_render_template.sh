@@ -103,7 +103,13 @@ search '\$graph-sync-curator' "$out/README.md"
 search 'docs/QUICKSTART.md' "$out/README.md"
 search 'initial commit' "$out/README.md"
 search 'wordlift/graph-sync-agent-kit' "$out/AGENTS.md"
+search 'wordlift/agent-marketplace' "$out/AGENTS.md"
 search 'class = "graph_sync_my_graph_project_demo\.postprocessors\.youtube:YouTubePostprocessor"' "$out/profiles/_base/postprocessors.example.toml"
+
+if search 'git@github.com:wordlift/graph-sync-agent-kit.git' "$out/AGENTS.md"; then
+  echo "Generated AGENTS.md still references direct skill installation from git"
+  exit 1
+fi
 
 (
   cd "$out"
