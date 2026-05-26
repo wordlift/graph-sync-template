@@ -13,19 +13,14 @@ env/
 node_modules/
 package-lock.json
 
-# Generated files
-countries/**/input/*.xhtml
-countries/**/input/*.html
-countries/**/output/
-countries/**/checksums.json
-
 # Environment
 .env
-countries/*/.env.local
+.env.local
 
 # IDE
 .vscode/
 .idea/
+.gemini/
 *.swp
 *.swo
 *~
@@ -47,24 +42,17 @@ htmlcov/
 
 # Keep directory structure
 !.gitkeep
-# Google Cloud Credentials
-sa-key.json
-token.json
-client_secret.json
 
-
-# Google Cloud Credentials
+# Credentials
 .config/
 sa-key.json
 token.json
 client_secret.json
 
-.config/token.json
-.config/sa-key.json
+# Build artifacts
 src/*.egg-info/
+
+# Graph sync output
 **/debug_cloud/
 output/debug_cloud/
-
 output/
-
-.gemini
