@@ -25,7 +25,7 @@ Reusable graph-sync agent behavior lives outside this repository in the installe
 - Copier initializes generated projects as git repositories and creates an `initial commit` when `git` is available.
 - Copier can validate API keys via WordLift `/accounts/me` during generation.
 - Copier derives generated project package names from the WordLift account `url`, falling back to `datasetUri`, then to the destination directory when validation is skipped or unavailable.
-- Copier sets generated `pyproject.toml` `[project].name` to the dashed `graph-sync-*` distribution name and renames local runtime code from `acme_kg` to the underscore-safe module name.
+- Copier sets generated `pyproject.toml` `[project].name` to the dashed `graph-sync-*` distribution name, sets `[project].description` from account/domain metadata, resets generated `[project].version` to `0.1.0`, adds a template-version comment, and renames local runtime code from `acme_kg` to the underscore-safe module name.
 - Workflow contract is profile-based (no country input), in `.github/workflows/graph-sync.yml`.
 - Runtime config template is `worai.toml.jinja` (rendered output: `worai.toml`).
 - Runtime template follows SDK v8.2.1 cloud-flow contract (`ingest_source`, `ingest_loader`, `ingest_timeout_ms`; no `web_page_import_*` fallback keys).

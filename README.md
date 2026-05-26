@@ -70,6 +70,8 @@ During `copier copy`, the template:
 - renames the local runtime module from `acme_kg` to the underscore-safe project package name
 - writes secrets to local `.env` instead of tracked config
 - sets generated `pyproject.toml` `[project].name` from the derived `graph-sync-*` project package name
+- sets generated `pyproject.toml` `[project].description` from the account URL, domain URI, dataset URI, or destination directory
+- resets generated `pyproject.toml` `[project].version` to `0.1.0` and adds a comment with the template version used
 - scaffolds `profiles/<profile>/mappings`, `templates`, and `postprocessors`
 - renders `AGENTS.md.jinja` as the generated project's `AGENTS.md`
 - removes `.copier-answers.yml` and excludes `copier.yml` from generated output
