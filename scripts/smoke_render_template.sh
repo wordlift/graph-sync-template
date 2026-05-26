@@ -42,6 +42,8 @@ rsync -a \
 
 test -f "$out/worai.toml"
 test -f "$out/pyproject.toml"
+test -f "$out/README.md"
+test ! -f "$out/README.md.jinja"
 test -f "$out/AGENTS.md"
 test ! -f "$out/AGENTS.md.jinja"
 test -f "$out/.github/workflows/graph-sync.yml"
@@ -93,8 +95,19 @@ search 'ingest_retry_backoff_ms = 3000' "$out/worai.toml"
 search 'google_search_console = false' "$out/worai.toml"
 search 'api_key = "\$\{WORDLIFT_API_KEY\}"' "$out/worai.toml"
 search '^name = "graph-sync-my-graph-project-demo"$' "$out/pyproject.toml"
+search '^# Graph Sync Project$' "$out/README.md"
+search 'Project package: `graph-sync-my-graph-project-demo`' "$out/README.md"
+search 'Runtime module: `graph_sync_my_graph_project_demo`' "$out/README.md"
+search 'graph-sync-agent-kit:graph-sync-curator' "$out/README.md"
+search '\$graph-sync-curator' "$out/README.md"
+search 'docs/QUICKSTART.md' "$out/README.md"
 search 'wordlift/graph-sync-agent-kit' "$out/AGENTS.md"
 search 'class = "graph_sync_my_graph_project_demo\.postprocessors\.youtube:YouTubePostprocessor"' "$out/profiles/_base/postprocessors.example.toml"
+
+if search 'Graph Sync Template|Template Contract|template-smoke|Generate from GitHub' "$out/README.md"; then
+  echo "Generated README still contains template-maintainer content"
+  exit 1
+fi
 
 if search '\\n' "$out/.env"; then
   echo "Generated .env contains literal \\\\n sequences"

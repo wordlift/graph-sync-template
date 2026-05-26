@@ -1,0 +1,46 @@
+# Graph Sync Project
+
+Project package: `__GRAPH_SYNC_PROJECT_PACKAGE__`
+
+## Agent-Driven Workflow
+
+Use the installed [Graph Sync Agent Kit](https://github.com/wordlift/graph-sync-agent-kit) with Codex or Claude Code for curation, implementation, validation, and publish handoff.
+
+Codex prompt:
+
+```text
+Use the graph-sync-agent-kit:graph-sync-curator skill to continue the graph-sync workflow for this project.
+```
+
+Claude Code prompt:
+
+```text
+Use $graph-sync-curator to continue the graph-sync workflow for this project.
+```
+
+## Project Files
+
+- `worai.toml`: graph-sync profile configuration.
+- `profiles/`: profile-specific mappings, static templates, exports, and postprocessors.
+- `.github/workflows/graph-sync.yml`: profile-based GitHub Actions workflow.
+- `.env`: local secrets created during project generation and ignored by git.
+- `docs/QUICKSTART.md`: short manual and agent-driven usage guide.
+- `AGENTS.md`: project-specific agent notes and Graph Sync Agent Kit pointer.
+- Runtime module: `acme_kg`
+
+## Local Setup
+
+```bash
+uv sync
+```
+
+For local commands, load `.env` first:
+
+```bash
+set -a && source .env && set +a
+```
+
+## Maintenance
+
+- `scripts/deploy_release.sh [major|minor|patch]`
+- `scripts/upgrade_project.sh`

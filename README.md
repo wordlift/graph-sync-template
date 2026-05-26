@@ -98,6 +98,7 @@ For `worai` CLI configuration, profile selection, and command usage, see the off
 - Resolved dependency versions: `uv.lock`
 - Graph-sync workflow executor version: `.github/workflows/graph-sync.yml`
 - Generated project agent pointer: `AGENTS.md.jinja`
+- Generated project README: `README.md.jinja`
 - Reusable agent workflows: [wordlift/graph-sync-agent-kit](https://github.com/wordlift/graph-sync-agent-kit)
 
 ## Development

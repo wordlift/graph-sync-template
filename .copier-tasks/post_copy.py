@@ -244,13 +244,16 @@ def derive_project_names(
         return project_names_from_slug(fallback_project_dir)
 
 
-def rename_runtime_package(new_package: str) -> None:
-    if new_package == OLD_PACKAGE:
-        return
+def rename_runtime_package(project_names: ProjectNames) -> None:
+    new_package = project_names.runtime_package
+    replacements = {
+        OLD_PACKAGE: new_package,
+        "__GRAPH_SYNC_PROJECT_PACKAGE__": project_names.distribution_name,
+    }
 
     old_dir = Path("src") / OLD_PACKAGE
     new_dir = Path("src") / new_package
-    if old_dir.exists():
+    if old_dir.exists() and new_package != OLD_PACKAGE:
         if new_dir.exists():
             raise SystemExit(f"Cannot rename package: destination already exists: {new_dir}")
         shutil.move(str(old_dir), str(new_dir))
@@ -260,9 +263,12 @@ def rename_runtime_package(new_package: str) -> None:
         if not file_path.is_file() or file_path.suffix not in suffixes:
             continue
         content = file_path.read_text(encoding="utf-8")
-        if OLD_PACKAGE not in content:
+        updated_content = content
+        for old_value, new_value in replacements.items():
+            updated_content = updated_content.replace(old_value, new_value)
+        if updated_content == content:
             continue
-        file_path.write_text(content.replace(OLD_PACKAGE, new_package), encoding="utf-8")
+        file_path.write_text(updated_content, encoding="utf-8")
 
 
 def cleanup_copier_answers() -> None:
@@ -288,7 +294,7 @@ def main(argv: list[str]) -> int:
             Path.cwd().name,
         )
         update_project_name(project_names.distribution_name)
-        rename_runtime_package(project_names.runtime_package)
+        rename_runtime_package(project_names)
         cleanup_copier_answers()
     finally:
         shutil.rmtree(helper_dir, ignore_errors=True)
