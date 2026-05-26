@@ -50,6 +50,17 @@ def context_profiles(context: dict[str, object]) -> list[str]:
     return value
 
 
+def clean_api_key(raw_api_key: str) -> str:
+    api_key = raw_api_key.strip()
+    if not api_key:
+        raise SystemExit("WordLift API key is required.")
+    if "\n" in api_key or "\r" in api_key:
+        raise SystemExit(
+            "WordLift API key must be a single line. Please check the key and run generation again."
+        )
+    return api_key
+
+
 def scaffold_profiles(profiles: list[str]) -> None:
     default_profile_dir = Path("profiles/default")
 
@@ -169,6 +180,13 @@ def derive_runtime_package(api_key: str, validate_api_key: bool) -> str:
             file=sys.stderr,
         )
         return FALLBACK_PACKAGE
+    except ValueError as exc:
+        print(
+            "WordLift API key validation failed before the request. "
+            "Please check the key and run generation again.",
+            file=sys.stderr,
+        )
+        raise SystemExit(1) from exc
     except Exception as exc:
         print(f"Warning: unexpected error during API key validation: {exc}", file=sys.stderr)
         return FALLBACK_PACKAGE
@@ -206,14 +224,15 @@ def main(argv: list[str]) -> int:
 
     try:
         context = load_context(context_path)
+        api_key = clean_api_key(context_string(context, "api_key"))
         scaffold_profiles(context_profiles(context))
         write_env(
-            context_string(context, "api_key"),
+            api_key,
             context_string(context, "sheets_service_account"),
         )
         update_project_name()
         package_name = derive_runtime_package(
-            context_string(context, "api_key"),
+            api_key,
             context_bool(context, "validate_api_key"),
         )
         rename_runtime_package(package_name)
