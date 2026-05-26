@@ -42,6 +42,8 @@ rsync -a \
 
 test -f "$out/worai.toml"
 test -f "$out/pyproject.toml"
+test -f "$out/AGENTS.md"
+test ! -f "$out/AGENTS.md.jinja"
 test -f "$out/.github/workflows/graph-sync.yml"
 test -f "$out/.env"
 test -d "$out/src/acme_graph_sync"
@@ -50,6 +52,9 @@ test ! -f "$out/.github/workflows/template-smoke.yml"
 test ! -d "$out/.git"
 test ! -f "$out/copier.yml"
 test ! -f "$out/.copier-answers.yml"
+test ! -f "$out/TODO.md"
+test ! -d "$out/specs"
+test ! -d "$out/tests"
 
 search() {
   local pattern="$1"
@@ -87,9 +92,7 @@ search 'ingest_retry_backoff_ms = 3000' "$out/worai.toml"
 search 'google_search_console = false' "$out/worai.toml"
 search 'api_key = "\$\{WORDLIFT_API_KEY\}"' "$out/worai.toml"
 search '^name = "my-graph-project-demo"$' "$out/pyproject.toml"
-test ! -f "$out/tests/test_runtime_assets.py"
-test ! -f "$out/tests/test_template_smoke.py"
-test ! -f "$out/tests/test_youtube_runtime.py"
+search 'wordlift/graph-sync-agent-kit' "$out/AGENTS.md"
 search 'class = "acme_graph_sync\.postprocessors\.youtube:YouTubePostprocessor"' "$out/profiles/_base/postprocessors.example.toml"
 
 if search '\\n' "$out/.env"; then

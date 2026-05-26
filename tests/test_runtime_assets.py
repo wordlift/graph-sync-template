@@ -20,6 +20,11 @@ def _iri_depth_from_dataset_root(value: str) -> int:
 def test_runtime_assets_present() -> None:
     root = Path.cwd()
     assert (root / "copier.yml").exists()
+    assert (root / "AGENTS.md").exists()
+    assert (root / "AGENTS.md.jinja").exists()
+    assert (root / "docs" / "QUICKSTART.md").exists()
+    assert not (root / "specs").exists()
+    assert not (root / "TODO.md").exists()
     assert (root / "worai.toml.jinja").exists()
     jinja = (root / "worai.toml.jinja").read_text(encoding="utf-8")
     assert "log_level = {{ log_level | tojson }}" in jinja
@@ -225,7 +230,7 @@ def test_copier_contract_contains_required_questions() -> None:
     assert '- "tests/test_runtime_assets.py"' in copier
     assert '- "tests/test_template_smoke.py"' in copier
     assert '- "tests/test_youtube_runtime.py"' in copier
-    assert "mv specs/graph-sync/AGENTS.md AGENTS.md" in copier
+    assert "mv AGENTS" not in copier
     assert 'Path(".env").write_text(chr(10).join(content), encoding="utf-8")' in copier
     assert "(profile_dir / \"mappings\").mkdir" in copier
     assert "(profile_dir / \"templates\").mkdir" in copier
@@ -247,3 +252,17 @@ def test_youtube_missing_key_warning_message() -> None:
     enricher = Path("src/acme_kg/enrichment/youtube.py").read_text(encoding="utf-8")
     assert "YOUTUBE_API_KEY is not configured" in enricher
     assert "graph sync will continue" in enricher
+
+
+def test_template_docs_do_not_reference_removed_specs() -> None:
+    docs = [
+        Path("README.md"),
+        Path("AGENTS.md"),
+        Path("AGENTS.md.jinja"),
+        Path("docs/QUICKSTART.md"),
+        Path("scripts/deploy_release.sh"),
+    ]
+    for path in docs:
+        text = path.read_text(encoding="utf-8")
+        assert "specs/graph-sync" not in text
+        assert "TODO.md" not in text

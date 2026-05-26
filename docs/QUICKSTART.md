@@ -1,24 +1,32 @@
 # Quick Start Guide
 
-## 1. Prerequisites
+## Agent-Driven Approach (Recommended)
 
-- Install `copier`
-- Install `worai` (see https://docs.wordlift.io/worai/install/)
+Ask Codex or Claude Code to run the graph-sync workflow end to end through the installed Graph Sync Agent Kit:
 
-## 2. Generate Project
-
-```bash
-copier copy . ../my-graph-project
+```text
+Use $graph-sync-curator to start the graph-sync workflow for example.org.
 ```
 
-## 3. Setup
+The graph-sync skills coordinate project setup, curation, implementation, credential checks, sync/audit validation, and publish handoff.
+
+## Manual Approach
+
+Use this path when running a generated project without agent orchestration.
+
+### 1. Create The Project
+
+Install `uv` and use `pipx` to run Copier without a global install:
 
 ```bash
-cd ../my-graph-project
+pipx run copier copy gh:wordlift/graph-sync-template my-graph-project
+cd my-graph-project
 uv sync
 ```
 
-## 4. Configure Secrets
+If `copier` is already installed, `copier copy gh:wordlift/graph-sync-template my-graph-project` is equivalent.
+
+### 2. Configure Secrets
 
 Copier creates `.env` automatically. Verify or update it:
 
@@ -30,26 +38,27 @@ YOUTUBE_API_KEY=your_youtube_api_key_optional
 
 `SHEETS_SERVICE_ACCOUNT` is only needed when `source_type=google_sheets`.
 
-## 5. Run Graph Sync
+### 3. Run Graph Sync
+
+The GitHub workflow is the repeatable manual path because it pins the graph-sync action and `worai` version.
+
+For a local run with the current `worai` CLI syntax:
 
 ```bash
 set -a && source .env && set +a
-worai --config worai.toml graph sync --profile <default_profile>
+worai --config worai.toml --profile <default_profile> graph sync run
 ```
 
 With debug output:
 
 ```bash
-worai --config worai.toml graph sync --profile <default_profile> --debug
+worai --config worai.toml --profile <default_profile> graph sync run --debug
 ```
 
-## Static Template Quick Checks
+Without a global `worai` install, use `pipx`:
 
-- One subject node per static template file.
-- No blank nodes in static templates.
-- `schema:url` and `schema:sameAs` use URL literals.
-- Template filenames are depth-prefixed (`20_*`, `40_*`, ...).
+```bash
+pipx run worai --config worai.toml --profile <default_profile> graph sync run
+```
 
-## Postprocessors
-
-- Example template: `profiles/_base/postprocessors.example.toml`
+If your installed `worai` version exposes a different command shape, follow the official `worai` command documentation for that version.
