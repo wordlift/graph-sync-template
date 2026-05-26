@@ -202,6 +202,7 @@ def cleanup_copier_answers() -> None:
 def main(argv: list[str]) -> int:
     context_path = Path(argv[1]) if len(argv) > 1 else Path(".copier-tasks/context.json")
     helper_dir = context_path.parent
+    package_name = FALLBACK_PACKAGE
 
     try:
         context = load_context(context_path)
@@ -220,6 +221,7 @@ def main(argv: list[str]) -> int:
     finally:
         shutil.rmtree(helper_dir, ignore_errors=True)
 
+    print(f"Graph Sync project post-copy setup completed. Runtime package: {package_name}.")
     return 0
 
 

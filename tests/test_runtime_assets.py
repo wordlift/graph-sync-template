@@ -256,6 +256,7 @@ def test_copier_post_copy_helper_contains_generation_steps() -> None:
     assert "templates/40_organization_postal_address.ttl.j2" in post_copy
     assert "shutil.move(str(old_dir), str(new_dir))" in post_copy
     assert 'Path(".copier-answers.yml").unlink(missing_ok=True)' in post_copy
+    assert "Graph Sync project post-copy setup completed." in post_copy
 
 
 def test_copier_secret_questions_have_defaults() -> None:
