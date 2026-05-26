@@ -66,3 +66,5 @@ src/*.egg-info/
 output/debug_cloud/
 
 output/
+
+.gemini
