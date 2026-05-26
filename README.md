@@ -73,6 +73,7 @@ During `copier copy`, the template:
 - scaffolds `profiles/<profile>/mappings`, `templates`, and `postprocessors`
 - renders `AGENTS.md.jinja` as the generated project's `AGENTS.md`
 - removes `.copier-answers.yml` and excludes `copier.yml` from generated output
+- initializes a git repository and creates an `initial commit` when `git` is available
 
 Post-generation work runs through `.copier-tasks/post_copy.py`. Copier renders a temporary `.copier-tasks/context.json` for answers, and the helper removes it immediately after reading it so secrets are not left in generated output.
 

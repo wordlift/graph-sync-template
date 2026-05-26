@@ -51,7 +51,7 @@ test -f "$out/.env"
 test -d "$out/src/graph_sync_my_graph_project_demo"
 test ! -d "$out/src/acme_kg"
 test ! -f "$out/.github/workflows/template-smoke.yml"
-test ! -d "$out/.git"
+test -d "$out/.git"
 test ! -f "$out/copier.yml"
 test ! -d "$out/.copier-tasks"
 test ! -f "$out/.copier-answers.yml"
@@ -101,8 +101,22 @@ search 'Runtime module: `graph_sync_my_graph_project_demo`' "$out/README.md"
 search 'graph-sync-agent-kit:graph-sync-curator' "$out/README.md"
 search '\$graph-sync-curator' "$out/README.md"
 search 'docs/QUICKSTART.md' "$out/README.md"
+search 'initial commit' "$out/README.md"
 search 'wordlift/graph-sync-agent-kit' "$out/AGENTS.md"
 search 'class = "graph_sync_my_graph_project_demo\.postprocessors\.youtube:YouTubePostprocessor"' "$out/profiles/_base/postprocessors.example.toml"
+
+(
+  cd "$out"
+  test "$(git rev-list --count HEAD)" -eq 1
+  test "$(git log --format=%s -1)" = "initial commit"
+  git diff --quiet
+  git diff --cached --quiet
+  git check-ignore -q .env
+  if git ls-files --error-unmatch .env >/dev/null 2>&1; then
+    echo "Generated .env was tracked in initial commit"
+    exit 1
+  fi
+)
 
 if search 'Graph Sync Template|Template Contract|template-smoke|Generate from GitHub' "$out/README.md"; then
   echo "Generated README still contains template-maintainer content"
