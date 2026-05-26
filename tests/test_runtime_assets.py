@@ -24,6 +24,7 @@ def _load_post_copy_helper():
     assert spec is not None
     assert spec.loader is not None
     module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
     spec.loader.exec_module(module)
     return module
 
@@ -256,11 +257,14 @@ def test_copier_post_copy_helper_contains_generation_steps() -> None:
     assert "def clean_api_key(raw_api_key: str) -> str:" in post_copy
     assert "api_key = clean_api_key(context_string(context, \"api_key\"))" in post_copy
     assert "except ValueError as exc:" in post_copy
+    assert "class ProjectNames:" in post_copy
+    assert "def slug_from_account_url(account_url: str) -> str:" in post_copy
+    assert "def slug_from_dataset_uri(dataset_uri: str) -> str:" in post_copy
+    assert "def runtime_package_from_distribution_name(distribution_name: str) -> str:" in post_copy
+    assert "def project_names_from_account_payload(" in post_copy
     assert "datasetUri" in post_copy
-    assert "FALLBACK_PACKAGE = \"acme_graph_sync\"" in post_copy
     assert "OLD_PACKAGE = \"acme_kg\"" in post_copy
-    assert "def package_from_dataset_uri(dataset_uri: str) -> str:" in post_copy
-    assert "def normalize_project_name(raw: str) -> str:" in post_copy
+    assert "def normalize_slug(raw: str) -> str:" in post_copy
     assert 'normalized = re.sub(r"[^a-z0-9._-]+", "-", raw.lower())' in post_copy
     assert 'Path(".env").write_text("\\n".join(content), encoding="utf-8")' in post_copy
     assert "(profile_dir / \"mappings\").mkdir" in post_copy
@@ -271,6 +275,41 @@ def test_copier_post_copy_helper_contains_generation_steps() -> None:
     assert "shutil.move(str(old_dir), str(new_dir))" in post_copy
     assert 'Path(".copier-answers.yml").unlink(missing_ok=True)' in post_copy
     assert "Graph Sync project post-copy setup completed." in post_copy
+    assert 'print(f"Project package: {project_names.distribution_name}")' in post_copy
+    assert 'print(f"Runtime module: {project_names.runtime_package}")' in post_copy
+
+
+def test_copier_post_copy_derives_names_from_account_url() -> None:
+    post_copy = _load_post_copy_helper()
+
+    names = post_copy.project_names_from_account_payload(
+        {"url": "https://zurich.ca", "datasetUri": "https://data.wordlift.io/wl1506345/"},
+        "fallback-project",
+    )
+
+    assert names.distribution_name == "graph-sync-zurich-ca"
+    assert names.runtime_package == "graph_sync_zurich_ca"
+
+
+def test_copier_post_copy_falls_back_to_dataset_uri_for_names() -> None:
+    post_copy = _load_post_copy_helper()
+
+    names = post_copy.project_names_from_account_payload(
+        {"url": "", "datasetUri": "https://data.wordlift.io/wl1506345/"},
+        "fallback-project",
+    )
+
+    assert names.distribution_name == "graph-sync-wl1506345"
+    assert names.runtime_package == "graph_sync_wl1506345"
+
+
+def test_copier_post_copy_falls_back_to_project_dir_for_names() -> None:
+    post_copy = _load_post_copy_helper()
+
+    names = post_copy.derive_project_names("abc123", False, "My-Graph_Project.demo")
+
+    assert names.distribution_name == "graph-sync-my-graph-project-demo"
+    assert names.runtime_package == "graph_sync_my_graph_project_demo"
 
 
 def test_copier_post_copy_cleans_api_key_before_validation() -> None:

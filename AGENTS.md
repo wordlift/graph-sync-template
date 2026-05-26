@@ -22,8 +22,8 @@ Reusable graph-sync agent behavior lives outside this repository in the installe
 - Copier post-generation tasks remove `.copier-answers.yml`, and generated output excludes `copier.yml`, to detach generated projects from Copier update tracking.
 - Copier excludes this maintainer `AGENTS.md` and renders `AGENTS.md.jinja` as the generated project's `AGENTS.md`.
 - Copier can validate API keys via WordLift `/accounts/me` during generation.
-- Copier derives runtime package name from `dataset_uri` and renames local runtime package from `acme_kg` accordingly.
-- Copier sets generated `pyproject.toml` `[project].name` from the destination directory, normalized to a valid Python project name.
+- Copier derives generated project package names from the WordLift account `url`, falling back to `datasetUri`, then to the destination directory when validation is skipped or unavailable.
+- Copier sets generated `pyproject.toml` `[project].name` to the dashed `graph-sync-*` distribution name and renames local runtime code from `acme_kg` to the underscore-safe module name.
 - Workflow contract is profile-based (no country input), in `.github/workflows/graph-sync.yml`.
 - Runtime config template is `worai.toml.jinja` (rendered output: `worai.toml`).
 - Runtime template follows SDK v8.2.1 cloud-flow contract (`ingest_source`, `ingest_loader`, `ingest_timeout_ms`; no `web_page_import_*` fallback keys).

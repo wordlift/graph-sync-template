@@ -66,17 +66,17 @@ Runtime defaults are rendered into generated `worai.toml`. Keep reusable modelin
 During `copier copy`, the template:
 
 - validates the WordLift API key against `/accounts/me` by default
-- derives the runtime package name from the returned `dataset_uri`
-- renames the local runtime package from `acme_kg` to `<dataset>_graph_sync`
+- derives the generated project package name from the WordLift account URL, falling back to `datasetUri`
+- renames the local runtime module from `acme_kg` to the underscore-safe project package name
 - writes secrets to local `.env` instead of tracked config
-- sets generated `pyproject.toml` `[project].name` from the destination directory name
+- sets generated `pyproject.toml` `[project].name` from the derived `graph-sync-*` project package name
 - scaffolds `profiles/<profile>/mappings`, `templates`, and `postprocessors`
 - renders `AGENTS.md.jinja` as the generated project's `AGENTS.md`
 - removes `.copier-answers.yml` and excludes `copier.yml` from generated output
 
 Post-generation work runs through `.copier-tasks/post_copy.py`. Copier renders a temporary `.copier-tasks/context.json` for answers, and the helper removes it immediately after reading it so secrets are not left in generated output.
 
-If validation is skipped or the API is unreachable, the fallback package name is `acme_graph_sync`.
+If validation is skipped or the API is unreachable, package names fall back to the destination directory with a `graph-sync-` prefix.
 
 ## Generated Project Scope
 
