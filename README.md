@@ -74,6 +74,8 @@ During `copier copy`, the template:
 - renders `AGENTS.md.jinja` as the generated project's `AGENTS.md`
 - removes `.copier-answers.yml` and excludes `copier.yml` from generated output
 
+Post-generation work runs through `.copier-tasks/post_copy.py`. Copier renders a temporary `.copier-tasks/context.json` for answers, and the helper removes it immediately after reading it so secrets are not left in generated output.
+
 If validation is skipped or the API is unreachable, the fallback package name is `acme_graph_sync`.
 
 ## Generated Project Scope
@@ -90,7 +92,8 @@ For `worai` CLI configuration, profile selection, and command usage, see the off
 
 ## Source Of Truth
 
-- Copier questions and generation behavior: `copier.yml`
+- Copier questions: `copier.yml`
+- Copier post-generation behavior: `.copier-tasks/post_copy.py`
 - Runtime dependency constraints: `pyproject.toml`
 - Resolved dependency versions: `uv.lock`
 - Graph-sync workflow executor version: `.github/workflows/graph-sync.yml`

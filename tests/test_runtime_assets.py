@@ -20,6 +20,8 @@ def _iri_depth_from_dataset_root(value: str) -> int:
 def test_runtime_assets_present() -> None:
     root = Path.cwd()
     assert (root / "copier.yml").exists()
+    assert (root / ".copier-tasks" / "context.json.jinja").exists()
+    assert (root / ".copier-tasks" / "post_copy.py").exists()
     assert (root / "AGENTS.md").exists()
     assert (root / "AGENTS.md.jinja").exists()
     assert (root / "docs" / "QUICKSTART.md").exists()
@@ -182,18 +184,6 @@ def test_copier_contract_contains_required_questions() -> None:
     assert "help: WordLift API key (required)" in copier
     assert "validate_api_key:" in copier
     assert "Validate API key against WordLift API during project generation" in copier
-    assert "https://api.wordlift.io/accounts/me" in copier
-    assert "Authorization" in copier
-    assert "dataset_uri" in copier
-    assert "acme_graph_sync" in copier
-    assert "package_from_dataset_uri" in copier
-    assert 'package_name_file = Path(".package_name")' in copier
-    assert "old_package = \"acme_kg\"" in copier
-    assert "shutil.move(str(old_dir), str(new_dir))" in copier
-    assert "project_dir_name = Path.cwd().name" in copier
-    assert "def normalize_project_name(raw: str) -> str:" in copier
-    assert 'normalized = re.sub(r"[^a-z0-9._-]+", "-", raw.lower())' in copier
-    assert 'f\'name = "{normalize_project_name(project_dir_name)}"\'' in copier
     assert "help: Source of your page list" in copier
     assert '"Manual URL list": urls' in copier
     assert '"Sitemap XML": sitemap' in copier
@@ -230,14 +220,42 @@ def test_copier_contract_contains_required_questions() -> None:
     assert '- "tests/test_runtime_assets.py"' in copier
     assert '- "tests/test_template_smoke.py"' in copier
     assert '- "tests/test_youtube_runtime.py"' in copier
+    assert "_tasks:\n  - python .copier-tasks/post_copy.py .copier-tasks/context.json" in copier
+    assert "python - <<'PY'" not in copier
+    assert "https://api.wordlift.io/accounts/me" not in copier
+    assert "Authorization" not in copier
+    assert "{{ api_key | tojson }}" not in copier
     assert "mv AGENTS" not in copier
-    assert 'Path(".env").write_text(chr(10).join(content), encoding="utf-8")' in copier
-    assert "(profile_dir / \"mappings\").mkdir" in copier
-    assert "(profile_dir / \"templates\").mkdir" in copier
-    assert "templates/20_organization.ttl.j2" in copier
-    assert "templates/20_website.ttl.j2" in copier
-    assert "templates/40_organization_postal_address.ttl.j2" in copier
-    assert 'Path(".copier-answers.yml").unlink(missing_ok=True)' in copier
+    assert 'Path(".env").write_text' not in copier
+
+
+def test_copier_post_copy_helper_contains_generation_steps() -> None:
+    context_template = Path(".copier-tasks/context.json.jinja").read_text(encoding="utf-8")
+    post_copy = Path(".copier-tasks/post_copy.py").read_text(encoding="utf-8")
+
+    assert '"api_key": {{ api_key | tojson }}' in context_template
+    assert '"profiles": {{ profiles | tojson }}' in context_template
+    assert '"validate_api_key": {{ validate_api_key | tojson }}' in context_template
+    assert 'source_type == "google_sheets"' in context_template
+
+    assert "context_path.unlink(missing_ok=True)" in post_copy
+    assert "shutil.rmtree(helper_dir, ignore_errors=True)" in post_copy
+    assert "https://api.wordlift.io/accounts/me" in post_copy
+    assert '"Authorization": f"Key {api_key}"' in post_copy
+    assert "datasetUri" in post_copy
+    assert "FALLBACK_PACKAGE = \"acme_graph_sync\"" in post_copy
+    assert "OLD_PACKAGE = \"acme_kg\"" in post_copy
+    assert "def package_from_dataset_uri(dataset_uri: str) -> str:" in post_copy
+    assert "def normalize_project_name(raw: str) -> str:" in post_copy
+    assert 'normalized = re.sub(r"[^a-z0-9._-]+", "-", raw.lower())' in post_copy
+    assert 'Path(".env").write_text("\\n".join(content), encoding="utf-8")' in post_copy
+    assert "(profile_dir / \"mappings\").mkdir" in post_copy
+    assert "(profile_dir / \"templates\").mkdir" in post_copy
+    assert "templates/20_organization.ttl.j2" in post_copy
+    assert "templates/20_website.ttl.j2" in post_copy
+    assert "templates/40_organization_postal_address.ttl.j2" in post_copy
+    assert "shutil.move(str(old_dir), str(new_dir))" in post_copy
+    assert 'Path(".copier-answers.yml").unlink(missing_ok=True)' in post_copy
 
 
 def test_copier_secret_questions_have_defaults() -> None:

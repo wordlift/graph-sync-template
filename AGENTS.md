@@ -16,6 +16,8 @@ Reusable graph-sync agent behavior lives outside this repository in the installe
 
 - Repository scope is a Copier template for graph-sync projects.
 - Template question contract is in `copier.yml`.
+- Copier post-generation behavior is implemented in `.copier-tasks/post_copy.py`.
+- The generated `.copier-tasks/context.json` carries sensitive answers only long enough for `post_copy.py` to read it, then the helper removes it.
 - Copier post-generation tasks create `.env` from sensitive answers and scaffold per-profile runtime directories.
 - Copier post-generation tasks remove `.copier-answers.yml`, and generated output excludes `copier.yml`, to detach generated projects from Copier update tracking.
 - Copier excludes this maintainer `AGENTS.md` and renders `AGENTS.md.jinja` as the generated project's `AGENTS.md`.
