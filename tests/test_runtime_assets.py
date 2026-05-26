@@ -277,6 +277,10 @@ def test_copier_post_copy_helper_contains_generation_steps() -> None:
     assert '"__GRAPH_SYNC_PROJECT_PACKAGE__": project_names.distribution_name' in post_copy
     assert "shutil.move(str(old_dir), str(new_dir))" in post_copy
     assert 'Path(".copier-answers.yml").unlink(missing_ok=True)' in post_copy
+    assert "def initialize_git_repository() -> bool:" in post_copy
+    assert 'shutil.which("git")' in post_copy
+    assert '["check-ignore", "-q", ".env"]' in post_copy
+    assert '"initial commit"' in post_copy
     assert "Graph Sync project post-copy setup completed." in post_copy
     assert 'print(f"Project package: {project_names.distribution_name}")' in post_copy
     assert 'print(f"Runtime module: {project_names.runtime_package}")' in post_copy

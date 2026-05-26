@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import re
 import shutil
+import subprocess
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -275,10 +276,70 @@ def cleanup_copier_answers() -> None:
     Path(".copier-answers.yml").unlink(missing_ok=True)
 
 
+def run_git(git_executable: str, args: list[str]) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        [git_executable, *args],
+        check=False,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+
+
+def warn_git(message: str) -> None:
+    print(f"Warning: {message}", file=sys.stderr)
+
+
+def initialize_git_repository() -> bool:
+    if Path(".git").exists():
+        return False
+
+    git_executable = shutil.which("git")
+    if git_executable is None:
+        warn_git("git executable not found; generated project was not initialized as a git repository.")
+        return False
+
+    init_result = run_git(git_executable, ["init", "."])
+    if init_result.returncode != 0:
+        warn_git(f"git init failed: {init_result.stderr.strip()}")
+        return False
+
+    ignore_result = run_git(git_executable, ["check-ignore", "-q", ".env"])
+    if ignore_result.returncode != 0:
+        warn_git(".env is not ignored; skipping initial git commit to avoid staging local secrets.")
+        return False
+
+    add_result = run_git(git_executable, ["add", "."])
+    if add_result.returncode != 0:
+        warn_git(f"git add failed: {add_result.stderr.strip()}")
+        return False
+
+    commit_result = run_git(
+        git_executable,
+        [
+            "-c",
+            "commit.gpgsign=false",
+            "-c",
+            "user.name=Graph Sync Project",
+            "-c",
+            "user.email=dev@wordlift.io",
+            "commit",
+            "-m",
+            "initial commit",
+        ],
+    )
+    if commit_result.returncode != 0:
+        warn_git(f"git initial commit failed: {commit_result.stderr.strip()}")
+        return False
+
+    return True
+
+
 def main(argv: list[str]) -> int:
     context_path = Path(argv[1]) if len(argv) > 1 else Path(".copier-tasks/context.json")
     helper_dir = context_path.parent
     project_names = project_names_from_slug(Path.cwd().name)
+    git_initialized = False
 
     try:
         context = load_context(context_path)
@@ -299,9 +360,13 @@ def main(argv: list[str]) -> int:
     finally:
         shutil.rmtree(helper_dir, ignore_errors=True)
 
+    git_initialized = initialize_git_repository()
+
     print("Graph Sync project post-copy setup completed.")
     print(f"Project package: {project_names.distribution_name}")
     print(f"Runtime module: {project_names.runtime_package}")
+    if git_initialized:
+        print("Git repository initialized with initial commit.")
     return 0
 
 
