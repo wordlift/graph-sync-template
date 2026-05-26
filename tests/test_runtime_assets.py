@@ -1,4 +1,5 @@
 from pathlib import Path
+import importlib.util
 import re
 import sys
 
@@ -15,6 +16,16 @@ def _iri_depth_from_dataset_root(value: str) -> int:
     assert match is not None, f"Expected dataset-root IRI template, got: {value}"
     suffix = match.group(1)
     return len([segment for segment in suffix.split("/") if segment])
+
+
+def _load_post_copy_helper():
+    helper_path = Path(".copier-tasks/post_copy.py")
+    spec = importlib.util.spec_from_file_location("post_copy", helper_path)
+    assert spec is not None
+    assert spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def test_runtime_assets_present() -> None:
@@ -242,6 +253,9 @@ def test_copier_post_copy_helper_contains_generation_steps() -> None:
     assert "shutil.rmtree(helper_dir, ignore_errors=True)" in post_copy
     assert "https://api.wordlift.io/accounts/me" in post_copy
     assert '"Authorization": f"Key {api_key}"' in post_copy
+    assert "def clean_api_key(raw_api_key: str) -> str:" in post_copy
+    assert "api_key = clean_api_key(context_string(context, \"api_key\"))" in post_copy
+    assert "except ValueError as exc:" in post_copy
     assert "datasetUri" in post_copy
     assert "FALLBACK_PACKAGE = \"acme_graph_sync\"" in post_copy
     assert "OLD_PACKAGE = \"acme_kg\"" in post_copy
@@ -257,6 +271,19 @@ def test_copier_post_copy_helper_contains_generation_steps() -> None:
     assert "shutil.move(str(old_dir), str(new_dir))" in post_copy
     assert 'Path(".copier-answers.yml").unlink(missing_ok=True)' in post_copy
     assert "Graph Sync project post-copy setup completed." in post_copy
+
+
+def test_copier_post_copy_cleans_api_key_before_validation() -> None:
+    post_copy = _load_post_copy_helper()
+
+    assert post_copy.clean_api_key(" abc123\n") == "abc123"
+
+    try:
+        post_copy.clean_api_key("abc\nxyz")
+    except SystemExit as exc:
+        assert "single line" in str(exc)
+    else:
+        raise AssertionError("Expected multiline API key to stop generation")
 
 
 def test_copier_secret_questions_have_defaults() -> None:
