@@ -21,6 +21,7 @@ Reusable graph-sync agent behavior lives outside this repository in the installe
 - Copier post-generation tasks create `.env` from sensitive answers and scaffold per-profile runtime directories.
 - Copier post-generation tasks remove `.copier-answers.yml`, and generated output excludes `copier.yml`, to detach generated projects from Copier update tracking.
 - Copier excludes this maintainer `AGENTS.md` and renders `AGENTS.md.jinja` as the generated project's `AGENTS.md`.
+- Copier renders `README.md.jinja` as the generated project's `README.md`.
 - Copier can validate API keys via WordLift `/accounts/me` during generation.
 - Copier derives generated project package names from the WordLift account `url`, falling back to `datasetUri`, then to the destination directory when validation is skipped or unavailable.
 - Copier sets generated `pyproject.toml` `[project].name` to the dashed `graph-sync-*` distribution name and renames local runtime code from `acme_kg` to the underscore-safe module name.

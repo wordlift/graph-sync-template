@@ -36,6 +36,8 @@ def test_runtime_assets_present() -> None:
     assert (root / ".copier-tasks" / "post_copy.py").exists()
     assert (root / "AGENTS.md").exists()
     assert (root / "AGENTS.md.jinja").exists()
+    assert (root / "README.md").exists()
+    assert (root / "README.md.jinja").exists()
     assert (root / "docs" / "QUICKSTART.md").exists()
     assert not (root / "specs").exists()
     assert not (root / "TODO.md").exists()
@@ -272,6 +274,7 @@ def test_copier_post_copy_helper_contains_generation_steps() -> None:
     assert "templates/20_organization.ttl.j2" in post_copy
     assert "templates/20_website.ttl.j2" in post_copy
     assert "templates/40_organization_postal_address.ttl.j2" in post_copy
+    assert '"__GRAPH_SYNC_PROJECT_PACKAGE__": project_names.distribution_name' in post_copy
     assert "shutil.move(str(old_dir), str(new_dir))" in post_copy
     assert 'Path(".copier-answers.yml").unlink(missing_ok=True)' in post_copy
     assert "Graph Sync project post-copy setup completed." in post_copy
@@ -342,6 +345,7 @@ def test_youtube_missing_key_warning_message() -> None:
 def test_template_docs_do_not_reference_removed_specs() -> None:
     docs = [
         Path("README.md"),
+        Path("README.md.jinja"),
         Path("AGENTS.md"),
         Path("AGENTS.md.jinja"),
         Path("docs/QUICKSTART.md"),
