@@ -2,7 +2,15 @@
 
 ## Agent-Driven Approach (Recommended)
 
-Ask Codex or Claude Code to run the graph-sync workflow end to end through the installed Graph Sync Agent Kit:
+Ask Codex or Claude Code to run the graph-sync workflow end to end through the installed Graph Sync Agent Kit.
+
+Codex prompt:
+
+```text
+Use the graph-sync-agent-kit:graph-sync-curator skill to start the graph-sync workflow for example.org.
+```
+
+Claude Code prompt:
 
 ```text
 Use $graph-sync-curator to start the graph-sync workflow for example.org.
