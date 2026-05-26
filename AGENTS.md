@@ -1,19 +1,24 @@
-## Rules
+# Graph Sync Template Agent Instructions
 
-**Mandatory Verification (Tests):**
-- **Never** consider a code change complete without running tests.
-- If a change modifies logic, **new tests must be added** or existing ones updated.
+This repository is the Copier template used to generate graph-sync projects.
+Reusable graph-sync agent behavior lives outside this repository in the installed
+`wordlift/graph-sync-agent-kit` skills.
 
-**Documentation & Status Sync:**
-- **Proactive Updates:** Every task must conclude with a review of the documentation. If the logic, architecture, or setup changed, update `README.md`, `specs/`, and `AGENTS.md` accordingly.
-- **TODO Sync:** Always update `TODO.md` to mark completed items or add newly identified technical debt/tasks.
+## Verification
+
+- Run tests before considering code or template behavior changes complete.
+- If template generation behavior changes, update smoke coverage or tests in the
+  same change.
+- Keep `README.md`, `docs/QUICKSTART.md`, and `AGENTS.md.jinja` aligned with
+  template behavior.
 
 ## Current Architecture Notes
 
-- Repository scope is a Copier template for `worai graph sync` projects.
+- Repository scope is a Copier template for graph-sync projects.
 - Template question contract is in `copier.yml`.
 - Copier post-generation tasks create `.env` from sensitive answers and scaffold per-profile runtime directories.
 - Copier post-generation tasks remove `.copier-answers.yml`, and generated output excludes `copier.yml`, to detach generated projects from Copier update tracking.
+- Copier excludes this maintainer `AGENTS.md` and renders `AGENTS.md.jinja` as the generated project's `AGENTS.md`.
 - Copier can validate API keys via WordLift `/accounts/me` during generation.
 - Copier derives runtime package name from `dataset_uri` and renames local runtime package from `acme_kg` accordingly.
 - Copier sets generated `pyproject.toml` `[project].name` from the destination directory, normalized to a valid Python project name.

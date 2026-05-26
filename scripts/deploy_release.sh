@@ -33,7 +33,6 @@ uv lock
 echo "Required documentation checkpoint before release"
 echo "- Update AGENTS.md"
 echo "- Update README.md"
-echo "- Update specs/"
 echo "- Update docs/"
 
 git add -A

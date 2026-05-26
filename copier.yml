@@ -5,11 +5,11 @@ _exclude:
   - "copier.yml"
   - ".github/workflows/template-smoke.yml"
   - "scripts/smoke_render_template.sh"
+  - "tests"
   - "tests/test_runtime_assets.py"
   - "tests/test_template_smoke.py"
   - "tests/test_youtube_runtime.py"
 _tasks:
-  - mv specs/graph-sync/AGENTS.md AGENTS.md
   - |
       python - <<'PY'
       from pathlib import Path
