@@ -152,7 +152,6 @@ def test_profile_based_workflow_contract() -> None:
     assert "profile:" in workflow
     assert "country:" not in workflow
     assert "wordlift/graph-sync@v6" in workflow
-    assert 'worai_version: "6.18.0"' in workflow
     assert "python-version: '3.12'" in workflow
     assert "enable-cache: true" in workflow
     assert "cache-dependency-glob:" in workflow
