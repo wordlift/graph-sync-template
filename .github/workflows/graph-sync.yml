@@ -56,18 +56,6 @@ jobs:
 
       - run: uv sync --locked --no-dev
 
-      - name: Start memory monitor
-        run: |
-          uv run scripts/estimate_pools.py \
-            --watch "graph sync run" \
-            --watch-timeout 300 \
-            --memory-gib 4 \
-            --profile ${{ matrix.profile }} \
-            --output /tmp/monitor-${{ matrix.profile }}.json \
-            --markdown-output /tmp/monitor-${{ matrix.profile }}.md \
-            >> /tmp/monitor-${{ matrix.profile }}.log 2>&1 &
-          echo $! > /tmp/monitor.pid
-
       - uses: wordlift/graph-sync@v6
         with:
           profile: ${{ matrix.profile }}
@@ -76,26 +64,3 @@ jobs:
           WORDLIFT_API_KEY: ${{ secrets.WORDLIFT_API_KEY }}
           SHEETS_SERVICE_ACCOUNT: ${{ secrets.SHEETS_SERVICE_ACCOUNT }}
           PIP_BREAK_SYSTEM_PACKAGES: '1'
-
-      - name: Report memory usage
-        if: always()
-        run: |
-          sleep 3  # let monitor detect natural process exit and write output
-          kill -INT "$(cat /tmp/monitor.pid)" 2>/dev/null || true
-          sleep 2  # let summary code finish after SIGINT
-          if [ -f /tmp/monitor-${{ matrix.profile }}.md ]; then
-            cat /tmp/monitor-${{ matrix.profile }}.md >> "$GITHUB_STEP_SUMMARY"
-          else
-            echo "## Memory report — ${{ matrix.profile }}" >> "$GITHUB_STEP_SUMMARY"
-            echo "Monitor did not produce output." >> "$GITHUB_STEP_SUMMARY"
-          fi
-          echo "--- monitor log ---"
-          cat /tmp/monitor-${{ matrix.profile }}.log 2>/dev/null || true
-
-      - name: Upload memory report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: memory-report-${{ matrix.profile }}
-          path: /tmp/monitor-${{ matrix.profile }}.md
-          if-no-files-found: ignore
