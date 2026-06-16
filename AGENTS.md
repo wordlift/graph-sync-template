@@ -3,6 +3,8 @@
 This repository is the Copier template used to generate graph-sync projects.
 Reusable graph-sync agent behavior lives outside this repository in the installed
 `wordlift/graph-sync-agent-kit` skills.
+The merged reusable review draft is in `docs/GRAPH_SYNC_DOS_AND_DONTS.md`.
+Durable graph-sync DOs/DONTs should move to the skill kit after review.
 
 ## Verification
 

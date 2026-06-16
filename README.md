@@ -18,6 +18,7 @@ Copier template for bootstrapping graph-sync projects with the current WordLift 
 Agent-driven graph-sync workflows are handled through [wordlift/graph-sync-agent-kit](https://github.com/wordlift/graph-sync-agent-kit).
 
 Generated projects receive a small `AGENTS.md` pointer to the skill kit and may add project-specific notes there. Install and update commands live in the Graph Sync Agent Kit documentation.
+The merged reusable review draft is in `docs/GRAPH_SYNC_DOS_AND_DONTS.md`; durable agent policy should move to the Graph Sync Agent Kit after review.
 
 ## Why This Template
 
