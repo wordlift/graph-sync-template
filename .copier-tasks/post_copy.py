@@ -302,6 +302,23 @@ def derive_project_names(
         return project_names_from_slug(fallback_project_dir)
 
 
+def refresh_uv_lock() -> None:
+    uv_executable = shutil.which("uv")
+    if uv_executable is None:
+        print("Warning: uv executable not found; uv.lock was not refreshed.", file=sys.stderr)
+        return
+
+    result = subprocess.run(
+        [uv_executable, "lock"],
+        check=False,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    if result.returncode != 0:
+        print(f"Warning: uv lock failed: {result.stderr.strip()}", file=sys.stderr)
+
+
 def rename_runtime_package(project_names: ProjectNames) -> None:
     new_package = project_names.runtime_package
     replacements = {
@@ -413,6 +430,7 @@ def main(argv: list[str]) -> int:
         )
         update_project_metadata(project_names)
         rename_runtime_package(project_names)
+        refresh_uv_lock()
         cleanup_copier_answers()
     finally:
         shutil.rmtree(helper_dir, ignore_errors=True)
