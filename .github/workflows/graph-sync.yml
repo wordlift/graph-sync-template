@@ -34,7 +34,7 @@ concurrency:
 
 jobs:
   graph-sync:
-    runs-on: arc-runner-set-graph-sync
+    runs-on: arc-runner-set-graph-sync-org-worker
     timeout-minutes: 300
 
     strategy:
