@@ -155,7 +155,7 @@ def test_profile_based_workflow_contract() -> None:
     assert "profile:" in workflow
     assert "country:" not in workflow
     assert "wordlift/graph-sync@v6" in workflow
-    assert 'worai_version: "6.20.8"' in workflow
+    assert "worai_version:" not in workflow
     assert "graph_kpis_enabled: true" in workflow
     assert "python-version: '3.12'" in workflow
     assert "enable-cache: true" in workflow
@@ -176,12 +176,12 @@ def test_template_smoke_workflow_uses_uv() -> None:
     assert "uv run scripts/smoke_render_template.sh" in workflow
 
 
-def test_upgrade_project_updates_sdk_and_worai_binary_version() -> None:
+def test_upgrade_project_updates_sdk_without_pinning_worai() -> None:
     script = Path("scripts/upgrade_project.sh").read_text(encoding="utf-8")
     assert "https://pypi.org/pypi/wordlift-sdk/json" in script
     assert "uv lock --upgrade-package wordlift-sdk" in script
-    assert "https://pypi.org/pypi/worai/json" in script
-    assert 'worai_version: "[^"]+"' in script
+    assert "https://pypi.org/pypi/worai/json" not in script
+    assert "worai_version" not in script
     assert "wordlift/graph-sync@" not in script
 
 

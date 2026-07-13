@@ -96,8 +96,11 @@ search 'ingest_retry_backoff_ms = 3000' "$out/worai.toml"
 search 'google_search_console = false' "$out/worai.toml"
 search 'api_key = "\$\{WORDLIFT_API_KEY\}"' "$out/worai.toml"
 search 'wordlift/graph-sync@v6' "$out/.github/workflows/graph-sync.yml"
-search 'worai_version: "6.20.8"' "$out/.github/workflows/graph-sync.yml"
 search 'graph_kpis_enabled: true' "$out/.github/workflows/graph-sync.yml"
+if search 'worai_version:' "$out/.github/workflows/graph-sync.yml"; then
+  echo "Generated workflow must let the graph-sync action select the worai version"
+  exit 1
+fi
 search '^name = "graph-sync-my-graph-project-demo"$' "$out/pyproject.toml"
 search '^version = "0.1.0"$' "$out/pyproject.toml"
 search '^description = "Graph Sync project for my-graph-project-demo"$' "$out/pyproject.toml"

@@ -48,7 +48,7 @@ YOUTUBE_API_KEY=your_youtube_api_key_optional
 
 ### 3. Run Graph Sync
 
-The GitHub workflow is the repeatable manual path because it pins the graph-sync action and `worai` version. After each successful sync, it calculates and uploads a graph KPI snapshot by default; KPI failures remain warning-only unless the workflow is configured otherwise.
+The GitHub workflow is the repeatable manual path because it pins the graph-sync action, which selects its compatible `worai` version. After each successful sync, it calculates and uploads a graph KPI snapshot by default; KPI failures remain warning-only unless the workflow is configured otherwise.
 
 For a local run, use the command shape documented by the installed `worai` version. Current generated projects are compatible with:
 

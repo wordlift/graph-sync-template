@@ -89,7 +89,7 @@ Generated projects intentionally exclude template-maintenance assets such as `co
 
 ## Runtime Compatibility
 
-Supported runtime settings depend on the `wordlift-sdk` version resolved by the generated project's `pyproject.toml` and `uv.lock`. The pinned `worai` version in the generated GitHub workflow acts as the CLI/action executor for that SDK contract and calculates graph KPIs after successful syncs by default.
+Supported runtime settings depend on the `wordlift-sdk` version resolved by the generated project's `pyproject.toml` and `uv.lock`. The graph-sync action selects its compatible `worai` executor and calculates graph KPIs after successful syncs by default.
 
 For `worai` CLI configuration, profile selection, and command usage, see the official `worai` documentation. Graph-sync runtime settings are interpreted by the resolved `wordlift-sdk` version.
 
@@ -99,7 +99,7 @@ For `worai` CLI configuration, profile selection, and command usage, see the off
 - Copier post-generation behavior: `.copier-tasks/post_copy.py`
 - Runtime dependency constraints: `pyproject.toml`
 - Resolved dependency versions: `uv.lock`
-- Graph-sync workflow executor version: `.github/workflows/graph-sync.yml`
+- Graph-sync workflow action configuration: `.github/workflows/graph-sync.yml`
 - Generated project agent pointer: `AGENTS.md.jinja`
 - Generated project README: `README.md.jinja`
 - Reusable agent workflows: [wordlift/graph-sync-agent-kit](https://github.com/wordlift/graph-sync-agent-kit)
