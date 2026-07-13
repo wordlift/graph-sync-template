@@ -17,6 +17,10 @@ Project-specific agent notes are allowed here when they describe this
 repository's domain, client, configuration, validation commands, or operational
 constraints.
 
+The generated GitHub workflow pins the `worai` binary and calculates graph KPI
+snapshots after successful syncs by default. KPI failures are warning-only unless
+the workflow explicitly enables fail-on-error behavior.
+
 ## Repository Macros
 
 - `deploy release [major|minor|patch]` (default: `patch`)

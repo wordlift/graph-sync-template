@@ -60,6 +60,8 @@ jobs:
         with:
           profile: ${{ matrix.profile }}
           debug: ${{ inputs.debug }}
+          worai_version: "6.20.8"
+          graph_kpis_enabled: true
         env:
           WORDLIFT_API_KEY: ${{ secrets.WORDLIFT_API_KEY }}
           SHEETS_SERVICE_ACCOUNT: ${{ secrets.SHEETS_SERVICE_ACCOUNT }}

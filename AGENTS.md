@@ -26,9 +26,9 @@ Reusable graph-sync agent behavior lives outside this repository in the installe
 - Copier can validate API keys via WordLift `/accounts/me` during generation.
 - Copier derives generated project package names from the WordLift account `url`, falling back to `datasetUri`, then to the destination directory when validation is skipped or unavailable.
 - Copier sets generated `pyproject.toml` `[project].name` to the dashed `graph-sync-*` distribution name, sets `[project].description` from account/domain metadata, resets generated `[project].version` to `0.1.0`, adds a template-version comment, and renames local runtime code from `acme_kg` to the underscore-safe module name.
-- Workflow contract is profile-based (no country input), in `.github/workflows/graph-sync.yml`.
+- Workflow contract is profile-based (no country input), in `.github/workflows/graph-sync.yml`; it pins `worai` 6.20.8 and enables graph KPI calculation by default.
 - Runtime config template is `worai.toml.jinja` (rendered output: `worai.toml`).
-- Runtime template follows SDK v8.2.1 cloud-flow contract (`ingest_source`, `ingest_loader`, `ingest_timeout_ms`; no `web_page_import_*` fallback keys).
+- Runtime template follows SDK v8.3.6 cloud-flow contract (`ingest_source`, `ingest_loader`, `ingest_timeout_ms`; no `web_page_import_*` fallback keys).
 - Default loader is `crawler`; `ingest_timeout_ms` is emitted as a comment in `worai.toml` (opt-in override); default is 600000 ms (10 min) for `crawler`, 30000 ms (30 s) for all other loaders.
 - `crawler` loader supports `crawler_js_render_mode` (disabled | auto | enabled) and `crawler_proxy_mode` (disabled | simple | standard | premium | auto).
 - Runtime template sets `materialization_backend = "worph"` in `[profiles._base]`.

@@ -27,7 +27,7 @@ This template provides:
 
 - generated runtime configuration from `worai.toml.jinja`
 - profile scaffolding under `profiles/`
-- a generated GitHub Actions workflow from `.github/workflows/graph-sync.yml`
+- a generated GitHub Actions workflow from `.github/workflows/graph-sync.yml` with graph KPI calculation enabled
 - example local runtime code under `src/acme_kg/`
 - template smoke coverage for generated project shape
 
@@ -89,7 +89,7 @@ Generated projects intentionally exclude template-maintenance assets such as `co
 
 ## Runtime Compatibility
 
-Supported runtime settings depend on the `wordlift-sdk` version resolved by the generated project's `pyproject.toml` and `uv.lock`. The pinned `worai` version in the generated GitHub workflow acts as the CLI/action executor for that SDK contract.
+Supported runtime settings depend on the `wordlift-sdk` version resolved by the generated project's `pyproject.toml` and `uv.lock`. The pinned `worai` version in the generated GitHub workflow acts as the CLI/action executor for that SDK contract and calculates graph KPIs after successful syncs by default.
 
 For `worai` CLI configuration, profile selection, and command usage, see the official `worai` documentation. Graph-sync runtime settings are interpreted by the resolved `wordlift-sdk` version.
 

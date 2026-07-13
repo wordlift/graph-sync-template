@@ -95,6 +95,9 @@ search 'ingest_retry_attempts = 2' "$out/worai.toml"
 search 'ingest_retry_backoff_ms = 3000' "$out/worai.toml"
 search 'google_search_console = false' "$out/worai.toml"
 search 'api_key = "\$\{WORDLIFT_API_KEY\}"' "$out/worai.toml"
+search 'wordlift/graph-sync@v6' "$out/.github/workflows/graph-sync.yml"
+search 'worai_version: "6.20.8"' "$out/.github/workflows/graph-sync.yml"
+search 'graph_kpis_enabled: true' "$out/.github/workflows/graph-sync.yml"
 search '^name = "graph-sync-my-graph-project-demo"$' "$out/pyproject.toml"
 search '^version = "0.1.0"$' "$out/pyproject.toml"
 search '^description = "Graph Sync project for my-graph-project-demo"$' "$out/pyproject.toml"
@@ -138,6 +141,7 @@ fi
   git diff --quiet
   git diff --cached --quiet
   git check-ignore -q .env
+  git check-ignore -q .private/smoke-secret
   if git ls-files --error-unmatch .env >/dev/null 2>&1; then
     echo "Generated .env was tracked in initial commit"
     exit 1

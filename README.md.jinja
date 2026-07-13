@@ -22,8 +22,9 @@ Use $graph-sync-curator to continue the graph-sync workflow for this project.
 
 - `worai.toml`: graph-sync profile configuration.
 - `profiles/`: profile-specific mappings, static templates, exports, and postprocessors.
-- `.github/workflows/graph-sync.yml`: profile-based GitHub Actions workflow.
+- `.github/workflows/graph-sync.yml`: profile-based GitHub Actions workflow with graph KPI calculation enabled after successful syncs.
 - `.env`: local secrets created during project generation and ignored by git.
+- `.private/`: ignored local directory for private project files.
 - `docs/QUICKSTART.md`: short manual and agent-driven usage guide.
 - `AGENTS.md`: project-specific agent notes and Graph Sync Agent Kit pointer.
 - Runtime module: `acme_kg`

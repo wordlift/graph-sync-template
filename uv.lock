@@ -342,7 +342,7 @@ requires-dist = [
     { name = "html2text", specifier = ">=2020.1.17" },
     { name = "lxml", specifier = ">=5.4.0" },
     { name = "rdflib", specifier = ">=7.1.4" },
-    { name = "wordlift-sdk", specifier = ">=8.2.1,<9.0.0" },
+    { name = "wordlift-sdk", specifier = ">=8.3.6,<9.0.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -1155,7 +1155,7 @@ wheels = [
 
 [[package]]
 name = "wordlift-client"
-version = "1.168.0"
+version = "1.183.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiohttp" },
@@ -1165,14 +1165,14 @@ dependencies = [
     { name = "typing-extensions" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/23/4e/413c0fd63130943e1667494c977898d1d6b0bf23e5b0a740a2fa56be965d/wordlift_client-1.168.0.tar.gz", hash = "sha256:931f481818f71f97b94f76f80a3f6a6bb3d32aa8b65e0aaea41baa44c56741cc", size = 250013, upload-time = "2026-05-19T11:38:25.707Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/5d/d7/fb8d0e896d92dac305237fe391e69c27d139bab416efc0f29b4eb4d612c6/wordlift_client-1.183.0.tar.gz", hash = "sha256:c0ccb6af5d8740084d88bd585e03074deab6e4b9b4017a2c6b0f3879ee113789", size = 274939, upload-time = "2026-06-23T16:36:51.33Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f3/88/e8f0186ee606235332a454158de7e7274a882081d31ea5dc6d5106ec9d4b/wordlift_client-1.168.0-py3-none-any.whl", hash = "sha256:1d1d318d52e7ce60bdcaa6e0d64342303fd627bacfb050f859c2027a89fee293", size = 652704, upload-time = "2026-05-19T11:38:23.274Z" },
+    { url = "https://files.pythonhosted.org/packages/12/b0/a25e091bfa98f7b0e898d38762f6dc06391227ceff795ab6ae299c2abca3/wordlift_client-1.183.0-py3-none-any.whl", hash = "sha256:ca5af97ebbe5aa0300a2a16517aa0d83f5a4585eb705900e665bde6183211ad6", size = 715430, upload-time = "2026-06-23T16:36:49.746Z" },
 ]
 
 [[package]]
 name = "wordlift-sdk"
-version = "8.2.1"
+version = "8.3.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiohttp" },
@@ -1180,9 +1180,9 @@ dependencies = [
     { name = "tenacity" },
     { name = "wordlift-client" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/8b/24/25e8782099086ed191c951ff48109ffa89619cfc50a9a30f1d34725bbd3e/wordlift_sdk-8.2.1.tar.gz", hash = "sha256:6a1c3a656f73c1ae0caed446376321bf1d5dcf8279fe64c6b7ed63ab424be986", size = 406514, upload-time = "2026-05-19T09:53:30.889Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/99/59/4539e9645bf29a373ff782c44e4592d42f54879ef78ab9a25116864b25a0/wordlift_sdk-8.3.6.tar.gz", hash = "sha256:549039f3cb8a4bfc9c22224b21fd5e4a4c965a2c806a5f3f5f13e495af5f09d8", size = 417135, upload-time = "2026-07-03T17:14:18.268Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/c9/51/ec91e189db4713d218d0935e09ff5b680e8e0c734776ad5e3f975597f845/wordlift_sdk-8.2.1-py3-none-any.whl", hash = "sha256:a45b49ac78b7e01d216cb2c87da842ab3b4459c0fdb6bee3f573edd48d57b7ee", size = 459080, upload-time = "2026-05-19T09:53:28.918Z" },
+    { url = "https://files.pythonhosted.org/packages/20/a0/014bc915b0c8e70815775bb007f610d4f6a55ce53566800e3823e29507ac/wordlift_sdk-8.3.6-py3-none-any.whl", hash = "sha256:8db5f9ef6bf16d290308533774437849d8c9a02fda311a9915e0e29d855c3463", size = 469732, upload-time = "2026-07-03T17:14:16.578Z" },
 ]
 
 [[package]]
