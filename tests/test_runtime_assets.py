@@ -39,6 +39,7 @@ def test_runtime_assets_present() -> None:
     assert (root / "README.md").exists()
     assert (root / "README.md.jinja").exists()
     assert (root / "docs" / "QUICKSTART.md").exists()
+    assert ".private/" in (root / ".gitignore").read_text(encoding="utf-8")
     assert not (root / "specs").exists()
     assert not (root / "TODO.md").exists()
     assert (root / "worai.toml.jinja").exists()
@@ -143,7 +144,9 @@ def test_runtime_imports() -> None:
 
 def test_sdk_version_constraint() -> None:
     pyproject = Path("pyproject.toml").read_text(encoding="utf-8")
-    assert 'wordlift-sdk>=8.2.1,<9.0.0' in pyproject
+    lockfile = Path("uv.lock").read_text(encoding="utf-8")
+    assert 'wordlift-sdk>=8.3.6,<9.0.0' in pyproject
+    assert re.search(r'(?ms)^name = "wordlift-sdk"\nversion = "8\.3\.6"$', lockfile)
 
 
 def test_profile_based_workflow_contract() -> None:
@@ -152,6 +155,8 @@ def test_profile_based_workflow_contract() -> None:
     assert "profile:" in workflow
     assert "country:" not in workflow
     assert "wordlift/graph-sync@v6" in workflow
+    assert "worai_version:" not in workflow
+    assert "graph_kpis_enabled: true" in workflow
     assert "python-version: '3.12'" in workflow
     assert "enable-cache: true" in workflow
     assert "cache-dependency-glob:" in workflow
@@ -171,12 +176,12 @@ def test_template_smoke_workflow_uses_uv() -> None:
     assert "uv run scripts/smoke_render_template.sh" in workflow
 
 
-def test_upgrade_project_updates_sdk_and_worai_binary_version() -> None:
+def test_upgrade_project_updates_sdk_without_pinning_worai() -> None:
     script = Path("scripts/upgrade_project.sh").read_text(encoding="utf-8")
     assert "https://pypi.org/pypi/wordlift-sdk/json" in script
     assert "uv lock --upgrade-package wordlift-sdk" in script
-    assert "https://pypi.org/pypi/worai/json" in script
-    assert 'worai_version: "[^"]+"' in script
+    assert "https://pypi.org/pypi/worai/json" not in script
+    assert "worai_version" not in script
     assert "wordlift/graph-sync@" not in script
 
 

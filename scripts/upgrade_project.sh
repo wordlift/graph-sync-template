@@ -37,31 +37,4 @@ PY
 echo "Updated SDK baseline to wordlift-sdk>=${latest_sdk}"
 uv lock --upgrade-package wordlift-sdk
 
-latest_worai="$(python - <<'PY'
-from urllib.request import urlopen
-import json
-
-with urlopen("https://pypi.org/pypi/worai/json", timeout=10) as response:
-    payload = json.load(response)
-
-print(payload["info"]["version"])
-PY
-)"
-
-python - <<'PY' "$latest_worai"
-from pathlib import Path
-import re
-import sys
-
-version = sys.argv[1]
-path = Path(".github/workflows/graph-sync.yml")
-text = path.read_text(encoding="utf-8")
-updated, count = re.subn(r'worai_version: "[^"]+"', f'worai_version: "{version}"', text, count=1)
-if count != 1:
-    raise SystemExit("Failed to update worai_version in workflow")
-path.write_text(updated, encoding="utf-8")
-PY
-
-echo "Updated workflow worai_version to ${latest_worai}"
-
 "$repo_root/scripts/deploy_release.sh" patch

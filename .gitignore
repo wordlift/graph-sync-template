@@ -45,6 +45,7 @@ htmlcov/
 
 # Credentials
 .config/
+.private/
 sa-key.json
 token.json
 client_secret.json
