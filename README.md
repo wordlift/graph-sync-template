@@ -89,7 +89,7 @@ Generated projects intentionally exclude template-maintenance assets such as `co
 
 ## Runtime Compatibility
 
-Supported runtime settings depend on the `wordlift-sdk` version resolved by the generated project's `pyproject.toml` and `uv.lock`. The graph-sync action selects its compatible `worai` executor and calculates graph KPIs after successful syncs by default.
+Supported runtime settings depend on the `wordlift-sdk` version resolved by the generated project's `pyproject.toml` and `uv.lock`. The generated workflow pins its `worai` executor and calculates graph KPIs after successful syncs by default.
 
 For `worai` CLI configuration, profile selection, and command usage, see the official `worai` documentation. Graph-sync runtime settings are interpreted by the resolved `wordlift-sdk` version.
 
