@@ -145,8 +145,8 @@ def test_runtime_imports() -> None:
 def test_sdk_version_constraint() -> None:
     pyproject = Path("pyproject.toml").read_text(encoding="utf-8")
     lockfile = Path("uv.lock").read_text(encoding="utf-8")
-    assert 'wordlift-sdk>=8.3.6,<9.0.0' in pyproject
-    assert re.search(r'(?ms)^name = "wordlift-sdk"\nversion = "8\.3\.6"$', lockfile)
+    assert 'wordlift-sdk[kg-build]>=8.6.2,<9.0.0' in pyproject
+    assert re.search(r'(?ms)^name = "wordlift-sdk"\nversion = "8\.6\.2"$', lockfile)
 
 
 def test_profile_based_workflow_contract() -> None:
