@@ -24,11 +24,15 @@ import sys
 latest = sys.argv[1]
 major = int(latest.split(".", 1)[0])
 upper = major + 1
-new_constraint = f"wordlift-sdk>={latest},<{upper}.0.0"
 
 path = Path("pyproject.toml")
 text = path.read_text(encoding="utf-8")
-updated, count = re.subn(r"wordlift-sdk>=[^\",]+,<[^\",]+", new_constraint, text, count=1)
+updated, count = re.subn(
+    r"(wordlift-sdk(?:\[[^\]]*\])?)>=[^\",]+,<[^\",]+",
+    lambda match: f"{match.group(1)}>={latest},<{upper}.0.0",
+    text,
+    count=1,
+)
 if count != 1:
     raise SystemExit("Failed to update wordlift-sdk dependency constraint in pyproject.toml")
 path.write_text(updated, encoding="utf-8")
